@@ -6,7 +6,7 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 15:41:26 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/06/11 17:56:05 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/06/12 01:07:30 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,18 +114,59 @@ enum e_quoting_status
 
 /* ------------------------------ LEXER --------------------------------------*/
 
-//token_lst_utils.c
-t_token	*lst_new_node(char *str, char *str_backup, int type, int status);
-void	lst_add_back(t_token **alst, t_token *new_node);
-void	lst_del_one_token(t_token *lst, void (*del)(void *));
-void	lst_clear(t_token **lst, void (*del)(void *));
+// tokenization.c
 
-//token_lst_utils_2.c
+/// @brief tokenization : ???
+int	tokenization(t_data *data, char *str);
+
+// tokenization_utils.c
+
+/// @brief Define if it is a separator and add it at the end of the list.
+int	save_separator(t_token **token_lst, char *str, int index, int type);
+/// @brief Define if it is a word and add it at the end of the list.
+int	save_word(t_token **token_lst, char *str, int index, int start);
+/// @brief Define the type of separator.
+int	is_separator(char *str, int i);
+/// @brief Define the quotes status.
+int	set_status(int status, char *str, int i);
+/// @brief Splits input string into words or separators, saving them as tokens in linked list.
+int	save_word_or_sep(int *i, char *str, int start, t_data *data);
+
+
+// token_lst_utils.c
+
+/// @brief creat a new node
+t_token	*lst_new_node_token(char *str, char *str_backup, int type, int status);
+/// @brief add a new node at the end of the list
+void	lst_add_back_token(t_token **alst, t_token *new_node);
+/// @brief free one node of the list
+void	lst_del_one_token(t_token *lst, void (*del)(void *));
+/// @brief free the entire list
+void	lst_clear_token(t_token **lst, void (*del)(void *));
+
+// token_lst_utils_2.c
+
+/** @brief _link_extremities function is used to link the insert node between
+			two existing nodes in a doubly linked list.*/
+void	_link_extremities(t_token *to_del, t_token *temp, t_token *insert);
+/** @brief The insert_lst_between function is used to insert a new node (insert)
+ *			between two existing nodes in a doubly linked list.*/
+t_token	*insert_lst_between(t_token **head, t_token *to_del, t_token *insert);
 
 
 /* ------------------------------ UTILS --------------------------------------*/
 
 //clean_up.c
+
+/// @brief  free a pointer
 void	free_ptr(void *ptr);
+
+// errors.c
+
+/// @brief Joins two strings and freeing the previous one.
+char	*join_strs(char *str, char *add);
+/// @brief Prints an error message unrelated to a specific command.
+///			 Used in parsing to handle syntax errors
+void	errmsg(char *errmsg, char *detail, int quotes);
 
 #endif

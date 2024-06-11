@@ -6,13 +6,13 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 17:20:21 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/06/11 17:47:27 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/06/11 23:55:23 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/minishell.h"
 
-t_token	*lst_new_node(char *str, char *str_backup, int type, int status)
+t_token	*lst_new_token(char *str, char *str_backup, int type, int status)
 {
 	t_token	*new_node;
 
@@ -30,7 +30,7 @@ t_token	*lst_new_node(char *str, char *str_backup, int type, int status)
 	return (new_node);
 }
 
-void	lst_add_back(t_token **alst, t_token *new_node)
+void	lst_add_back_token(t_token **alst, t_token *new_node)
 {
 	t_token	*start;
 
@@ -68,7 +68,7 @@ void	lst_del_one_token(t_token *lst, void (*del)(void *))
 	free_ptr(lst);
 }
 
-void	lst_clear(t_token **lst, void (*del)(void *))
+void	lst_clear_token(t_token **lst, void (*del)(void *))
 {
 	t_token	*tmp;
 
