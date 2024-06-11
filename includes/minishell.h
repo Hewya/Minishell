@@ -6,7 +6,7 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 15:41:26 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/06/11 16:17:58 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/06/11 17:56:05 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@
 # include <readline/readline.h>	// readline, add_history, etc.
 # include <readline/history.h> 	// add_history, history_list, etc.
 
-# include "libft/libft.h"
+# include "includes/libft/libft.h"
 
 /* MACROS */
 
@@ -41,9 +41,9 @@ typedef	struct s_token
 {
 	char			*str;
 	char			*str_backup;
-	bool			var_exist;
 	int				type;
 	int				status;
+	bool			var_exist;
 	bool			join;
 	struct s_token *prev;
 	struct s_token *next;
@@ -69,8 +69,21 @@ typedef	struct s_command
 	int					*pipe_fd;
 	struct s_command	*prev;
 	struct s_command	 *next;
-	//t_io_fds			*io_fds;
+	t_io_fds			*io_fds;
 }				t_command;
+
+typedef	struct s_io_fds
+{
+	char	*infile;
+	char	*outfile;
+	char	*delimiter;
+	bool	heredoc_quotes;
+	int		fd_in;
+	int		fd_out;
+	int		stdin_backup;
+	int		stdout_backup;
+}				t_io_fds;
+
 
 /* ENUMERATIONS */
 
@@ -92,7 +105,27 @@ enum e_quoting_status
 	UNQUOTED, // PREFERES TU "DEFAULT" ?
 	SINGLE_QUOTE,
 	DOUBLE_QUOTE
-}
+};
 
+/* ************************************************************************** */
+/*  							FUNCTIONS									  */
+/* ************************************************************************** */
+
+
+/* ------------------------------ LEXER --------------------------------------*/
+
+//token_lst_utils.c
+t_token	*lst_new_node(char *str, char *str_backup, int type, int status);
+void	lst_add_back(t_token **alst, t_token *new_node);
+void	lst_del_one_token(t_token *lst, void (*del)(void *));
+void	lst_clear(t_token **lst, void (*del)(void *));
+
+//token_lst_utils_2.c
+
+
+/* ------------------------------ UTILS --------------------------------------*/
+
+//clean_up.c
+void	free_ptr(void *ptr);
 
 #endif
