@@ -6,12 +6,17 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 17:56:19 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/06/12 00:40:19 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/06/12 19:15:05 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/minishell.h"
 
+
+/**
+ * @brief _link_extremities function is used to link the insert node between
+			two existing nodes in a doubly linked list.
+*/
 void	_link_extremities(t_token *to_del, t_token *temp, t_token *insert)
 {
 	while (temp != to_del)

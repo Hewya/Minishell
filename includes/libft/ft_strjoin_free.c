@@ -6,7 +6,7 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 18:33:01 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/04/16 12:39:20 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/06/12 20:14:50 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,13 @@ static void	free_join(char const *s1, char const *s2, int freed)
 	else
 		return ;
 }
-
+/**
+ * @brief Joins two strings, freeing on demand, and returns the resulting
+ * concatenated string.
+ * To free the first string, int i needs to be equal to 1.
+ * To free the second string, int i needs to be equal to 2.
+ * To free both, int i needs to be equal to 3.
+*/
 char	*ft_strjoin_free(char const *s1, char const *s2, int i)
 {
 	char	*result;

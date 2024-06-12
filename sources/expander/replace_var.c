@@ -6,12 +6,15 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 15:07:09 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/06/12 15:10:51 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/06/12 19:18:06 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/minishell.h"
 
+/**
+ * @brief
+*/
 static int	erase_var(t_token **token_node, char *str, int index)
 {
 	int		i;
@@ -41,6 +44,9 @@ static int	erase_var(t_token **token_node, char *str, int index)
 	return (0);
 }
 
+/**
+ * @brief
+*/
 static char	*erase_and_replace(t_token **token_node, char *str,
 			char *var_value, int index)
 {

@@ -6,12 +6,15 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 15:01:13 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/06/12 15:04:54 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/06/12 19:17:56 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/minishell.h"
 
+/**
+ * @brief
+*/
 static void	update_status(t_token **token_node, char c)
 {
 	if (c == '\'' && (*token_node)->status == UNQUOTED)
@@ -24,6 +27,9 @@ static void	update_status(t_token **token_node, char c)
 		(*token_node)->status = UNQUOTED;
 }
 
+/**
+ * @brief
+*/
 static bool	is_next_char_a_sep(char c)
 {
 	if (c == '$' || c == ' ' || c == '=' || c == '\0')
@@ -32,6 +38,9 @@ static bool	is_next_char_a_sep(char c)
 		return (false);
 }
 
+/**
+ * @brief
+*/
 static bool	var_between_quotes(char *str, int i)
 {
 	if (i > 0)

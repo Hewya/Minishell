@@ -6,7 +6,7 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 15:41:26 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/06/12 01:07:30 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/06/12 21:04:57 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,12 @@
 # include <sys/wait.h>			// wait, waitpid, waitid, etc.
 # include <signal.h>			// signal, kill, sigaction, etc.
 # include <readline/readline.h>	// readline, add_history, etc.
-# include <readline/history.h> 	// add_history, history_list, etc.
+# include <readline/history.h>	// add_history, history_list, etc.
 
 # include "includes/libft/libft.h"
+
+/* GLOBAL VARIABLE */
+extern int	g_last_exit_code;
 
 /* MACROS */
 
@@ -102,7 +105,7 @@ enum e_token_types
 
 enum e_quoting_status
 {
-	UNQUOTED, // PREFERES TU "DEFAULT" ?
+	UNQUOTED,
 	SINGLE_QUOTE,
 	DOUBLE_QUOTE
 };
@@ -129,7 +132,10 @@ int	save_word(t_token **token_lst, char *str, int index, int start);
 int	is_separator(char *str, int i);
 /// @brief Define the quotes status.
 int	set_status(int status, char *str, int i);
-/// @brief Splits input string into words or separators, saving them as tokens in linked list.
+/**
+ * @brief Splits input string into words or separators, saving them as tokens
+ * in linked list.
+*/
 int	save_word_or_sep(int *i, char *str, int start, t_data *data);
 
 
@@ -146,13 +152,69 @@ void	lst_clear_token(t_token **lst, void (*del)(void *));
 
 // token_lst_utils_2.c
 
-/** @brief _link_extremities function is used to link the insert node between
-			two existing nodes in a doubly linked list.*/
-void	_link_extremities(t_token *to_del, t_token *temp, t_token *insert);
 /** @brief The insert_lst_between function is used to insert a new node (insert)
  *			between two existing nodes in a doubly linked list.*/
 t_token	*insert_lst_between(t_token **head, t_token *to_del, t_token *insert);
 
+
+/* ----------------------------- EXPANDER ------------------------------------*/
+
+// var_expander.c
+
+/// @brief
+int	var_expander(t_data *data, t_token **token_lst);
+
+
+// var_expander_utils.c
+
+/***
+ * @brief Copies the value of an environment variable into a newly allocated
+ * string, returning the copied value or NULL on failure.
+*/
+void	copy_var_value(char *new_str, char *var_value, int *j);
+/***
+ * @brief Allocates memory for a new token string, initializes it, and
+ * returns the pointer to the new token string.
+*/
+char	*get_new_token_string(char *oldstr, char *var_value, int newstr_size,
+			int index);
+
+
+// replace_var.c
+
+/**
+ * @brief Replaces a variable in a token string with its value, erasing
+ * the variable notation if no value is provided.
+*/
+int	replace_var(t_token **token_node, char *var_value, int index);
+
+
+// identify_var.c
+
+/**
+ * @brief Checks if a character is a valid variable name character
+ * (alphanumeric or underscore).
+*/
+bool is_var_friendly(char c);
+/**
+ * @brief Returns the length of a variable name (excluding the '$' symbol)
+ * in a given string.
+*/
+int	var_lenght(char *str);
+/**
+ * @brief Checks if a token is a variable (starts with '$').
+*/
+char	*identify_var(char *str);
+
+
+// recover_value.c
+
+/**
+ * @brief Retrieves the value of a variable from the environment, handling cases
+ * where the variable is not set or has a special value (e.g., $?). It returns
+ * a dynamically allocated string containing the variable's value.
+*/
+char	*recover_value(t_token *token, char *str, t_data *data);
 
 /* ------------------------------ UTILS --------------------------------------*/
 
