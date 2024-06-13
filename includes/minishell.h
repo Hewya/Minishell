@@ -6,7 +6,7 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 15:41:26 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/06/13 17:13:52 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/06/13 20:37:51 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,8 +141,8 @@ int	save_word_or_sep(int *i, char *str, int start, t_data *data);
 
 // token_lst_utils.c
 
-/// @brief creat a new node
-t_token	*lst_new_node_token(char *str, char *str_backup, int type, int status);
+/// @brief create a new node
+t_token	*lst_new_token(char *str, char *str_backup, int type, int status);
 /// @brief add a new node at the end of the list
 void	lst_add_back_token(t_token **alst, t_token *new_node);
 /// @brief free one node of the list
@@ -216,6 +216,7 @@ char	*identify_var(char *str);
 */
 char	*recover_value(t_token *token, char *str, t_data *data);
 
+
 // quotes_handler.c
 
 /**
@@ -234,6 +235,7 @@ bool	quotes_in_string(char *str);
 */
 int	handle_quotes(t_data *data);
 
+
 // quotes_remover.c
 
 /**
@@ -243,11 +245,76 @@ int	handle_quotes(t_data *data);
 int	remove_quotes(t_token **token_node);
 
 
+/* ----------------------------- PARSER --------------------------------------*/
+
+// create_command.c
+/**
+ * @brief Creates a new command structure, allocating memory for the command
+ * and its arguments, and initializes the command type and argument list.
+*/
+void	create_command(t_data *data, t_token *token);
+
+// cmd_lst_utils.c
+
+/**
+ * @brief Returns the last command in a linked list of commands.
+*/
+t_command	*lst_last_cmd(t_command *cmd);
+/**
+ * @brief Adds a new command to the end of a linked list of commands.
+*/
+void	lst_add_back_cmd(t_command **alst, t_command *new);
+/**
+ * @brief Creates a new command node, allocating memory and initializing its
+ * fields, and returns a pointer to the new node.
+*/
+t_command	*lst_new_cmd(bool value);
+
+
+// fill_args_default.c
+
+
+/// @brief Counts the number of arguments in a token list.
+int	count_arguments(t_token *tmp);
+/**
+ * @brief Creates an argument list in default mode, allocating memory for the
+ * list and its strings, and initializes the list with default values.
+*/
+int	create_args_default_mode(t_token **token_node, t_command *last_cmd);
+/**
+ * @brief Adds a new argument to an argument list in default mode, allocating
+ * memory for the new argument and updating the list.
+*/
+int	add_args_default_mode(t_token **token_node, t_command *last_cmd);
+/**
+ * @brief Fills the arguments in the command structure (command->args)
+ * It has two modes:
+ * - The "echo mode" if the command is the builtin "echo".
+ * - The default mode for all the other cases.
+*/
+int	fill_args(t_token **token_node, t_command *last_cmd);
+
+
+// parse_word.c
+
+/**
+ * @brief Parses a word token from a token list, handling variables, commands,
+ * and arguments. It checks if the token is a variable, command, or argument,
+ * and updates the command structure accordingly. If the token is a variable,
+ * it checks if it contains spaces and splits it into a command and arguments
+ * if necessary. The function then updates the last command in the command list
+ * with the parsed token, and returns a pointer to the next token in the list.
+ *
+*/
+void	parse_word(t_command **cmds, t_token **token_lst);
+
 /* ------------------------------ UTILS --------------------------------------*/
 
 //clean_up.c
 
-/// @brief  free a pointer
+/// @brief Freeing each string and the table itself.
+void	free_str_tab(char **tab);
+/// @brief Free a pointer
 void	free_ptr(void *ptr);
 
 // errors.c
