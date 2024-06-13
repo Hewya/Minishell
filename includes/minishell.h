@@ -6,7 +6,7 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 15:41:26 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/06/13 20:37:51 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/06/13 21:01:43 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,9 @@
 extern int	g_last_exit_code;
 
 /* MACROS */
+# ifndef PATH_MAX
+#  define PATH_MAX 4096
+# endif
 
 # define SUCCESS 0
 # define FAILURE 1

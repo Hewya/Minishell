@@ -1,23 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_pipe.c                                       :+:      :+:    :+:   */
+/*   cmd_lst_utils_clean.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/13 21:02:40 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/06/13 21:05:33 by gabarnou         ###   ########.fr       */
+/*   Created: 2024/06/13 20:45:28 by gabarnou          #+#    #+#             */
+/*   Updated: 2024/06/13 20:45:57 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/minishell.h"
 
-void	parse_pipe(t_command **cmd, t_token **token_lst)
+void	lst_delone_cmd(t_command *lst, void (*del)(void *))
 {
-	t_command	*last_cmd;
+	if (lst->command)
+		(*del)(lst->command);
+	if (lst->args)
+		free_str_tab(lst->args);
+	if (lst->pipe_fd)
+		(*del)(lst->pipe_fd);
+	if (lst->io_fds)
+		free_io(lst->io_fds);
+	(*del)(lst);
+}
 
-	last_cmd = lst_last_cmd(*cmd);
-	last_cmd->pipe_output = true;
-	lst_add_back_cmd(&last_cmd, lst_new_cmd(false));
-	*token_lst = (*token_lst)->next;
+void	lst_clear_cmd(t_command **lst, void (*del)(void *))
+{
+	t_command	*temp;
+
+	temp = NULL;
+	while (*lst != NULL)
+	{
+		temp = (*lst)->next;
+		lst_delone_cmd(*lst, del);
+		*lst = temp;
+	}
 }
