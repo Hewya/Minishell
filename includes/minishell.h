@@ -6,7 +6,7 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 15:41:26 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/06/12 21:04:57 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/06/13 17:13:52 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -215,6 +215,33 @@ char	*identify_var(char *str);
  * a dynamically allocated string containing the variable's value.
 */
 char	*recover_value(t_token *token, char *str, t_data *data);
+
+// quotes_handler.c
+
+/**
+ * @brief Counts the length of a string until a specific character is
+ * encountered, used for handling quoted strings.
+*/
+int	count_len(char *str, int count, int i);
+/**
+ * @brief  Checks if a string contains quotes (single or double) and returns
+ * true if quotes are found, false otherwise.
+*/
+bool	quotes_in_string(char *str);
+/**
+ * @brief  Handles quoted strings by updating the token node's status and
+ * string accordingly, taking into account single and double quotes.
+*/
+int	handle_quotes(t_data *data);
+
+// quotes_remover.c
+
+/**
+ * @brief Removes quotes (single or double) from a token string, updating
+ * the token node's string and status.
+*/
+int	remove_quotes(t_token **token_node);
+
 
 /* ------------------------------ UTILS --------------------------------------*/
 

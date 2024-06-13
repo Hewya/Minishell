@@ -6,12 +6,16 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 12:19:20 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/06/13 12:34:48 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/06/13 17:07:02 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/minishell.h"
 
+/**
+ * @brief Updates the status of a token node to either single-quoted or
+ * double-quoted based on the current character.
+*/
 static void	change_status_to_quote(t_token **token_node, int *i)
 {
 	if ((*token_node)->str[*i] == '\'')
@@ -21,7 +25,12 @@ static void	change_status_to_quote(t_token **token_node, int *i)
 	(*i)++;
 }
 
-static bool	if_quotes_and_UNQUOTED(t_token **token_node, int i)
+/**
+ * @brief Checks if the current character is a quote (single or double) and
+ * the token node's status is unquoted, returning true if both
+ * conditions are met.
+*/
+static bool	if_quotes_and_unquoted(t_token **token_node, int i)
 {
 	if (((*token_node)->str[i] == '\'' || (*token_node)->str[i] == '\"')
 		&& (*token_node)->status == UNQUOTED)
@@ -30,7 +39,12 @@ static bool	if_quotes_and_UNQUOTED(t_token **token_node, int i)
 		return (false);
 }
 
-static bool	change_back_to_UNQUOTED(t_token **token_node, int *i)
+/**
+ * @brief  Checks if the current character matches the quote type of
+ * the token node's status (single or double), and if so, changes
+ * the status back to unquoted.
+*/
+static bool	change_back_to_unquoted(t_token **token_node, int *i)
 {
 	if (((*token_node)->str[*i] == '\'' &&
 			(*token_node)->status == SINGLE_QUOTE)
@@ -58,12 +72,12 @@ int	remove_quotes(t_token **token_node)
 		return (1);
 	while ((*token_node)->str[i])
 	{
-		if (if_quotes_and_UNQUOTED(token_node, i) == true)
+		if (if_quotes_and_unquoted(token_node, i) == true)
 		{
 			change_status_to_quote(token_node, &i);
 			continue ;
 		}
-		else if (change_back_to_UNQUOTED(token_node, &i) == true)
+		else if (change_back_to_unquoted(token_node, &i) == true)
 			continue ;
 		new_line[j++] = (*token_node)->str[i++];
 	}

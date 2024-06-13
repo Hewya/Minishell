@@ -6,14 +6,15 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 15:01:13 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/06/13 12:35:12 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/06/13 17:02:51 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/minishell.h"
 
 /**
- * @brief
+ * @brief  Updates the status of a token node based on the current character,
+ * switching between unquoted, single-quoted, and double-quoted states.
 */
 static void	update_status(t_token **token_node, char c)
 {
@@ -28,7 +29,8 @@ static void	update_status(t_token **token_node, char c)
 }
 
 /**
- * @brief
+ * @brief Checks if the next character in a string is a separator
+ * (e.g., space, '$', '=')
 */
 static bool	is_next_char_a_sep(char c)
 {
@@ -39,7 +41,8 @@ static bool	is_next_char_a_sep(char c)
 }
 
 /**
- * @brief
+ * @brief  Checks if a variable is enclosed within single or double quotes
+ * in a given string.
 */
 static bool	var_between_quotes(char *str, int i)
 {
@@ -69,7 +72,7 @@ int	var_expander(t_data *data, t_token **token_lst)
 				if (temp->str[i] == '$'
 					&& is_next_char_a_sep(temp->str[i + 1]) == false
 					&& var_between_quotes(temp->str, i) == false
-					&& (temp->status == UNQUOTED || 
+					&& (temp->status == UNQUOTED ||
 							temp->status == DOUBLE_QUOTE))
 					replace_var(&temp,
 						recover_val(temp, temp->str + i, data), i);
