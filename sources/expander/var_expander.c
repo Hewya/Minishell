@@ -6,7 +6,7 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 15:01:13 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/06/12 19:17:56 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/06/13 12:35:12 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,8 @@ int	var_expander(t_data *data, t_token **token_lst)
 				if (temp->str[i] == '$'
 					&& is_next_char_a_sep(temp->str[i + 1]) == false
 					&& var_between_quotes(temp->str, i) == false
-					&& (temp->status == UNQUOTED || temp->status == DOUBLE_QUOTE))
+					&& (temp->status == UNQUOTED || 
+							temp->status == DOUBLE_QUOTE))
 					replace_var(&temp,
 						recover_val(temp, temp->str + i, data), i);
 				else
