@@ -6,7 +6,7 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 15:41:26 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/06/13 21:01:43 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/06/14 19:10:39 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -251,11 +251,13 @@ int	remove_quotes(t_token **token_node);
 /* ----------------------------- PARSER --------------------------------------*/
 
 // create_command.c
+
 /**
  * @brief Creates a new command structure, allocating memory for the command
  * and its arguments, and initializes the command type and argument list.
 */
 void	create_command(t_data *data, t_token *token);
+
 
 // cmd_lst_utils.c
 
@@ -272,6 +274,19 @@ void	lst_add_back_cmd(t_command **alst, t_command *new);
  * fields, and returns a pointer to the new node.
 */
 t_command	*lst_new_cmd(bool value);
+
+
+// cmd_lst_utils_clean.c
+
+/**
+ * @brief Deletes a single command node from a linked list of commands.
+ */
+void	lst_delone_cmd(t_command *lst, void (*del)(void *));
+/**
+ * @brief Deletes all command nodes from a linked list of commands,
+ * freeing their memory.
+ */
+void	lst_clear_cmd(t_command **lst, void (*del)(void *));
 
 
 // fill_args_default.c
@@ -298,6 +313,109 @@ int	add_args_default_mode(t_token **token_node, t_command *last_cmd);
 int	fill_args(t_token **token_node, t_command *last_cmd);
 
 
+// fill_args_echo.c
+
+/**
+ * @brief Creates an argument list for command "echo", allocating memory for
+ * the list and its strings, and initializes the list values.
+ */
+int	create_args_echo_mode(t_token **token_node, t_command *last_cmd);
+/**
+ * @brief Adds a new argument to an argument list for command "echo",
+ * allocating memory for the new argument and updating the list.
+ */
+int	add_args_echo_mode(t_token **token_node, t_command *last_cmd);
+
+
+// fill_args_echo_utils.c
+
+/**
+ * @brief Joins multiple variable tokens into a single string, handling cases
+ * where variables contain spaces.
+ * ex: The strings -> "Hello" "  " "world" become = "Hello  world"
+ */
+char	*join_vars(t_token **token_node);
+/**
+ * @brief Counts the number of arguments in a token list.
+ */
+int	count_args(t_token *temp);
+/**
+ * @brief Copies arguments from a token list into a new array, allocating
+ * memory for the array and its strings.
+ */
+char	**copy_in_new_tab(int len, char **new_tab, t_command *last_cmd,
+		t_token *tmp);
+/**
+ * @brief Removes empty variable (not existing in env) arguments from a
+ * token list. 
+ * if variable X does not exist in environment,
+ *		'echo $X $X $X $USER' should print:
+ *		'username' (not '  username')
+ */
+void	remove_empty_var_args(t_token **tokens);
+
+
+// parse_append.c
+
+/**
+ * @brief Parses the append redirection operator (>>) and updates the command
+ * structure accordingly.
+ */
+void	parse_append(t_command **last_cmd, t_token **token_lst);
+
+
+// parse_heredoc.c
+
+
+/**
+ * @brief 1??????????????????????????????????????????????????????????
+ */
+
+
+// parse_heredoc_utils.c
+
+
+/**
+ * @brief 1??????????????????????????????????????????????????????????
+ */
+
+
+// parse_input.c
+
+
+/**
+ * @brief Removes the old file reference from the input/output file descriptors.
+ */
+bool	remove_old_file_ref(t_io_fds *io, bool infile);
+/**
+ * @brief Parses the input redirection operator (<) and updates the command
+ * structure accordingly.
+ */
+void	parse_input(t_command **last_cmd, t_token **token_lst);
+
+// parse_pipe.c
+
+
+/**
+ * @brief Parses the pipe operator (|) and updates the command structure 
+ * accordingly.
+ */
+void	parse_pipe(t_command **cmd, t_token **token_lst);
+
+
+// parse_trunc.c
+
+
+/**
+ * @brief Returns the relative path of a file.
+ */
+char	*get_relative_path(char *file_to_open);
+/**
+ * @brief Parses the truncation operator (>) and updates the command
+ * structure accordingly.
+ */
+void	parse_trunc(t_command **last_cmd, t_token **token_lst);
+
 // parse_word.c
 
 /**
@@ -310,6 +428,9 @@ int	fill_args(t_token **token_node, t_command *last_cmd);
  *
 */
 void	parse_word(t_command **cmds, t_token **token_lst);
+
+
+
 
 /* ------------------------------ UTILS --------------------------------------*/
 
