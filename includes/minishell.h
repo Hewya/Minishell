@@ -6,7 +6,7 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 15:41:26 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/06/14 19:10:39 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/06/18 12:56:48 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@
 # include <readline/readline.h>	// readline, add_history, etc.
 # include <readline/history.h>	// add_history, history_list, etc.
 
-# include "includes/libft/libft.h"
+# include "./libft/libft.h"
 
 /* GLOBAL VARIABLE */
 extern int	g_last_exit_code;
