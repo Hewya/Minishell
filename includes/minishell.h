@@ -6,7 +6,7 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 15:41:26 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/06/18 12:56:48 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/06/19 20:26:49 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ extern int	g_last_exit_code;
 
 # define SUCCESS 0
 # define FAILURE 1
+
+# define PROMPT "Minishell ->"
 
 /* STRUCTURES */
 
@@ -158,6 +160,19 @@ void	lst_clear_token(t_token **lst, void (*del)(void *));
 /** @brief The insert_lst_between function is used to insert a new node (insert)
  *			between two existing nodes in a doubly linked list.*/
 t_token	*insert_lst_between(t_token **head, t_token *to_del, t_token *insert);
+
+// parse_user_input.c
+
+bool	parse_user_input(t_data *data);
+
+// lexer_grammar.c
+
+int	check_consecutives(t_token **token_lst);
+
+//check_if_var.c
+
+void	_variable_check(t_token **token_node);
+int	check_if_var(t_token **token_lst);
 
 
 /* ----------------------------- EXPANDER ------------------------------------*/
@@ -347,7 +362,7 @@ char	**copy_in_new_tab(int len, char **new_tab, t_command *last_cmd,
 		t_token *tmp);
 /**
  * @brief Removes empty variable (not existing in env) arguments from a
- * token list. 
+ * token list.
  * if variable X does not exist in environment,
  *		'echo $X $X $X $USER' should print:
  *		'username' (not '  username')
@@ -397,7 +412,7 @@ void	parse_input(t_command **last_cmd, t_token **token_lst);
 
 
 /**
- * @brief Parses the pipe operator (|) and updates the command structure 
+ * @brief Parses the pipe operator (|) and updates the command structure
  * accordingly.
  */
 void	parse_pipe(t_command **cmd, t_token **token_lst);
@@ -407,7 +422,12 @@ void	parse_pipe(t_command **cmd, t_token **token_lst);
 
 
 /**
- * @brief Returns the relative path of a file.
+ * @brief This function takes a file path as input and returns a relative path
+ * if the input path is not absolute.
+ * The function checks if the input path starts with a slash (/). If it does,
+ * the function returns a duplicate of the input path using ft_strdup. If not,
+ * the function creates a new path by concatenating the current working
+ * directory (./) with the input file name using ft_strjoin.
  */
 char	*get_relative_path(char *file_to_open);
 /**
@@ -448,5 +468,28 @@ char	*join_strs(char *str, char *add);
 /// @brief Prints an error message unrelated to a specific command.
 ///			 Used in parsing to handle syntax errors
 void	errmsg(char *errmsg, char *detail, int quotes);
+/// @brief
+int	usage_msg();
+
+// init_data.c
+
+/**
+ * @brief
+*/
+bool	init_data(t_data *data, char **env);
+/**
+ * @brief
+*/
+void	init_io(t_command *cmd);
+
+/* ------------------------------ DEBUGS --------------------------------------*/
+
+// debug.c
+
+void	print_cmd_args(t_command *cmd);
+void	print_cmd_io(t_command *cmd);
+void	print_cmd_list(t_data *data);
+void	print_token_type(t_token *token, char *prefix);
+void	print_token_list(t_token **tokens);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 20:53:36 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/06/13 21:01:46 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/06/19 20:04:37 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ static bool	init_wds(t_data *data)
 	}
 	return (true);
 }
+
 bool	init_data(t_data *data, char **env)
 {
 	if (!init_env(data, env))

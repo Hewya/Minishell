@@ -6,7 +6,7 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 23:30:41 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/06/11 23:44:58 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/06/19 20:00:20 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,4 +42,10 @@ void	errmsg(char *errmsg, char *detail, int quotes)
 		msg = join_strs(msg, "'");
 	ft_putendl_fd(msg, STDERR_FILENO);
 	free_ptr(msg);
+}
+
+int	usage_msg()
+{
+	ft_putendl_fd("Usage: ./minishell", STDERR_FILENO);
+	return (1);
 }
