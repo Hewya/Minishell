@@ -6,11 +6,11 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 11:35:59 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/06/12 14:59:15 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/06/20 19:03:37 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/minishell.h"
+#include "minishell.h"
 
 static bool	consecutive_ops(t_token *token_node)
 {

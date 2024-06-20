@@ -6,11 +6,11 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 21:03:42 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/06/14 18:57:55 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/06/20 19:04:49 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/minishell.h"
+#include "minishell.h"
 
 char	*get_relative_path(char *file_to_open)
 {

@@ -6,11 +6,11 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 12:08:48 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/06/13 14:59:41 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/06/20 19:03:10 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/minishell.h"
+#include "minishell.h"
 
 int	count_len(char *str, int count, int i)
 {

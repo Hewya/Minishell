@@ -6,11 +6,11 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 20:43:34 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/06/14 18:29:11 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/06/20 21:01:32 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/minishell.h"
+#include "minishell.h"
 
 char	*join_vars(t_token **token_node)
 {
@@ -88,7 +88,7 @@ void	remove_empty_var_args(t_token **tokens)
 			temp = temp->next;
 			if (temp == (*tokens)->next)
 				(*tokens) = (*tokens)->next;
-			lstdelone_token(temp->prev, free_ptr);
+			lst_del_one_token(temp->prev, free_ptr);
 		}
 		else
 			temp = temp->next;

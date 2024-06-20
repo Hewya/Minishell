@@ -6,11 +6,11 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 18:59:34 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/06/13 20:00:05 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/06/20 19:04:54 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/minishell.h"
+#include "minishell.h"
 
 
 /**

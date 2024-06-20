@@ -6,12 +6,11 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 18:10:14 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/06/13 20:06:23 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/06/20 19:04:05 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
-#include "includes/minishell.h"
+#include "minishell.h"
 
 /**
  * @brief Initializes a command structure, setting its arguments, command

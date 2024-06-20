@@ -6,18 +6,18 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 12:49:09 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/06/18 12:57:49 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/06/20 21:17:23 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/minishell.h"
+#include "minishell.h"
 
 void	print_cmd_args(t_command *cmd)
 {
 	int	i;
 
 	if (!cmd->args)
-		prinft("\tNo args\n");
+		printf("\tNo args\n");
 	i = 0;
 	while (cmd->args[i])
 	{
@@ -29,7 +29,7 @@ void	print_cmd_args(t_command *cmd)
 void	print_cmd_io(t_command *cmd)
 {
 	if (!cmd->io_fds)
-		prinft("\tNo io_fds\n");
+		printf("\tNo io_fds\n");
 	if (cmd->io_fds->infile)
 	{
 		printf("\tInfile: %s\n", cmd->io_fds->infile);

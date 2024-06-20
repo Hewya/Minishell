@@ -6,11 +6,11 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 21:02:40 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/06/13 21:05:33 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/06/20 19:04:45 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/minishell.h"
+#include "minishell.h"
 
 void	parse_pipe(t_command **cmd, t_token **token_lst)
 {

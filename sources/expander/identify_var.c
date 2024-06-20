@@ -6,11 +6,11 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 19:29:25 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/06/12 20:02:03 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/06/20 21:26:02 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/minishell.h"
+#include "minishell.h"
 
 bool is_var_friendly(char c)
 {
@@ -20,7 +20,7 @@ bool is_var_friendly(char c)
 		return (true);
 }
 
-int	var_lenght(char *str)
+int	var_length(char *str)
 {
 	int	i;
 	int	len;
@@ -58,7 +58,7 @@ char	*identify_var(char *str)
 		}
 		i++;
 	}
-	len = var_lenght(str);
+	len = var_length(str);
 	var = ft_substr(str, start, len);
 	if (!var)
 		return (NULL);

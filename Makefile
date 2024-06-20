@@ -6,7 +6,7 @@ SRCS_PATH	= ./sources/
 OBJ_PATH	= ./objects/
 INC_PATH	= ./includes/
 LIBFT_PATH	= ./libft/
-LIBFT		= ./libft/libft.a
+LIBFT		= $(LIBFT_PATH)libft.a
 
 SRC		=	expander/identify_var	\
 			expander/quotes_handler	\
@@ -30,7 +30,7 @@ SRC		=	expander/identify_var	\
 			parser/fill_args_echo_utils	\
 			parser/parse_append	\
 			parser/parse_heredoc	\
-			parser/parse_herodoc_utils	\
+			parser/parse_heredoc_utils	\
 			parser/parse_input	\
 			parser/parse_pipe	\
 			parser/parse_trunc	\
@@ -39,33 +39,32 @@ SRC		=	expander/identify_var	\
 			utils/errors	\
 			utils/init_data	\
 			debug/debug	\
+			env/env	\
+			execution/execute	\
 			main	\
 
-SRCS		= $(addprefix $(SRCS_PATH), $(SRC))
-OBJ			= $(SRc:.c=.o)
-OBJS		= $(addprefix $(OBJ_PATH), $(OBJ))
+SRCS		= $(addsuffix .c, $(addprefix $(SRCS_PATH), $(SRC)))
+OBJS		= $(SRCS:$(SRCS_PATH)%.c=$(OBJ_PATH)%.o)
 INCS		= -I $(INC_PATH) -I $(LIBFT_PATH)
 
-all: $(OBJ_PATH) $(LIBFT_PATH) $(NAME)
+all: $(OBJ_PATH) $(NAME)
 
 $(OBJ_PATH):
 	mkdir -p $(OBJ_PATH)
 	mkdir -p $(OBJ_PATH)/lexer
-	mkdir -p $(OBJ_PATH)/expansion
+	mkdir -p $(OBJ_PATH)/expander
 	mkdir -p $(OBJ_PATH)/parser
 	mkdir -p $(OBJ_PATH)/utils
-	mkdir -p $(OBJ_PATH)/testing
+	mkdir -p $(OBJ_PATH)/debug
+	mkdir -p $(OBJ_PATH)/env
+	mkdir -p $(OBJ_PATH)/execution
 
 $(OBJ_PATH)%.o: $(SRCS_PATH)%.c
-	$(CC) $(CFLAGS) -c $< -o $@ $(INCS)
+	$(CC) $(CFLAGS) $(INCS) -c $< -o $@
 
-
-$(NAME) : $(OBJ)
+$(NAME) : $(OBJS)
 	$(MAKE) -C $(LIBFT_PATH)
-	$(CC) $(CFLAGS) -o $@ $(OBJ) $(LIBFT)
-
-%.o: %.c
-	$(CC) -c -o $@ $< $(CFLAGS) $(INCS)
+	$(CC) $(CFLAGS) -o $@ $(OBJS) $(LIBFT) -l readline
 
 clean:
 	$(MAKE) -C $(LIBFT_PATH) clean

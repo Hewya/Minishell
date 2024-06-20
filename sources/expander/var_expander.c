@@ -6,11 +6,11 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 15:01:13 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/06/13 17:02:51 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/06/20 19:18:10 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/minishell.h"
+#include "minishell.h"
 
 /**
  * @brief  Updates the status of a token node based on the current character,
@@ -75,7 +75,7 @@ int	var_expander(t_data *data, t_token **token_lst)
 					&& (temp->status == UNQUOTED ||
 							temp->status == DOUBLE_QUOTE))
 					replace_var(&temp,
-						recover_val(temp, temp->str + i, data), i);
+						recover_value(temp, temp->str + i, data), i);
 				else
 					i++;
 			}

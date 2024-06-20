@@ -6,11 +6,11 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 20:22:05 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/06/13 20:27:16 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/06/20 21:00:37 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/minishell.h"
+#include "minishell.h"
 
 int	count_arguments(t_token *tmp)
 {
@@ -66,7 +66,10 @@ static char	**copy_default_in_new_tab(int len, char **new_tab,
 	i = 0;
 	tmp = *tk_node;
 	while (i < len)
-		new_tab[i++] = last_cmd->args[i++];
+	{
+		new_tab[i] = last_cmd->args[i];
+		i++;
+	}
 	while (tmp->type == WORD || tmp->type == VAR)
 	{
 		new_tab[i++] = ft_strdup(tmp->str);

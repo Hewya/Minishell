@@ -6,11 +6,11 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 20:50:44 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/06/14 19:01:29 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/06/20 19:04:38 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/minishell.h"
+#include "minishell.h"
 
 bool	remove_old_file_ref(t_io_fds *io, bool infile)
 {

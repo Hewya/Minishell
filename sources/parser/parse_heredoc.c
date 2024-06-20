@@ -6,9 +6,9 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 17:24:29 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/06/14 17:24:50 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/06/20 19:04:34 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/minishell.c"
+#include "minishell.h"
 

@@ -6,11 +6,11 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 18:05:58 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/06/14 19:03:49 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/06/20 19:04:27 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/minishell.h"
+#include "minishell.h"
 
 /**
  * @brief Opens an outfile in append mode. If an outfile was already set, frees

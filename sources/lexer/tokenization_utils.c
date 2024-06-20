@@ -6,11 +6,11 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 23:45:40 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/06/12 01:00:18 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/06/20 20:55:24 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/minishell.h"
+#include "minishell.h"
 
 int	save_separator(t_token **token_lst, char *str, int index, int type)
 {
@@ -25,7 +25,7 @@ int	save_separator(t_token **token_lst, char *str, int index, int type)
 			return (1);
 		while (i < 2)
 			sep[i++] = str[index++];
-		sep[i] = "\0";
+		sep[i] = '\0';
 		lst_add_back_token(token_lst, lst_new_token(sep, NULL, type, UNQUOTED));
 	}
 	else
@@ -83,7 +83,7 @@ int	set_status(int status, char *str, int i)
 	if (str[i] == '\'' && status == UNQUOTED)
 		status = SINGLE_QUOTE;
 	else if (str[i] == '\"' && status == UNQUOTED)
-		status == DOUBLE_QUOTE;
+		status = DOUBLE_QUOTE;
 	else if (str[i] == '\'' && status == SINGLE_QUOTE)
 		status = UNQUOTED;
 	else if (str[i] == '\"' && status == DOUBLE_QUOTE)

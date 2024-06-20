@@ -6,7 +6,7 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 15:41:26 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/06/19 20:26:49 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/06/20 21:40:53 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@
 # include <readline/readline.h>	// readline, add_history, etc.
 # include <readline/history.h>	// add_history, history_list, etc.
 
-# include "./libft/libft.h"
+# include ".././libft/libft.h"
 
 /* GLOBAL VARIABLE */
 extern int	g_last_exit_code;
@@ -41,7 +41,7 @@ extern int	g_last_exit_code;
 # define SUCCESS 0
 # define FAILURE 1
 
-# define PROMPT "Minishell ->"
+# define PROMPT "Minishell ->	"
 
 /* STRUCTURES */
 
@@ -57,16 +57,17 @@ typedef	struct s_token
 	struct s_token *next;
 }				t_token;
 
-typedef	struct s_data
+typedef	struct s_io_fds
 {
-	t_token		*token;
-	char		*user_input;
-	char		**env;
-	char		*working_dir;
-	char		*old_working_dir;
-	pid_t		pid;
-	t_command	*cmd;
-}				t_data;
+	char	*infile;
+	char	*outfile;
+	char	*delimiter;
+	bool	heredoc_quotes;
+	int		fd_in;
+	int		fd_out;
+	int		stdin_backup;
+	int		stdout_backup;
+}			t_io_fds;
 
 typedef	struct s_command
 {
@@ -78,20 +79,19 @@ typedef	struct s_command
 	struct s_command	*prev;
 	struct s_command	 *next;
 	t_io_fds			*io_fds;
-}				t_command;
+}			t_command;
 
-typedef	struct s_io_fds
+
+typedef	struct s_data
 {
-	char	*infile;
-	char	*outfile;
-	char	*delimiter;
-	bool	heredoc_quotes;
-	int		fd_in;
-	int		fd_out;
-	int		stdin_backup;
-	int		stdout_backup;
-}				t_io_fds;
-
+	t_token		*token;
+	char		*user_input;
+	char		**env;
+	char		*working_dir;
+	char		*old_working_dir;
+	pid_t		pid;
+	t_command	*cmd;
+}				t_data;
 
 /* ENUMERATIONS */
 
@@ -218,7 +218,7 @@ bool is_var_friendly(char c);
  * @brief Returns the length of a variable name (excluding the '$' symbol)
  * in a given string.
 */
-int	var_lenght(char *str);
+int	var_length(char *str);
 /**
  * @brief Checks if a token is a variable (starts with '$').
 */
@@ -460,11 +460,15 @@ void	parse_word(t_command **cmds, t_token **token_lst);
 void	free_str_tab(char **tab);
 /// @brief Free a pointer
 void	free_ptr(void *ptr);
+/// @brief Fres the input/output fd structure
+void	free_io(t_io_fds *io);
 
 // errors.c
 
 /// @brief Joins two strings and freeing the previous one.
 char	*join_strs(char *str, char *add);
+/// @brief Prints an error message and exits the program.
+int	errmsg_cmd(char *command, char *detail, char *error_message, int error_nb);
 /// @brief Prints an error message unrelated to a specific command.
 ///			 Used in parsing to handle syntax errors
 void	errmsg(char *errmsg, char *detail, int quotes);
@@ -491,5 +495,15 @@ void	print_cmd_io(t_command *cmd);
 void	print_cmd_list(t_data *data);
 void	print_token_type(t_token *token, char *prefix);
 void	print_token_list(t_token **tokens);
+
+/* ------------------------------- ENV ---------------------------------------*/
+int	env_var_count(char **env);
+int	get_env_var_index(char **env, char *var);
+char	*get_env_var_value(char **env, char *var);
+bool	is_valid_env_var_key(char *var);
+
+int	main(int ac, char **env);
+void running(t_data *data);
+void execute();
 
 #endif

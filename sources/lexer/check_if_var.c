@@ -6,13 +6,13 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 11:12:31 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/06/12 14:59:20 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/06/20 19:18:55 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/minishell.h"
+#include "minishell.h"
 
-void	_variable_check(t_token **token_node)
+void	variable_check(t_token **token_node)
 {
 	int	i;
 
@@ -20,7 +20,7 @@ void	_variable_check(t_token **token_node)
 	while ((*token_node)->str[i])
 	{
 		if ((*token_node)->str[i] == '$')
-		{	
+		{
 			if ((*token_node)->prev && (*token_node)->prev->type == HEREDOC)
 				break ;
 			(*token_node)->type = VAR;
@@ -33,7 +33,7 @@ void	_variable_check(t_token **token_node)
 int	check_if_var(t_token **token_lst)
 {
 	t_token	*temp;
-	
+
 	temp = *token_lst;
 	if (temp->type == PIPE)
 	{

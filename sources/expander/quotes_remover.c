@@ -6,11 +6,11 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 12:19:20 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/06/13 17:07:02 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/06/20 19:03:13 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/minishell.h"
+#include "minishell.h"
 
 /**
  * @brief Updates the status of a token node to either single-quoted or

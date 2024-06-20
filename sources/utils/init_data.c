@@ -6,11 +6,11 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 20:53:36 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/06/19 20:04:37 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/06/20 19:05:07 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/minishell.h"
+#include "minishell.h"
 
 static bool	init_env(t_data *data, char **env)
 {

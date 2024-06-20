@@ -1,17 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   create_commands.c                                  :+:      :+:    :+:   */
+/*   create_command.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 18:12:03 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/06/13 18:31:53 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/06/20 20:59:51 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/minishell.h"
-
+#include "minishell.h"
 
 /**
  * @brief Prepares command tokens with no arguments by initializing their
@@ -23,6 +22,7 @@ static void	prep_no_arg_cmds(t_data *data)
 
 	if (!data || !data->cmd)
 		return ;
+	cmd = data->cmd;
 	while (cmd && cmd->command)
 	{
 		if (!cmd->args)
@@ -63,4 +63,5 @@ void	create_command(t_data *data, t_token *token)
 			break ;
 	}
 	prep_no_arg_cmds(data);
+	print_cmd_list(data);
 }

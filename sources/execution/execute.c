@@ -1,39 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cmd_lst_utils_clean.c                              :+:      :+:    :+:   */
+/*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/13 20:45:28 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/06/20 19:03:57 by gabarnou         ###   ########.fr       */
+/*   Created: 2024/06/20 21:28:32 by gabarnou          #+#    #+#             */
+/*   Updated: 2024/06/20 21:30:57 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	lst_delone_cmd(t_command *lst, void (*del)(void *))
-{
-	if (lst->command)
-		(*del)(lst->command);
-	if (lst->args)
-		free_str_tab(lst->args);
-	if (lst->pipe_fd)
-		(*del)(lst->pipe_fd);
-	if (lst->io_fds)
-		free_io(lst->io_fds);
-	(*del)(lst);
-}
+int g_last_exit_code;
 
-void	lst_clear_cmd(t_command **lst, void (*del)(void *))
+void execute()
 {
-	t_command	*temp;
-
-	temp = NULL;
-	while (*lst != NULL)
-	{
-		temp = (*lst)->next;
-		lst_delone_cmd(*lst, del);
-		*lst = temp;
-	}
+	printf("EXECUTION...\n");
 }

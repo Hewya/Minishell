@@ -6,11 +6,11 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 15:05:18 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/06/12 19:07:01 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/06/20 19:03:24 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/minishell.h"
+#include "minishell.h"
 
 void	copy_var_value(char *new_str, char *var_value, int *j)
 {

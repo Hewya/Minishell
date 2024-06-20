@@ -6,11 +6,11 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 20:31:01 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/06/12 21:06:13 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/06/20 19:03:18 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/minishell.h"
+#include "minishell.h"
 
 /**
  * @brief  Checks if a variable exists in the environment list, returning 0
