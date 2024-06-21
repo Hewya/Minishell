@@ -6,7 +6,7 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 11:12:31 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/06/20 19:18:55 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/06/21 19:57:57 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ void	variable_check(t_token **token_node)
 	i = 0;
 	while ((*token_node)->str[i])
 	{
-		if ((*token_node)->str[i] == '$')
+		if ((*token_node)->str[i] == '$'
+			&& (is_var_friendly((*token_node)->str[i + 1]) == true))
 		{
 			if ((*token_node)->prev && (*token_node)->prev->type == HEREDOC)
 				break ;

@@ -6,7 +6,7 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 15:05:18 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/06/20 19:03:24 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/06/21 21:41:19 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ char	*get_new_token_string(char *oldstr, char *var_value, int newstr_size,
 		if (oldstr[i] == '$' && i == index)
 		{
 			copy_var_value(new_str, var_value, &j);
-			i = i + var_length(oldstr + index) + 1;
+			i = i + var_length(1 + oldstr + index) + 1;
 			if (oldstr[i] == '\0')
 				break ;
 		}

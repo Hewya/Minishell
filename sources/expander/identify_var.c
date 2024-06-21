@@ -6,7 +6,7 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 19:29:25 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/06/20 21:26:02 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/06/21 21:03:57 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,18 +51,18 @@ char	*identify_var(char *str)
 	start = 0;
 	while (str[i])
 	{
-		if (str[i] == '$')
+		if (str[i] == '$' && is_var_friendly(str[i + 1]) == true)
 		{
 			start = i + 1;
 			break ;
 		}
 		i++;
 	}
-	len = var_length(str);
+	len = var_length(str + start);
 	var = ft_substr(str, start, len);
 	if (!var)
 		return (NULL);
-	tmp = ft_strjoin_free(var,"=", 1);
+	tmp = ft_strjoin_free(var, "=", 1);
 	var = tmp;
 	return (var);
 }

@@ -6,7 +6,7 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 12:49:09 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/06/21 18:43:34 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/06/21 20:17:44 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,26 @@ void	print_token_type(t_token *token, char *prefix)
 		printf("END\n");
 }
 
+void	print_token_status(t_token *token, char *prefix)
+{
+	printf("%s", prefix);
+	if (token->status == UNQUOTED)
+		printf("UNQUOTED\n");
+	else if (token->status == SINGLE_QUOTE)
+		printf("SINGLE_QUOTE\n");
+	else if (token->status == DOUBLE_QUOTE)
+		printf("DOUBLE_QUOTE\n");
+}
+void	print_token_var(t_token *token, char *prefix)
+{
+	printf("%s", prefix);
+	if (token->var_exist == true)
+		printf("true\n");
+	else if (token->var_exist == false)
+		printf("false\n");
+
+}
+
 void print_tokens(t_token *head)
 {
     t_token *current = get_first_node(head);
@@ -107,9 +127,9 @@ void print_tokens(t_token *head)
         printf("Token: %s\n", current->str);
         printf("Backup: %s\n", current->str_backup);
         print_token_type(current, "Types: ");
-        printf("Status: %d\n", current->status);
-        printf("Var Exist: %d\n", current->var_exist);
-        printf("Join: %d\n", current->join);
+        print_token_status(current, "Status: ");
+        print_token_var(current, "Var Exist: ");
+        printf("Quote handle: %d\n", current->join);
         printf("----\n");
         current = current->next;
     }

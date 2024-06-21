@@ -6,7 +6,7 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 15:41:26 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/06/21 13:56:51 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/06/21 21:10:34 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ extern int	g_last_exit_code;
 # define SUCCESS 0
 # define FAILURE 1
 
-# define PROMPT "Minishell ->	"
+# define PROMPT "\nMinishell ->	"
 
 /* STRUCTURES */
 
@@ -462,6 +462,8 @@ void	free_str_tab(char **tab);
 void	free_ptr(void *ptr);
 /// @brief Fres the input/output fd structure
 void	free_io(t_io_fds *io);
+/// @brief
+void	free_data(t_data *data, bool clear_history);
 
 // errors.c
 
@@ -494,6 +496,8 @@ void	print_cmd_args(t_command *cmd);
 void	print_cmd_io(t_command *cmd);
 void	print_cmd_list(t_data *data);
 void	print_token_type(t_token *token, char *prefix);
+void	print_token_status(t_token *token, char *prefix);
+void	print_token_var(t_token *token, char *prefix);
 void	print_token_list(t_token **tokens);
 
 void	print_tokens(t_token *head);
@@ -505,7 +509,6 @@ int	get_env_var_index(char **env, char *var);
 char	*get_env_var_value(char **env, char *var);
 bool	is_valid_env_var_key(char *var);
 
-int	main(int ac, char **env);
 void running(t_data *data);
 void execute();
 

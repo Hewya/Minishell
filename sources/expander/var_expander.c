@@ -6,7 +6,7 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 15:01:13 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/06/20 19:18:10 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/06/21 20:31:26 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ int	var_expander(t_data *data, t_token **token_lst)
 {
 	t_token	*temp;
 	int		i;
+
 	temp = *token_lst;
 	while (temp)
 	{

@@ -6,7 +6,7 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 17:44:16 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/06/20 21:07:06 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/06/21 19:29:12 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,4 +82,27 @@ void	free_io(t_io_fds *io)
 		free_ptr(io->outfile);
 	if (io)
 		free_ptr(io);
+}
+
+void	free_data(t_data *data, bool clear_history)
+{
+	if (data && data->user_input)
+	{
+		free_ptr(data->user_input);
+		data->user_input = NULL;
+	}
+	if (data && data->token)
+		lst_clear_token(&data->token, &free_ptr);
+	if (data && data->cmd)
+		lst_clear_cmd(&data->cmd, &free_ptr);
+	if (clear_history == true)
+	{
+		if (data && data->working_dir)
+			free_ptr(data->working_dir);
+		if (data && data->old_working_dir)
+			free_ptr(data->old_working_dir);
+		if (data && data->env)
+			free_str_tab(data->env);
+		rl_clear_history();
+	}
 }

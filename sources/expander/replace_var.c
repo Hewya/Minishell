@@ -6,7 +6,7 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 15:07:09 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/06/20 19:03:22 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/06/21 21:26:45 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static char	*erase_and_replace(t_token **token_node, char *str,
 	char	*newstr;
 	int		newstr_size;
 
-	newstr_size = (ft_strlen(str) - var_length(str + index)
+	newstr_size = (ft_strlen(str) - (var_length(str + 1 + index) + 1)
 			+ ft_strlen(var_value));
 	newstr = get_new_token_string(str, var_value, newstr_size, index);
 	if (token_node && *token_node)
@@ -72,7 +72,7 @@ int	replace_var(t_token **token_node, char *var_value, int index)
 	{
 		if (erase_var(token_node, (*token_node)->str, index) == 1)
 		{
-			//free_ptr(var_value); utile puisque vaut NULL?
+			free_ptr(var_value);
 			return (1);
 		}
 	}
