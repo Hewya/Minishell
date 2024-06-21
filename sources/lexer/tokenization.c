@@ -6,7 +6,7 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 22:45:35 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/06/20 19:03:53 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/06/21 18:44:17 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,5 @@ int	tokenization(t_data *data, char *str)
 		errmsg("syntax error", "unexpected end of file", false);
 		return (1);
 	}
-	print_token_list(&(data->token));
 	return (0);
 }

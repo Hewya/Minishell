@@ -6,7 +6,7 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 12:49:09 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/06/20 23:52:18 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/06/21 18:43:34 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,36 +93,9 @@ void	print_token_type(t_token *token, char *prefix)
 		printf("END\n");
 }
 
-void	print_token_list(t_token **tokens)
-{
-	t_token	*lst;
-	int		i;
-
-	lst = *tokens;
-	printf("\n---- TOKEN LIST\n");
-	i = 0;
-	while (lst)
-	{
-		printf("--- Token [%d] [%p]\n", i, lst);
-		printf("\tString = [%s]\n", lst->str);
-		printf("\tStr backup = [%s]\n", lst->str_backup);
-		print_token_type(lst, "\tType = ");
-		printf("\tStatus = %d\n", lst->status);
-		if (lst->prev)
-			printf("\tPrev = [%p]\n", lst->prev);
-		else
-			printf("\tPrev = NULL\n");
-		if (lst->next)
-			printf("\tNext = [%p]\n", lst->next);
-		else
-			printf("\tNext = NULL\n");
-		i++;
-		lst = lst->next;
-	}
-}
 void print_tokens(t_token *head)
 {
-    t_token *current = head;
+    t_token *current = get_first_node(head);
 
 	if (current == NULL)
     {
@@ -133,7 +106,7 @@ void print_tokens(t_token *head)
     {
         printf("Token: %s\n", current->str);
         printf("Backup: %s\n", current->str_backup);
-        printf("Type: %d\n", current->type);
+        print_token_type(current, "Types: ");
         printf("Status: %d\n", current->status);
         printf("Var Exist: %d\n", current->var_exist);
         printf("Join: %d\n", current->join);

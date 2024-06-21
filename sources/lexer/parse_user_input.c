@@ -6,7 +6,7 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 10:48:45 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/06/20 20:52:55 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/06/21 18:45:25 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static bool	input_is_space(char *input)
 	i = 0;
 	while (input[i])
 	{
-		if (!ft_isprint(input[i]))
+		if (!is_in_set(input[i], " 	"))
 			return (false);
 		i++;
 	}

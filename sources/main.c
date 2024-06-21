@@ -6,7 +6,7 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 19:53:16 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/06/21 14:57:16 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/06/21 18:49:58 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,19 +24,7 @@ void running(t_data *data)
     	}
 		if (parse_user_input(data) == true)
 		{
-			// printf("Tokens before get_first_node:\n");
-			// // printf("data->token:  %s\n", (char *)data->token);
-    	    // print_tokens(data->token);
-
-    	    // t_token *first_node = get_first_node(data->token);
-
-    	    // printf("First node's string: %s\n", first_node->str);
-
-    	    // printf("Tokens after get_first_node:\n");
-    	    // print_tokens(first_node);
-
 			printf("SUCCESS OF PARSING\n");
-			// print_cmd_list(data);
 		}
 		else
 			printf("FAILURE OF PARSING\n");

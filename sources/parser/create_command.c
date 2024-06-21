@@ -6,7 +6,7 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 18:12:03 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/06/20 20:59:51 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/06/21 18:51:31 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,5 +63,4 @@ void	create_command(t_data *data, t_token *token)
 			break ;
 	}
 	prep_no_arg_cmds(data);
-	print_cmd_list(data);
 }
