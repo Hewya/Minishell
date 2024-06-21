@@ -6,7 +6,7 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 12:49:09 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/06/20 21:17:23 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/06/20 23:52:18 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,4 +119,36 @@ void	print_token_list(t_token **tokens)
 		i++;
 		lst = lst->next;
 	}
+}
+void print_tokens(t_token *head)
+{
+    t_token *current = head;
+
+	if (current == NULL)
+    {
+        printf("Token list is empty.\n");
+        return;
+    }
+    while (current != NULL)
+    {
+        printf("Token: %s\n", current->str);
+        printf("Backup: %s\n", current->str_backup);
+        printf("Type: %d\n", current->type);
+        printf("Status: %d\n", current->status);
+        printf("Var Exist: %d\n", current->var_exist);
+        printf("Join: %d\n", current->join);
+        printf("----\n");
+        current = current->next;
+    }
+}
+
+t_token *get_first_node(t_token *node)
+{
+    if (node == NULL)
+        return NULL;
+
+    while (node->prev != NULL)
+        node = node->prev;
+
+    return node;
 }

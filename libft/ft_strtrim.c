@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaelle <gaelle@student.42.fr>              +#+  +:+       +#+        */
+/*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/22 18:59:24 by gaelle            #+#    #+#             */
-/*   Updated: 2023/10/25 16:57:35 by gaelle           ###   ########.fr       */
+/*   Updated: 2024/06/21 18:20:36 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int	is_in_set(char c, const char *set)
+int	is_in_set(char c, const char *set)
 {
 	while (*set)
 	{

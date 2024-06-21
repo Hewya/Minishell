@@ -6,7 +6,7 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 15:41:26 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/06/20 21:40:53 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/06/21 13:56:51 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -495,6 +495,9 @@ void	print_cmd_io(t_command *cmd);
 void	print_cmd_list(t_data *data);
 void	print_token_type(t_token *token, char *prefix);
 void	print_token_list(t_token **tokens);
+
+void	print_tokens(t_token *head);
+t_token *get_first_node(t_token *node);
 
 /* ------------------------------- ENV ---------------------------------------*/
 int	env_var_count(char **env);
