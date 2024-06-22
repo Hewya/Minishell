@@ -6,7 +6,7 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 15:05:18 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/06/21 21:41:19 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/06/22 12:56:22 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	copy_var_value(char *new_str, char *var_value, int *j)
 }
 
 char	*get_new_token_string(char *oldstr, char *var_value, int newstr_size,
-			int index)
+		int index)
 {
 	int		i;
 	int		j;

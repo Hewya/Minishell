@@ -6,17 +6,16 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 18:59:34 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/06/20 19:04:54 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/06/22 12:52:32 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-
 /**
  * @brief Checks if a string contains a space character.
-*/
-static bool	contains_space(char	*str)
+ */
+static bool	contains_space(char *str)
 {
 	int	i;
 
@@ -40,7 +39,7 @@ static bool	contains_space(char	*str)
  * environment, and commands by setting up their argument lists. The function
  * returns a pointer to the first token in the list, which can be used to
  * traverse the token list.
-*/
+ */
 static void	split_var_cmd_token(t_command *last_cmd, char *cmd_str)
 {
 	t_token	*new_token;
@@ -54,13 +53,12 @@ static void	split_var_cmd_token(t_command *last_cmd, char *cmd_str)
 		return ;
 	last_cmd->command = ft_strdup(strs[0]);
 	if (strs[1])
-		new_token = lst_new_token(ft_strdup(strs[1]),
-			NULL, WORD, UNQUOTED);
+		new_token = lst_new_token(ft_strdup(strs[1]), NULL, WORD, UNQUOTED);
 	tmp = new_token;
 	i = 1;
 	while (strs[++i])
 		lst_add_back_token(&new_token, lst_new_token(ft_strdup(strs[i]), NULL,
-			WORD, UNQUOTED));
+				WORD, UNQUOTED));
 	lst_add_back_token(&new_token, lst_new_token(NULL, NULL, END, UNQUOTED));
 	fill_args(&new_token, last_cmd);
 	lst_clear_token(&tmp, &free_ptr);

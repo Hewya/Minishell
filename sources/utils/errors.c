@@ -6,7 +6,7 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 23:30:41 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/06/20 21:10:05 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/06/22 12:52:21 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,11 @@ char	*join_strs(char *str, char *add)
 /**
  * @brief Checks whether to add quotes around the error detail:
  * i.e. "unset: `@': not a valid identifier"
-*/
+ */
 static bool	add_detail_quotes(char *command)
 {
-	if (ft_strncmp(command, "export", 7) == 0
-		|| ft_strncmp(command, "unset", 6) == 0)
+	if (ft_strncmp(command, "export", 7) == 0 || ft_strncmp(command, "unset",
+			6) == 0)
 		return (true);
 	return (false);
 }
@@ -66,7 +66,7 @@ int	errmsg_cmd(char *command, char *detail, char *error_message, int error_nb)
 
 void	errmsg(char *errmsg, char *detail, int quotes)
 {
-	char *msg;
+	char	*msg;
 
 	msg = ft_strdup("minishell: ");
 	msg = join_strs(msg, errmsg);
@@ -81,7 +81,7 @@ void	errmsg(char *errmsg, char *detail, int quotes)
 	free_ptr(msg);
 }
 
-int	usage_msg()
+int	usage_msg(void)
 {
 	ft_putendl_fd("Usage: ./minishell", STDERR_FILENO);
 	return (1);

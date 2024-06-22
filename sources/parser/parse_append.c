@@ -6,7 +6,7 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 18:05:58 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/06/20 19:04:27 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/06/22 12:52:58 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 /**
  * @brief Opens an outfile in append mode. If an outfile was already set, frees
  * it and overwrites it. If a previous infile or outfile open failed (file does
-*	not exist or permission denied), does not open any further output file.
+ *	not exist or permission denied), does not open any further output file.
  */
 static void	open_outfile_append(t_io_fds *io, char *file, char *var_filename)
 {

@@ -6,7 +6,7 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 20:50:44 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/06/20 19:04:38 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/06/22 12:52:51 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,8 @@ bool	remove_old_file_ref(t_io_fds *io, bool infile)
 }
 /***
  * @brief Opens an infile. If an infile was already set, frees it
-*	and overwrites it. If a previous infile open failed (file does
-*	not exist or permission denied), does not open any further input file.
+ *	and overwrites it. If a previous infile open failed (file does
+ *	not exist or permission denied), does not open any further input file.
  */
 static void	open_infile(t_io_fds *io, char *file, char *original_filename)
 {

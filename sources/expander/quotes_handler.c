@@ -6,7 +6,7 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 12:08:48 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/06/20 19:03:10 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/06/22 12:56:46 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ int	count_len(char *str, int count, int i)
 			i++;
 			continue ;
 		}
-		else if ((str[i] == '\'' && status == SINGLE_QUOTE)
-			|| (str[i] == '\"' && status == DOUBLE_QUOTE))
+		else if ((str[i] == '\'' && status == SINGLE_QUOTE) || (str[i] == '\"'
+				&& status == DOUBLE_QUOTE))
 		{
 			status = UNQUOTED;
 			i++;
@@ -62,8 +62,8 @@ int	handle_quotes(t_data *data)
 	tmp = data->token;
 	while (tmp)
 	{
-		if (quotes_in_string(tmp->str) == true
-			&& (!tmp->prev || (tmp->prev && tmp->prev->type != HEREDOC)))
+		if (quotes_in_string(tmp->str) == true && (!tmp->prev || (tmp->prev
+					&& tmp->prev->type != HEREDOC)))
 			remove_quotes(&tmp);
 		tmp = tmp->next;
 	}

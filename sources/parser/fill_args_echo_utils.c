@@ -6,7 +6,7 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 20:43:34 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/06/20 21:01:32 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/06/22 12:53:02 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int	count_args(t_token *temp)
 }
 
 char	**copy_in_new_tab(int len, char **new_tab, t_command *last_cmd,
-			t_token *tmp)
+		t_token *tmp)
 {
 	int	i;
 

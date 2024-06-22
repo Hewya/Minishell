@@ -6,7 +6,7 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 15:07:09 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/06/21 21:26:45 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/06/22 12:56:28 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 /**
  * @brief Removes a variable from the environment list, freeing the associated
  * memory.
-*/
+ */
 static int	erase_var(t_token **token_node, char *str, int index)
 {
 	int		i;
@@ -48,9 +48,9 @@ static int	erase_var(t_token **token_node, char *str, int index)
 /**
  * @brief Erases a variable from the environment list and replaces it with
  * a new value, updating the token node's string accordingly.
-*/
-static char	*erase_and_replace(t_token **token_node, char *str,
-			char *var_value, int index)
+ */
+static char	*erase_and_replace(t_token **token_node, char *str, char *var_value,
+		int index)
 {
 	char	*newstr;
 	int		newstr_size;
@@ -78,8 +78,8 @@ int	replace_var(t_token **token_node, char *var_value, int index)
 	}
 	else
 	{
-		if (erase_and_replace(token_node, (*token_node)->str, \
-		var_value, index) == NULL)
+		if (erase_and_replace(token_node, (*token_node)->str, var_value,
+				index) == NULL)
 		{
 			free_ptr(var_value);
 			return (1);

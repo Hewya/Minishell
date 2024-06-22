@@ -6,7 +6,7 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 17:20:21 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/06/20 19:03:47 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/06/22 12:55:18 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ t_token	*lst_new_token(char *str, char *str_backup, int type, int status)
 	t_token	*new_node;
 
 	new_node = malloc(sizeof(t_token) * 1);
-	if(!(new_node))
+	if (!(new_node))
 		return (NULL);
 	new_node->str = str;
 	new_node->str_backup = str_backup;

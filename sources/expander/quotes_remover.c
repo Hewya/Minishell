@@ -6,7 +6,7 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 12:19:20 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/06/20 19:03:13 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/06/22 12:56:42 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 /**
  * @brief Updates the status of a token node to either single-quoted or
  * double-quoted based on the current character.
-*/
+ */
 static void	change_status_to_quote(t_token **token_node, int *i)
 {
 	if ((*token_node)->str[*i] == '\'')
@@ -29,11 +29,11 @@ static void	change_status_to_quote(t_token **token_node, int *i)
  * @brief Checks if the current character is a quote (single or double) and
  * the token node's status is unquoted, returning true if both
  * conditions are met.
-*/
+ */
 static bool	if_quotes_and_unquoted(t_token **token_node, int i)
 {
 	if (((*token_node)->str[i] == '\'' || (*token_node)->str[i] == '\"')
-		&& (*token_node)->status == UNQUOTED)
+			&& (*token_node)->status == UNQUOTED)
 		return (true);
 	else
 		return (false);
@@ -43,13 +43,13 @@ static bool	if_quotes_and_unquoted(t_token **token_node, int i)
  * @brief  Checks if the current character matches the quote type of
  * the token node's status (single or double), and if so, changes
  * the status back to unquoted.
-*/
+ */
 static bool	change_back_to_unquoted(t_token **token_node, int *i)
 {
-	if (((*token_node)->str[*i] == '\'' &&
-			(*token_node)->status == SINGLE_QUOTE)
-		|| ((*token_node)->str[*i] == '\"' &&
-			(*token_node)->status == DOUBLE_QUOTE))
+	if (((*token_node)->str[*i] == '\''
+			&& (*token_node)->status == SINGLE_QUOTE)
+			|| ((*token_node)->str[*i] == '\"'
+			&& (*token_node)->status == DOUBLE_QUOTE))
 	{
 		(*token_node)->status = UNQUOTED;
 		(*i)++;

@@ -6,7 +6,7 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 18:10:14 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/06/20 19:04:05 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/06/22 12:51:32 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 /**
  * @brief Initializes a command structure, setting its arguments, command
  * string, and pipe information to default values.
-*/
+ */
 static void	initialize_cmd(t_command **cmd)
 {
 	(*cmd)->args = NULL;
@@ -25,7 +25,6 @@ static void	initialize_cmd(t_command **cmd)
 	(*cmd)->pipe_output = false;
 	(*cmd)->next = NULL;
 	(*cmd)->prev = NULL;
-
 }
 
 t_command	*lst_new_cmd(bool value)
@@ -62,7 +61,7 @@ void	lst_add_back_cmd(t_command **alst, t_command *new)
 
 t_command	*lst_last_cmd(t_command *cmd)
 {
-	while (cmd ->next != NULL)
+	while (cmd->next != NULL)
 		cmd = cmd->next;
 	return (cmd);
 }

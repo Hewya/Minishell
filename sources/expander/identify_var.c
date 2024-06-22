@@ -6,13 +6,13 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 19:29:25 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/06/21 21:03:57 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/06/22 12:56:52 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-bool is_var_friendly(char c)
+bool	is_var_friendly(char c)
 {
 	if (ft_isalnum(c) == 0 && c != '_')
 		return (false);

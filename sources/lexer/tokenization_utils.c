@@ -6,7 +6,7 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 23:45:40 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/06/20 20:55:24 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/06/22 12:55:14 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 int	save_separator(t_token **token_lst, char *str, int index, int type)
 {
-	int i;
-	char *sep;
+	int		i;
+	char	*sep;
 
 	i = 0;
 	if (type == APPEND || type == HEREDOC)
@@ -43,8 +43,8 @@ int	save_separator(t_token **token_lst, char *str, int index, int type)
 
 int	save_word(t_token **token_lst, char *str, int index, int start)
 {
-	char *word;
-	int i;
+	char	*word;
+	int		i;
 
 	i = 0;
 	word = malloc(sizeof(char) * (index - start + 1));
@@ -53,8 +53,8 @@ int	save_word(t_token **token_lst, char *str, int index, int start)
 	while (start < index)
 		word[i++] = str[start++];
 	word[i] = '\0';
-	lst_add_back_token(token_lst,
-		lst_new_token(word, ft_strdup(word), WORD, UNQUOTED));
+	lst_add_back_token(token_lst, lst_new_token(word, ft_strdup(word), WORD,
+			UNQUOTED));
 	return (0);
 }
 
@@ -75,7 +75,7 @@ int	is_separator(char *str, int i)
 	else if (str[i] == '\0')
 		return (END);
 	else
-	return (0);
+		return (0);
 }
 
 int	set_status(int status, char *str, int i)
@@ -93,15 +93,15 @@ int	set_status(int status, char *str, int i)
 
 int	save_word_or_sep(int *i, char *str, int start, t_data *data)
 {
-	int type;
+	int	type;
 
 	type = is_separator(str, (*i));
 	if (type)
 	{
 		if ((*i) != 0 && is_separator(str, (*i) - 1) == 0)
 			save_word(&data->token, str, (*i), start);
-		if (type == APPEND || type == HEREDOC || type == PIPE
-			|| type == TRUNC || type == INPUT || type == END)
+		if (type == APPEND || type == HEREDOC || type == PIPE || type == TRUNC
+			|| type == INPUT || type == END)
 		{
 			save_separator(&data->token, str, (*i), type);
 			if (type == APPEND || type == HEREDOC)

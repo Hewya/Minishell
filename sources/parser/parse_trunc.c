@@ -6,7 +6,7 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 21:03:42 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/06/20 19:04:49 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/06/22 12:57:31 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ char	*get_relative_path(char *file_to_open)
 		return (ft_strdup(file_to_open));
 	path = ft_strdup("./");
 	ret = ft_strjoin(path, file_to_open);
-	printf("PARSING - Get_rel_path function return : %s\n", ret); // DEBUGGING ?
+	printf("PARSING - Get_rel_path function return (: %s\n", ret);
+	// DEBUGGING ?
 	return (ret);
 }
 

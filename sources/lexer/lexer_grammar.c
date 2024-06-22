@@ -6,7 +6,7 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 11:35:59 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/06/20 19:03:37 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/06/22 12:56:00 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,8 @@ int	check_consecutives(t_token **token_lst)
 			if (temp->type == END && temp->prev && temp->prev->type > PIPE)
 				errmsg("syntax error near unexpected token", "newline", true);
 			else if (temp->type == END && temp->prev)
-				errmsg("syntax error near unexpected token",
-					temp->prev->str, true);
+				errmsg("syntax error near unexpected token", temp->prev->str,
+					true);
 			else
 				errmsg("syntax error near unexpected token", temp->str, true);
 			return (FAILURE);
