@@ -6,7 +6,7 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 19:53:16 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/06/22 12:52:04 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/06/23 18:04:37 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,11 @@ void	running(t_data *data)
 		if (parse_user_input(data) == true)
 		{
 			printf("SUCCESS OF PARSING\n");
+			print_tokens(data->token);
+			g_last_exit_code = executing(data);
 		}
 		else
 			printf("FAILURE OF PARSING\n");
-		print_tokens(data->token);
 		free_data(data, false);
 	}
 }
@@ -50,6 +51,5 @@ int	main(int ac, char **av, char **env)
 		return (1);
 	}
 	running(&data);
-	execute();
 	return (0);
 }

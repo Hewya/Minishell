@@ -35,12 +35,26 @@ SRC		=	expander/identify_var	\
 			parser/parse_pipe	\
 			parser/parse_trunc	\
 			parser/parse_word	\
+			builtins/cd_builtin \
+			builtins/echo_builtin \
+			builtins/env_builtin \
+			builtins/exit_builtin \
+			builtins/export_builtin \
+			builtins/pwd_builtin \
+			builtins/unset_builtin \
+			builtins/utils_builtin	\
+			execution/exec_command	\
+			execution/executing	\
+			execution/prep_executing	\
+			execution/utils_executing	\
+			redirection/childrens	\
+			redirection/redirection	\
+			redirection/redirection_utils	\
 			utils/clean_up	\
 			utils/errors	\
 			utils/init_data	\
 			debug/debug	\
 			env/env	\
-			execution/execute	\
 			main	\
 
 SRCS		= $(addsuffix .c, $(addprefix $(SRCS_PATH), $(SRC)))
@@ -58,6 +72,8 @@ $(OBJ_PATH):
 	mkdir -p $(OBJ_PATH)/debug
 	mkdir -p $(OBJ_PATH)/env
 	mkdir -p $(OBJ_PATH)/execution
+	mkdir -p $(OBJ_PATH)/builtins
+	mkdir -p $(OBJ_PATH)/redirection
 
 $(OBJ_PATH)%.o: $(SRCS_PATH)%.c
 	$(CC) $(CFLAGS) $(INCS) -c $< -o $@

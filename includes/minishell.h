@@ -6,7 +6,7 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 15:41:26 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/06/22 13:02:23 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/06/23 17:55:57 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,12 +119,12 @@ enum	e_quoting_status
 
 /* ------------------------------ LEXER --------------------------------------*/
 
-// tokenization.c
+/* ---- tokenization ---- */
 
 /// @brief tokenization : ???
 int						tokenization(t_data *data, char *str);
 
-// tokenization_utils.c
+/* ---- tokenization_utils ---- */
 
 /// @brief Define if it is a separator and add it at the end of the list.
 int						save_separator(t_token **token_lst, char *str,
@@ -143,7 +143,7 @@ int						set_status(int status, char *str, int i);
 int						save_word_or_sep(int *i, char *str, int start,
 							t_data *data);
 
-// token_lst_utils.c
+/* ---- token_lst_utils ---- */
 
 /// @brief create a new node
 t_token					*lst_new_token(char *str, char *str_backup, int type,
@@ -155,22 +155,22 @@ void					lst_del_one_token(t_token *lst, void (*del)(void *));
 /// @brief free the entire list
 void					lst_clear_token(t_token **lst, void (*del)(void *));
 
-// token_lst_utils_2.c
+/* ---- token_lst_utils_2 ---- */
 
 /** @brief The insert_lst_between function is used to insert a new node (insert)
  *			between two existing nodes in a doubly linked list.*/
 t_token					*insert_lst_between(t_token **head, t_token *to_del,
 							t_token *insert);
 
-// parse_user_input.c
+/* ---- parse_user_input ---- */
 
 bool					parse_user_input(t_data *data);
 
-// lexer_grammar.c
+/* ----lexer_grammar ---- */
 
 int						check_consecutives(t_token **token_lst);
 
-// check_if_var.c
+/* ---- check_if_var ---- */
 
 void					_variable_check(t_token **token_node);
 int						check_if_var(t_token **token_lst);
@@ -468,6 +468,7 @@ bool					init_data(t_data *data, char **env);
  */
 void					init_io(t_command *cmd);
 
+
 /* ------------------------------ DEBUGS --------------------------------------*/
 
 // debug.c
@@ -483,13 +484,100 @@ void					print_token_list(t_token **tokens);
 void					print_tokens(t_token *head);
 t_token					*get_first_node(t_token *node);
 
+
 /* ------------------------------- ENV ---------------------------------------*/
 int						env_var_count(char **env);
 int						get_env_var_index(char **env, char *var);
 char					*get_env_var_value(char **env, char *var);
 bool					is_valid_env_var_key(char *var);
 
+
+
+/* ---------------------------- BUILTINS -------------------------------------*/
+
+/* ---- export ---- */
+bool		ft_valid_surcharge(char *s);
+int			valid_arg(char *s);
+int			find_key( t_data *data, char *s, size_t len);
+int			env_modif(t_data *data, char *s);
+int			env_surcharge(t_data *data, char *s);
+int			export_builtin(t_data *data);
+
+/* ---- cd ---- */
+
+int		count_arg(char *args[]);
+char	*ft_getenv(char **env, const char *name);
+void	change_env_var(char **env, const char *name, const char *value);
+void	change_pwd(t_data *data);
+int		change_directory(t_data *data);
+int		cd_builtin(t_data *data);
+
+/* ---- unset ---- */
+
+int		length_env(char **env); // a mettre dans utils
+bool	init_unset_vars(t_data *data, char ***new_env, int *new_env_index);
+bool	perform_unset(t_data *data, char **new_env, int *new_env_index);
+int		unset_builtin(t_data *data);
+
+/* ---- echo ---- */
+
+bool	is_flag(char *args);
+void	print_args(char **args, bool flag_newline);
+int		echo_builtin(t_data *data);
+
+/* ---- env ---- */
+
+int		print_env(t_data *data);
+int		env_builtin(t_data *data);
+
+/* ---- pwd ---- */
+
+int		pwd_builtin(void);
+
+/* ---- exit ---- */
+
+int		exit_builtin(void);
+
+
+/* --------------------------- EXECUTING -------------------------------------*/
+
+/* ---- executing ---- */
+int		exec_command(t_data *data);
+int		executing(t_data *data);
+int		exec_builtins(t_data *data);
+
+/* ---- childrens ---- */
+
+int		wait_childrens(t_data *data);
+int		create_childrens(t_data *data);
+
+/* ---- exec_command ---- */
+
+int		_launch_command(char *pn, t_data *data, char **env);
+char	**_final_path(char **ext_path);
+int		_with_path(t_data *data, char **env);
+void	call_exec(t_data *data);
+
+/* ---- redirections ---- */
+
+void	close_fd(t_data *data);
+int		io_fd_handler(t_io_fds *io_fds);
+int		io_fd_restore(t_io_fds *io_fds);
+int		pipes_handler(t_data *data);
+int		create_pipes(t_data *data);
+void	close_pipes(t_data *data);
+
+/* ---- utils_redirections ---- */
+
+//int		length_env(char **env);
+bool	check_builtins(char *cmd);
+int		_srch_path(char *envp[]);
+char	**extract_path(char *envp[]);
+void	_free(char *path[]);
+
+
+
 void					running(t_data *data);
-void					execute(void);
+
 
 #endif
