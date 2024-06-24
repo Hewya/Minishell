@@ -6,7 +6,7 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 14:47:15 by echapuis          #+#    #+#             */
-/*   Updated: 2024/06/25 00:08:56 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/06/25 01:02:10 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,7 @@ int change_directory(t_data *data)
 	 t_command *cmd;
 
 	 cmd = data->cmd;
-	 if (count_args(cmd->args) > 1)
+	 if (count_arg(cmd->args) > 1)
 	 {
 		 printf("cd: too many arguments\n");
 		 return (1);
