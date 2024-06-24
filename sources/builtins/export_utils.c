@@ -6,7 +6,7 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/24 14:06:05 by echapuis          #+#    #+#             */
-/*   Updated: 2024/06/25 00:06:42 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/06/25 01:17:09 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ int	find_key( t_data *data, char *s, size_t len, char *value)
 	if (key_status == false)
 	{
 		final_key = ft_strndup(s, len);
-		ft_strcat(final_key, "=");
+		strcat(final_key, "=");
 		ft_strjoin(final_key, value);
 		env_modif(data, ft_strjoin(final_key, value));
 		return (1);

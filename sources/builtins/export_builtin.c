@@ -6,7 +6,7 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 14:49:21 by echapuis          #+#    #+#             */
-/*   Updated: 2024/06/25 00:07:05 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/06/25 01:12:08 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ int	env_surcharge(t_data *data, char *s)
 	int		key;
 	char	*new_value;
 
+	key = 0;
 	value = ft_strchr(s, '=') + 1;
 	len = (ft_strlen(s) - ft_strlen(value)) - 2;
 	if (find_key(data, s, len, value) == 0)
@@ -56,8 +57,8 @@ int	env_surcharge(t_data *data, char *s)
 			printf("malloc failed\n");
 			return (1);
 		}
-		ft_strcpy(new_value, data->env[key]);
-		ft_strcat(new_value, value);
+		strcpy(new_value, data->env[key]);
+		strcat(new_value, value);
 		data->env[key] = new_value;
 	}
 	return (0);

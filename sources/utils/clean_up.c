@@ -6,7 +6,7 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 17:44:16 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/06/25 00:15:35 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/06/25 01:14:24 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	free_io(t_io_fds *io)
 {
 	if (!io)
 		return ;
-	restore_io(io);
+	io_fd_restore(io);
 	if (io->delimiter)
 	{
 		unlink(io->infile);

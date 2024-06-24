@@ -6,7 +6,7 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 15:41:26 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/06/25 00:10:01 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/06/25 01:13:32 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -505,15 +505,23 @@ bool					is_valid_env_var_key(char *var);
 
 
 
-/* ---------------------------- BUILTINS -------------------------------------*/
+/* ---- utils ---- */
+
+int		search_in_env(char *s, char **env, size_t len);
 
 /* ---- export ---- */
-bool		ft_valid_surcharge(char *s);
-int			valid_arg(char *s);
-int			find_key( t_data *data, char *s, size_t len, char *value);
-int			env_modif(t_data *data, char *s);
-int			env_surcharge(t_data *data, char *s);
-int			export_builtin(t_data *data);
+
+int		env_modif(t_data *data, char *s);
+int		env_surcharge(t_data *data, char *s);
+int		export_perform(t_data *data, t_command *command);
+int		export_builtin(t_data *data);
+
+/* ---- export utils ---- */
+
+bool	ft_valid_surcharge(char *s);
+int		valid_arg(char *s);
+int		find_key( t_data *data, char *s, size_t len, char *value);
+int		new_env_modif(t_data *data, char **new_env, char *s);
 
 /* ---- cd ---- */
 
@@ -526,10 +534,18 @@ int		cd_builtin(t_data *data);
 
 /* ---- unset ---- */
 
-int		length_env(char **env); // a mettre dans utils
-bool	init_unset_vars(t_data *data, char ***new_env, int *new_env_index);
-bool	perform_unset(t_data *data, char **new_env, int *new_env_index);
-int		unset_builtin(t_data *data);
+//int		length_env(char **env); // a mettre dans utils
+//bool	init_unset_vars(t_data *data, char ***new_env, int *new_env_index);
+//bool	perform_unset(t_data *data, char **new_env, int *new_env_index);
+//int		unset_builtin(t_data *data);
+
+int length_env(char **env);
+
+//int	search_in_env(char *s, char **env);
+//static char **alloc_new_env(t_data *data, int len);
+void	remove_var(t_data *data, int index);
+int	prep_unset(char **env, char *s);
+int	unset_builtin(t_data *data);
 
 /* ---- echo ---- */
 
@@ -550,8 +566,7 @@ int		pwd_builtin(void);
 
 int		exit_builtin(void);
 
-
-/* --------------------------- EXECUTING -------------------------------------*/
+/* ------------------------------ EXECUTING --------------------------------------*/
 
 /* ---- executing ---- */
 int		exec_command(t_data *data);
@@ -586,6 +601,7 @@ bool	check_builtins(char *cmd);
 int		_srch_path(char *envp[]);
 char	**extract_path(char *envp[]);
 void	_free(char *path[]);
+
 
 
 

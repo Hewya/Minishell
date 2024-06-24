@@ -6,13 +6,13 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 14:47:15 by echapuis          #+#    #+#             */
-/*   Updated: 2024/06/25 01:02:10 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/06/25 01:05:50 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int count_args(char *args[])
+int count_arg(char *args[])
 {
 	int	i;
 
@@ -102,12 +102,12 @@ int change_directory(t_data *data)
 	home = ft_getenv(data->env, "HOME");
 	cmd = data->cmd;
 
-	if (count_args(cmd->args) > 0 && chdir(cmd->args[0]) != -1)
+	if (count_arg(cmd->args) > 0 && chdir(cmd->args[0]) != -1)
 	{
 		change_pwd(data);
 		return (0);
 	}
-	else if (count_args(cmd->args) == 0 || ft_strcmp(cmd->args[0], "") == 0)
+	else if (count_arg(cmd->args) == 0 || ft_strcmp(cmd->args[0], "") == 0)
 	{
 		if (home != NULL && chdir(home) != -1)
 		{
