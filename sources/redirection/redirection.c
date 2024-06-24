@@ -6,7 +6,7 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 10:53:06 by echapuis          #+#    #+#             */
-/*   Updated: 2024/06/23 17:43:42 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/06/24 17:54:22 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ int	pipes_handler(t_data *data)
 			ft_putendl_fd("error pipes handler fd[1]", 2);
 			res = FAILURE;
 		}
-	if (command && command->prev->pipe_output)
+	if (command && command->prev && command->prev->pipe_output)
 		if (dup2(command->pipe_fd[0], STDIN_FILENO) == -1)
 		{
 			ft_putendl_fd("error pipes handler fd[0]", 2);

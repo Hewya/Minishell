@@ -6,7 +6,7 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 15:05:18 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/06/22 12:56:22 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/06/24 17:52:45 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ char	*get_new_token_string(char *oldstr, char *var_value, int newstr_size,
 
 	i = 0;
 	j = 0;
-	new_str = malloc(sizeof(char) * newstr_size);
+	new_str = malloc(sizeof(char) * (newstr_size + 1));
 	if (!new_str)
 		return (NULL);
 	while (oldstr[i])

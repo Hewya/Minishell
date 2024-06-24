@@ -53,6 +53,7 @@ SRC		=	expander/identify_var	\
 			utils/clean_up	\
 			utils/errors	\
 			utils/init_data	\
+			utils/exit	\
 			debug/debug	\
 			env/env	\
 			main	\

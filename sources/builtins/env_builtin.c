@@ -6,7 +6,7 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 14:51:38 by echapuis          #+#    #+#             */
-/*   Updated: 2024/06/23 18:15:17 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/06/24 18:43:22 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	print_env(t_data *data)
 
 int	env_builtin(t_data *data)
 {
-	if (data->cmd->args[0] != NULL)
+	if (data->cmd->args[1] != NULL)
 	{
 		printf("env: %s: No such file or directory\n", data->cmd->args[0]);
 		return (127);

@@ -6,7 +6,7 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 18:10:14 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/06/22 12:51:32 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/06/24 18:08:52 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ static void	initialize_cmd(t_command **cmd)
 	(*cmd)->pipe_output = false;
 	(*cmd)->next = NULL;
 	(*cmd)->prev = NULL;
+	(*cmd)->io_fds = NULL;
 }
 
 t_command	*lst_new_cmd(bool value)

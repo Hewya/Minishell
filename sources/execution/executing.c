@@ -6,7 +6,7 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 11:52:45 by echapuis          #+#    #+#             */
-/*   Updated: 2024/06/23 18:37:46 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/06/24 18:34:58 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,19 +27,19 @@ int	exec_builtins(t_data *data)
 	int	res;
 
 	res = FAILURE;
-	if (ft_strncmp(data->cmd->command, "cd", 2) == 0)
+	if (ft_strcmp(data->cmd->command, "cd") == 0)
 		res = cd_builtin(data);
-	else if (ft_strncmp(data->cmd->command, "echo", 4) == 0)
+	else if (ft_strcmp(data->cmd->command, "echo") == 0)
 		res = echo_builtin(data);
-	else if (ft_strncmp(data->cmd->command, "env", 3) == 0)
+	else if (ft_strcmp(data->cmd->command, "env") == 0)
 		res = env_builtin(data);
-	else if (ft_strncmp(data->cmd->command, "export", 6) == 0)
+	else if (ft_strcmp(data->cmd->command, "export") == 0)
 		res = export_builtin(data);
-	else if (ft_strncmp(data->cmd->command, "pwd", 3) == 0)
+	else if (ft_strcmp(data->cmd->command, "pwd") == 0)
 		res = pwd_builtin();
-	else if (ft_strncmp(data->cmd->command, "unset", 5) == 0)
+	else if (ft_strcmp(data->cmd->command, "unset") == 0)
 		res = unset_builtin(data);
-	else if (ft_strncmp(data->cmd->command, "exit", 4) == 0)
+	else if (ft_strcmp(data->cmd->command, "exit") == 0)
 		res = exit_builtin();
 	return (res);
 }
@@ -52,7 +52,7 @@ int	exec_command(t_data *data)
 	if (pipes_handler(data) == -1)
 		ft_putendl_fd("error in exec_command pipes", 2); // free and exit
 	close_pipes(data);
-	if (io_fd_handler(data->cmd->io_fds) == -1)
+	if (io_fd_handler(NULL) == -1)
 		ft_putendl_fd("error in exec_command io_fd_handler", 2);
 			// free and exit
 	close_fd(data);
@@ -64,7 +64,7 @@ int	exec_command(t_data *data)
 	return (res);
 }
 
-/*int	executing(t_data *data)
+int	executing(t_data *data)
 {
 	int	res;
 
@@ -79,7 +79,7 @@ int	exec_command(t_data *data)
 	create_pipes(data);
 	create_childrens(data);
 	return (0);
-}*/
+}
 
 /*
 int	main(void)
@@ -112,7 +112,7 @@ int	main(void)
 }*/
 
 
-int	executing(t_data *data)
+/*int	executing(t_data *data)
 {
 	int command;
 
@@ -131,4 +131,4 @@ int	executing(t_data *data)
 		return (command);
 	create_childrens(data);
 	return (wait_childrens(data));
-}
+}*/

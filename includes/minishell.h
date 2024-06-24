@@ -6,7 +6,7 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 15:41:26 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/06/24 14:17:42 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/06/24 16:09:30 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -475,6 +475,10 @@ bool					init_data(t_data *data, char **env);
  * @brief
  */
 void					init_io(t_command *cmd);
+
+
+// exit.c
+void	exit_shell(t_data *data, int exno);
 
 
 /* ------------------------------ DEBUGS --------------------------------------*/
