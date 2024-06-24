@@ -6,7 +6,7 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 20:50:44 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/06/22 12:52:51 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/06/24 15:35:46 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ bool	remove_old_file_ref(t_io_fds *io, bool infile)
 	}
 	return (true);
 }
+
 /***
  * @brief Opens an infile. If an infile was already set, frees it
  *	and overwrites it. If a previous infile open failed (file does

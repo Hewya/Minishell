@@ -6,7 +6,7 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 17:24:29 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/06/24 14:18:23 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/06/24 15:35:27 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static char	*get_delim(char *delim, bool *quotes)
 
 void	parse_heredoc(t_data *data, t_command **last_cmd, t_token **token_lst)
 {
-	t_token	*tmp;
+	t_token		*tmp;
 	t_command	*cmd;
 	t_io_fds	*io;
 

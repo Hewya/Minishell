@@ -6,7 +6,7 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 12:19:20 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/06/22 12:56:42 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/06/24 15:34:10 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static void	change_status_to_quote(t_token **token_node, int *i)
 static bool	if_quotes_and_unquoted(t_token **token_node, int i)
 {
 	if (((*token_node)->str[i] == '\'' || (*token_node)->str[i] == '\"')
-			&& (*token_node)->status == UNQUOTED)
+		&& (*token_node)->status == UNQUOTED)
 		return (true);
 	else
 		return (false);

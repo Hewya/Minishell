@@ -6,7 +6,7 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 18:12:03 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/06/24 14:24:23 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/06/24 15:35:03 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static void	prep_no_arg_cmds(t_data *data)
 	{
 		if (!cmd->args)
 		{
-			cmd->args = malloc(sizeof *cmd->args * 2);
+			cmd->args = malloc(sizeof * cmd->args * 2);
 			cmd->args[0] = ft_strdup(cmd->command);
 			cmd->args[1] = NULL;
 		}
