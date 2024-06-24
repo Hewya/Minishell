@@ -6,7 +6,7 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 17:44:16 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/06/22 12:52:09 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/06/24 15:43:36 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ void	free_ptr(void *ptr)
 		ptr = NULL;
 	}
 }
+
 /* partie de redirection */
 bool	restore_io(t_io_fds *io)
 {

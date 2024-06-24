@@ -6,7 +6,7 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 15:01:13 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/06/24 14:17:24 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/06/24 15:41:39 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,9 +70,9 @@ int	var_expander(t_data *data, t_token **token_lst)
 			while (temp->str[i])
 			{
 				update_status(&temp, temp->str[i]);
-				if (temp->str[i] == '$' && is_next_char_a_sep(temp->str[i
-						+ 1]) == false && var_between_quotes(temp->str,
-						i) == false && (temp->status == UNQUOTED
+				if (temp->str[i] == '$' && is_next_char_a_sep(temp->str[i + 1])
+					== false && var_between_quotes(temp->str, i) == false
+					&& (temp->status == UNQUOTED
 						|| temp->status == DOUBLE_QUOTE))
 					replace_var(&temp, recover_value(temp, temp->str + i, data),
 						i);
@@ -96,7 +96,7 @@ char	*var_expander_heredoc(t_data *data, char *str)
 			&& is_next_char_a_sep(str[i + 1]) == false
 			&& var_between_quotes(str, i) == false)
 			str = replace_str_heredoc(str,
-				recover_value(NULL, str + i, data), i);
+					recover_value(NULL, str + i, data), i);
 		else
 			i++;
 	}
