@@ -6,7 +6,7 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 11:52:45 by echapuis          #+#    #+#             */
-/*   Updated: 2024/06/24 18:34:58 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/06/24 20:35:01 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	exec_builtins(t_data *data)
 		res = exit_builtin();
 	return (res);
 }
-
+// PIPEX (DANS CREATE CHILDRENS)
 int	exec_command(t_data *data)
 {
 	int	res;
@@ -63,12 +63,12 @@ int	exec_command(t_data *data)
 	// exit_minishell
 	return (res);
 }
-
+// LANCEMENT EXECUTION
 int	executing(t_data *data)
 {
 	int	res;
 
-	res = FAILURE;
+	res = FAILURE; // VERIFICATION ET PREP
 	if (data == NULL || data->cmd == NULL)
 		return (SUCCESS);
 	if (check_builtins(data->cmd->command) && (!data->cmd->next)
@@ -76,6 +76,15 @@ int	executing(t_data *data)
 		res = exec_builtins(data);
 	if (res != FAILURE)
 		return (res);
+	else
+	{
+		// gestion erreur nom commande builtins
+		// jkdfhkhdfvgkwbhvlswkvb
+		// sdnfklcerhvglwrbhilj
+		// dxnkweifhncwlkvjnb w;nplor
+		// daxnskwvbfwkriuvb labscnkswrevbl
+		// bcfwjergfkuwfb whiovnwlbl
+	}
 	create_pipes(data);
 	create_childrens(data);
 	return (0);

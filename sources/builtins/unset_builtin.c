@@ -3,14 +3,36 @@
 /*                                                        :::      ::::::::   */
 /*   unset_builtin.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: echapuis <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 14:49:57 by echapuis          #+#    #+#             */
-/*   Updated: 2024/06/21 15:07:02 by echapuis         ###   ########.fr       */
+/*   Updated: 2024/06/25 00:05:20 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+/*void	here_print_env(char **env)
+{
+	int	i;
+
+	i = 0;
+	while (env[i])
+	{
+		printf("%s\n", env[i]);
+		i++;
+	}
+}*/
+
+/*
+void	_free_ptr(void *ptr)
+{
+	if (ptr != NULL)
+	{
+		free(ptr);
+		ptr = NULL;
+	}
+}*/
 
 int	length_env(char **env)
 {
@@ -23,124 +45,112 @@ int	length_env(char **env)
 }
 
 /*
-void	print_env(char **env)
+int	search_in_env(char *s, char **env)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (env[i])
 	{
-		printf("%s\n", env[i]);
+		if (strncmp(s, env[i], strlen(s)) == 0)
+			return (i);
 		i++;
 	}
-}*/
-/*
-void free_env(char **env)
-{
-	int i = 0;
-	while (env[i])
-		{
-			free(env[i]);
-			i++;
-		}
-	free(env);
+	return (-1);
 }*/
 
-bool init_unset_vars(t_data *data, char ***new_env, int *new_env_index)
+static char	**alloc_new_env(t_data *data, int len)
 {
-	char **env;
-
-	env = data->env;
-
-	*new_env = malloc((length_env(env) + 1) * sizeof(char *));
-	if (!*new_env) {
-		perror("malloc failed");
-		return (false);
-	}
-	*new_env_index = 0;
-	return (true);
-}
-
-bool perform_unset(t_data *data, char **new_env, int *new_env_index)
-{
-	int i;
-	int j;
-	t_command *cmd;
-	char **env;
-	bool to_remove;
+	int		i;
+	char	**new_env;
 
 	i = 0;
-	j = 0;
-	to_remove = false;
-	cmd = data->cmd;
-	env = data->env;
-
-	while (env[i])
+	new_env = ft_calloc((len + 1), sizeof * new_env);
+	if (!new_env)
+		return (NULL);
+	while (data->env[i] && i < len)
 	{
-		while (cmd->args[j])
-		{
-			if (strncmp(env[i], cmd->args[j], strlen(cmd->args[j])) == 0 &&
-				env[i][strlen(cmd->args[j])] == '=')
-			{
-				to_remove = true;
-				break;
-			}
-			j++;
-		}
-		if (!to_remove)
-		{
-			new_env[*new_env_index] = strdup(env[i]);
-			if (!new_env[*new_env_index])
-			{
-				perror("strdup failed");
-				//free_env(new_env);
-				return (false);
-			}
-			(*new_env_index)++;
-		}
+		new_env[i] = ft_strdup(data->env[i]);
 		i++;
 	}
-	new_env[*new_env_index] = NULL;
-	return (true);
+	return (new_env);
 }
 
-
-int unset_builtin(t_data *data)
+void	remove_env_var(t_data *data, int index)
 {
-	char **new_env;
-	int new_env_index;
+	int	i;
+	int	len;
 
-	if (!init_unset_vars(data, &new_env, &new_env_index))
-		return (1);
-	if (!perform_unset(data, new_env, &new_env_index))
-		return (1);
-	//free_env(data->env);
-	data->env = new_env;
-	//print_env(data->env);
+	i = index;
+	len = index;
+	if (index > length_env(data->env))
+		return ;
+	while (data->env[i + 1])
+	{
+		data->env[i] = ft_strdup(data->env[i + 1]);
+		len++;
+		i++;
+	}
+	data->env = alloc_new_env(data, len);
+}
+
+int	prep_unset(char **env, char *s)
+{
+	int	index_to_remove;
+
+	index_to_remove = -1;
+	if (ft_strchr(s, '=') != 0 || search_in_env(s, env, ft_strlen(s)) == -1)
+		return (-1);
+	index_to_remove = search_in_env(s, env, ft_strlen(s));
+	return (index_to_remove);
+}
+
+int	unset_builtin(t_data *data)
+{
+	int	i;
+	int	index_to_remove;
+
+	i = 1;
+	index_to_remove = -1;
+	if (!data->env || !data->cmd->args[1])
+		return (0);
+	while (data->cmd->args[i])
+	{
+		index_to_remove = prep_unset(data->env, data->cmd->args[i]);
+		if (index_to_remove != -1)
+			remove_env_var(data, index_to_remove);
+		i++;
+	}
+	//here_print_env(data->env);
 	return (0);
 }
-
 /*
 int main(int argc, char **argv)
 {
-	(void)argc;
-	(void)argv;
 	t_data data;
 	t_command cmd;
 	char *args[] = {
-		"PATH",
+		"",
 		NULL
 	};
 	char *env[] = {
 		"PATH=/usr/bin",
 		"USER=test_user",
 		"HELLO=world",
+		"FUCK=YEAK",
+		"RHO=MM",
 		NULL
 	};
+
 	data.env = env;
 	data.cmd = &cmd;
 
 	cmd.args = args;
-// pour tester rajouter print env,  dans unset car leak sinon pour affiche
-	return (unset(&data));
+
+
+	if (unset_builtin(&data) == 0)
+		printf("Unset function executed successfully.\n");
+	else
+		printf("Unset function failed.\n");
+	return (0);
 }*/

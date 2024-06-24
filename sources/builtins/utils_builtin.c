@@ -3,27 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   utils_builtin.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: echapuis <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 14:39:05 by echapuis          #+#    #+#             */
-/*   Updated: 2024/06/21 14:39:38 by echapuis         ###   ########.fr       */
+/*   Updated: 2024/06/25 00:04:58 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-bool	check_surcharge(char *s)
+int	search_in_env(char *s, char **env, size_t len)
 {
 	int	i;
 
 	i = 0;
-	if (s[i] == '+')
-		return (false);
-	while (s[i] && s[i + 1])
+	while (env[i])
 	{
-		if (s[i] == '+' && s[i + 1] == '=')
-			return (true);
+		if (strncmp(s, env[i], len) == 0)
+			return (i);
 		i++;
 	}
-	return (false);
+	return (-1);
 }

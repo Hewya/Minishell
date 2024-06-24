@@ -6,85 +6,22 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 14:49:21 by echapuis          #+#    #+#             */
-/*   Updated: 2024/06/23 18:15:29 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/06/25 00:07:05 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/*
-void	print_env(char **env)
-{
-	int	i;
-
-	i = 0;
-	while (env[i])
-	{
-		printf("%s\n", env[i]);
-		i++;
-	}
-}
-*/
-bool	ft_valid_surcharge(char *s)
-{
-	int	i;
-
-	i = 0;
-	if (s[i] == '+')
-		return (false);
-	while (s[i] && s[i + 1])
-	{
-		if (s[i] == '+' && s[i + 1] == '=')
-			return (true);
-		i++;
-	}
-	return (false);
-}
-
-int	valid_arg(char *s)
-{
-	int	i;
-
-	i = 0;
-	if (ft_isdigit(s[i]))
-		return (1);
-	if (!ft_isalnum(s[i]))
-	{
-		if (s[i] != '_')
-			return (1);
-	}
-	while (s[i])
-	{
-		if (s[i] == '+' && s[i + 1] != '=')
-			return (1);
-		else if (!(ft_isalnum(s[i])) && s[i] != '_' && s[i] != '='
-			&& s[i] != '+')
-			return (1);
-		i++;
-	}
-	return (0);
-}
-
-int	find_key(t_data *data, char *s, size_t len)
-{
-	int	i;
-
-	i = 0;
-	while (data->env[i])
-	{
-		if (ft_strncmp(data->env[i], s, len) == 0 && data->env[i][len] == '=')
-			return (i);
-		i++;
-	}
-	return (-1);
-}
-
 int	env_modif(t_data *data, char *s)
 {
-	int		i;
-	char	**new_env;
+	t_data		*tmp;
+	int			i;
+	char		*value;
+	char		**new_env;
 
 	i = 0;
+	tmp = data;
+	value = ft_strchr(s, '=');
 	new_env = NULL;
 	while (data->env[i])
 		i++;
@@ -94,22 +31,11 @@ int	env_modif(t_data *data, char *s)
 		printf("malloc failed\n");
 		return (1);
 	}
-	i = 0;
-	while (data->env[i])
-	{
-		new_env[i] = data->env[i];
-		i++;
-	}
-	new_env[i] = ft_strdup(s);
-	if (!new_env[i])
-	{
-		printf("strdup failed\n");
-		free(new_env);
-		return (1);
-	}
-	new_env[i + 1] = NULL;
-	// need to free ?
-	data->env = new_env;
+	i = search_in_env(s, tmp->env, (ft_strlen(s) - ft_strlen(value)));
+	if (i == -1)
+		new_env_modif(data, new_env, s);
+	else
+		data->env[i] = s;
 	return (0);
 }
 
@@ -122,10 +48,7 @@ int	env_surcharge(t_data *data, char *s)
 
 	value = ft_strchr(s, '=') + 1;
 	len = (ft_strlen(s) - ft_strlen(value)) - 2;
-	key = find_key(data, s, len);
-	if (key == -1)
-		env_modif(data, s);
-	else
+	if (find_key(data, s, len, value) == 0)
 	{
 		new_value = malloc(ft_strlen(data->env[key]) + ft_strlen(value) + 1);
 		if (!new_value)
@@ -133,73 +56,83 @@ int	env_surcharge(t_data *data, char *s)
 			printf("malloc failed\n");
 			return (1);
 		}
-		strcpy(new_value, data->env[key]);
-		strcat(new_value, value);
+		ft_strcpy(new_value, data->env[key]);
+		ft_strcat(new_value, value);
 		data->env[key] = new_value;
 	}
 	return (0);
 }
 
-int	export_builtin(t_data *data)
+int	export_perform(t_data *data, t_command *command)
 {
 	int	i;
 	int	res;
 	int	invalid;
 
-	i = 0;
+	i = 1;
 	res = 0;
 	invalid = -1;
-	if (data->cmd->args == NULL)
-		printf("yeah go see the man brooo !\n");
-	else
+	while (command->args[i] != NULL)
 	{
-		while (data->cmd->args[i] != NULL)
+		if (valid_arg(command->args[i]) != 0)
 		{
-			if (valid_arg(data->cmd->args[i]) != 0)
-			{
-				invalid = i;
-				printf("export: %s: not a valid identifier",
-					data->cmd->args[i]);
-			}
-			else if (ft_valid_surcharge(data->cmd->args[i]))
-				res = env_surcharge(data, data->cmd->args[i]);
-			else
-				res = env_modif(data, data->cmd->args[i]);
-			i++;
+			invalid = i;
+			printf("export: %s: not a valid arg\n", command->args[i]);
 		}
+		if (valid_arg(command->args[i]) == 0
+			&& ft_valid_surcharge(command->args[i]))
+			res = env_surcharge(data, command->args[i]);
+		else if ((valid_arg(command->args[i])) == 0)
+			res = env_modif(data, command->args[i]);
+		i++;
 	}
 	if (invalid > -1)
 		return (1);
-	// print_env(data->env);
 	return (res);
 }
 
+int	export_builtin(t_data *data)
+{
+	int	invalid;
+
+	invalid = -1;
+	if (data->cmd->args[1] == NULL)
+		printf("yeah go see the man brooo !\n");
+	else
+		invalid = export_perform(data, data->cmd);
+	if (invalid > -1)
+		return (1);
+	return (0);
+}
+
 /*
- * leaks
-// a enlever: pour surchargement si la key existe pas : affiche le +
-int	main(int argc, char **argv)
+int main(int argc, char **argv)
 {
 	(void)argc;
 	(void)argv;
-	t_data data;
-	t_command cmd;
+    t_data data;
+    t_command cmd;
 	char *args[] = {
-		"FUCK+=ROAD",
-		"FU=HEU",
-		NULL
-	};
-	char *env[] = {
+		"./a.out",
+		"_hello=ahnon",
+		"HELL=YO",
+		"AIDEzMoi",
 		"FUCK=YEAH",
-		"PWD=ici",
-		"PATH=/usr/bin",
-		"USER=test_user",
+		"FUCK+=OK",
+		"AHOUI+=etoui",
 		NULL
 	};
+    char *env[] = {
+		"FUCK=HOLA",
+		"PWD=ici",
+		"HELL=OUI",
+        "PATH=/usr/bin",
+        "USER=test_user",
+        NULL
+    };
 
-	data.env = env;
-	data.cmd = &cmd;
-
-	cmd.args = args;
-
-	return (export(&data));
+    data.env = env;
+    data.cmd = &cmd;
+    cmd.args = args;
+    return (export_builtin(&data));
 }*/

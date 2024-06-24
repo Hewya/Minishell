@@ -6,7 +6,7 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 15:41:26 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/06/24 16:09:30 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/06/25 00:10:01 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -510,7 +510,7 @@ bool					is_valid_env_var_key(char *var);
 /* ---- export ---- */
 bool		ft_valid_surcharge(char *s);
 int			valid_arg(char *s);
-int			find_key( t_data *data, char *s, size_t len);
+int			find_key( t_data *data, char *s, size_t len, char *value);
 int			env_modif(t_data *data, char *s);
 int			env_surcharge(t_data *data, char *s);
 int			export_builtin(t_data *data);

@@ -6,7 +6,7 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 17:44:16 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/06/24 16:14:37 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/06/25 00:15:35 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,28 +42,14 @@ void	free_ptr(void *ptr)
 }
 
 /* partie de redirection */
-bool	restore_io(t_io_fds *io)
+void	close_fd(t_data *data)
 {
-	int	ret;
-
-	ret = true;
-	if (!io)
-		return (ret);
-	if (io->stdin_backup != -1)
-	{
-		if (dup2(io->stdin_backup, STDIN_FILENO) == -1)
-			ret = false;
-		close(io->stdin_backup);
-		io->stdin_backup = -1;
-	}
-	if (io->stdout_backup != -1)
-	{
-		if (dup2(io->stdout_backup, STDOUT_FILENO) == -1)
-			ret = false;
-		close(io->stdout_backup);
-		io->stdout_backup = -1;
-	}
-	return (ret);
+	if (!data->cmd->io_fds)
+		return ;
+	if (data->cmd->io_fds->fd_in != -1)
+		close(data->cmd->io_fds->fd_in);
+	if (data->cmd->io_fds->fd_out != -1)
+		close(data->cmd->io_fds->fd_out);
 }
 
 void	free_io(t_io_fds *io)

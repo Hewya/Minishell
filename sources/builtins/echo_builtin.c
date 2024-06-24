@@ -6,7 +6,7 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 14:45:57 by echapuis          #+#    #+#             */
-/*   Updated: 2024/06/24 18:39:56 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/06/24 18:46:34 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	print_args(char **args, bool flag_newline)
 {
 	int	i;
 
-	i = 0;
+	i = 1;
 	if (flag_newline)
 		i++;
 	while (args[i] && is_flag(args[i]) == true)

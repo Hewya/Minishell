@@ -6,12 +6,11 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 09:59:36 by echapuis          #+#    #+#             */
-/*   Updated: 2024/06/23 18:37:15 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/06/24 20:43:31 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include <fcntl.h>
 
 int	_launch_command(char *pn, t_data *data, char **env)
 {
