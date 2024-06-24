@@ -35,13 +35,13 @@ SRC		=	expander/identify_var	\
 			parser/parse_pipe	\
 			parser/parse_trunc	\
 			parser/parse_word	\
-			builtins/cd_builtin \
-			builtins/echo_builtin \
-			builtins/env_builtin \
-			builtins/exit_builtin \
-			builtins/export_builtin \
-			builtins/pwd_builtin \
-			builtins/unset_builtin \
+			builtins/cd_builtin	\
+			builtins/echo_builtin	\
+			builtins/env_builtin	\
+			builtins/exit_builtin	\
+			builtins/export_builtin	\
+			builtins/pwd_builtin	\
+			builtins/unset_builtin	\
 			builtins/utils_builtin	\
 			execution/exec_command	\
 			execution/executing	\

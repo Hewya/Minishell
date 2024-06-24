@@ -6,7 +6,7 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 15:07:09 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/06/22 12:56:28 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/06/24 14:14:18 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,4 +89,19 @@ int	replace_var(t_token **token_node, char *var_value, int index)
 	return (0);
 }
 
-// char	*replace_str_heredoc(char *str, char *var_value, int index);
+char	*replace_str_heredoc(char *str, char *var_value, int index)
+{
+	char	*tmp;
+
+	tmp = NULL;
+	if (var_value == NULL)
+		*str = '\0';
+	else
+	{
+		tmp = str;
+		str = erase_and_replace(NULL, str, var_value, index);
+		free_ptr(tmp);
+	}
+	free_ptr(var_value);
+	return (str);
+}

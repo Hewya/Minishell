@@ -6,7 +6,7 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 15:01:13 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/06/22 12:56:15 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/06/24 14:17:24 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,4 +84,21 @@ int	var_expander(t_data *data, t_token **token_lst)
 	}
 	return (0);
 }
-// char	**var_expander_heredoc(t_data *data, char *str);
+
+char	*var_expander_heredoc(t_data *data, char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == '$'
+			&& is_next_char_a_sep(str[i + 1]) == false
+			&& var_between_quotes(str, i) == false)
+			str = replace_str_heredoc(str,
+				recover_value(NULL, str + i, data), i);
+		else
+			i++;
+	}
+	return (str);
+}

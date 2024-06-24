@@ -6,7 +6,7 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 18:12:03 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/06/22 12:53:23 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/06/24 14:24:23 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,8 @@ void	create_command(t_data *data, t_token *token)
 			parse_input(&data->cmd, &tmp);
 		else if (tmp->type == TRUNC)
 			parse_trunc(&data->cmd, &tmp);
-		// else if (tmp->type == HEREDOC)
-		// 	parse_heredoc(data, &data->cmd, &tmp);
+		else if (tmp->type == HEREDOC)
+			parse_heredoc(data, &data->cmd, &tmp);
 		else if (tmp->type == APPEND)
 			parse_append(&data->cmd, &tmp);
 		else if (tmp->type == PIPE)

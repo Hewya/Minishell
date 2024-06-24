@@ -6,7 +6,7 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 15:41:26 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/06/23 17:55:57 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/06/24 14:17:42 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ extern int				g_last_exit_code;
 # define FAILURE 1
 
 # define PROMPT "\nMinishell ->	"
+# define HEREDOC_NAME "/tmp/.minishell_heredoc_"
 
 /* STRUCTURES */
 
@@ -181,6 +182,7 @@ int						check_if_var(t_token **token_lst);
 
 /// @brief
 int						var_expander(t_data *data, t_token **token_lst);
+char	*var_expander_heredoc(t_data *data, char *str);
 
 // var_expander_utils.c
 
@@ -204,6 +206,7 @@ char					*get_new_token_string(char *oldstr, char *var_value,
  */
 int						replace_var(t_token **token_node, char *var_value,
 							int index);
+char	*replace_str_heredoc(char *str, char *var_value, int index);
 
 // identify_var.c
 
@@ -374,12 +377,17 @@ void					parse_append(t_command **last_cmd, t_token **token_lst);
 /**
  * @brief 1??????????????????????????????????????????????????????????
  */
+bool	get_heredoc(t_data *data, t_io_fds *io);
+void	parse_heredoc(t_data *data, t_command **last_cmd, t_token **token_lst);
+
+
 
 // parse_heredoc_utils.c
 
 /**
  * @brief 1??????????????????????????????????????????????????????????
  */
+bool	fill_heredoc(t_data *data, t_io_fds *io, int fd);
 
 // parse_input.c
 
