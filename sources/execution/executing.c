@@ -6,20 +6,12 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 11:52:45 by echapuis          #+#    #+#             */
-/*   Updated: 2024/06/25 20:08:28 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/06/25 23:47:26 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/*
-void	exit_minishell(t_data *data)
-{
-//close_fds
-//io_fd_restore
-//close_pipes
-}
-*/
 
 static int	prep_for_exec(t_data *data)
 {
@@ -62,20 +54,20 @@ int	exec_builtins(t_data *data, t_command *cmd)
 int	exec_command(t_data *data, t_command *cmd)
 {
 	int	res;
-	char	**cmd;
 
 	res = FAILURE;
+	if (!cmd || !cmd->command)
+		exit_minishell(data, EXIT_FAILURE);
+	if (!check_infile_outfile(cmd->io_fds))
+		exit_minishell(data, EXIT_FAILURE);
 	if (pipes_handler(cmd) == -1)
 		ft_putendl_fd("error in exec_command pipes", 2); // free and exit en +
 	close_pipes(cmd);
 	if (io_fd_handler(cmd->io_fds) == -1)
 		ft_putendl_fd("error in exec_command io_fd_handler", 2); //free and exit en +
 	close_fd(cmd);
-//	if (check_builtins(cmd->command))
-//		res = exec_builtins(data, cmd);
-//	else
-		res = call_exec(data, cmd);
-	//exit_minishell
+	res = call_exec(data, cmd);
+	exit_minishell(data, res);
 	return (res);
 }
 // LANCEMENT EXECUTION
@@ -90,7 +82,7 @@ int	executing(t_data *data)
 		return (SUCCESS);
 	if (check_builtins(data->cmd->command) && (!data->cmd->next)
 		&& (!data->cmd->prev))
-		res = exec_builtins(data);
+		res = exec_builtins(data, data->cmd);
 	if (res != FAILURE)
 		return (res);
 	else

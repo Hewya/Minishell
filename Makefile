@@ -47,10 +47,10 @@ SRC		=	expander/identify_var	\
 			execution/exec_command	\
 			execution/executing	\
 			execution/utils_executing	\
-			redirection/childrens	\
+			execution/childrens	\
+			execution/prep_executing	\
 			redirection/redirection	\
 			redirection/redirection_utils	\
-			redirection/file	\
 			utils/clean_up	\
 			utils/errors	\
 			utils/init_data	\

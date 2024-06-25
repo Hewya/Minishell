@@ -6,97 +6,103 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 09:59:36 by echapuis          #+#    #+#             */
-/*   Updated: 2024/06/24 20:43:31 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/06/25 23:48:35 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	_launch_command(char *pn, t_data *data, char **env)
+int	check_command(t_data *data, t_command *cmd)
 {
-	int	fd;
-
-	if (access(pn, F_OK) != 0)
-		return (0);
-	fd = open(pn, O_DIRECTORY);
-	if (fd >= 0)
+	if (ft_strchr(cmd->command, '/') == NULL && search_in_env("PATH", data->env,
+			4) != -1)
 	{
-		close(fd);
-		ft_putstr_fd(data->cmd->command, 2);
-		ft_putendl_fd(": Is a directory", 2);
-		return (1);
-	}
-	if (access(pn, X_OK) == 0)
-	{
-		execve(pn, data->cmd->args, env);
-		perror(pn);
-	}
-	else
-		ft_putstr_fd(data->cmd->command, 2);
-	ft_putendl_fd(": Permission denied", 2);
-	return (1);
-}
-
-char	**_final_path(char **ext_path)
-{
-	int		i;
-	char	**path;
-
-	i = 0;
-	while (ext_path[i++])
-		;
-	path = malloc(sizeof(char *) * (i + 1));
-	if (!path)
-		return (NULL);
-	i = 0;
-	while (ext_path[i])
-	{
-		path[i] = ft_strjoin(ext_path[i], "/");
-		if (path[i++])
-			continue ;
-		_free(path);
-		return (NULL);
-	}
-	path[i] = NULL;
-	return (path);
-}
-
-int	_with_path(t_data *data, char **env)
-{
-	char	**ext_path;
-	char	**itr;
-	char	**path;
-	char	*absolute_path;
-
-	ext_path = extract_path(env);
-	if (!ext_path)
-		return (_free(data->cmd->args), 1);
-	path = _final_path(ext_path);
-	_free(ext_path);
-	itr = path;
-	while (*itr)
-	{
-		absolute_path = ft_strjoin(*itr++, data->cmd->command);
-		if (absolute_path == NULL)
-			return (_free(path), 1);
-		if (_launch_command(absolute_path, data, env))
-			return (free(absolute_path), _free(path), 1);
-		free(absolute_path);
-	}
-	return (_free(path), 0);
-}
-
-void	call_exec(t_data *data)
-{
-	if (ft_strchr(data->cmd->command, '/') == NULL && _srch_path(data->env) !=
-		-1)
-		if (_with_path(data, data->env))
-			return ;
-	if (_launch_command(data->cmd->command, data, data->env))
-		return ;
-	ft_putstr_fd(data->cmd->command, 2);
-	if (ft_strchr(data->cmd->command, '/'))
+		ft_putstr_fd(cmd->command, 2);
 		ft_putendl_fd(": command not found", 2);
-	else
-		ft_putendl_fd(": No such file or directory", 2);
+		return (127);
+	}
+	if (access(cmd->command, F_OK) != 0)
+		return (127);
+	else if (is_directory(cmd->command))
+	{
+		ft_putstr_fd(cmd->command, 2);
+		ft_putendl_fd("Is a directory", 2);
+		return (126);
+	}
+	else if (access(cmd->command, F_OK | X_OK) != 0)
+		return (126);
+	return (EXIT_SUCCESS);
+}
+
+char	*get_cmd_path(t_data *data, char *command)
+{
+	char	**paths_env;
+	char	*cmd;
+	char	*cmd_path;
+
+	if (!command)
+		return (NULL);
+	paths_env = extract_path(data);
+	if (!paths_env)
+		return (NULL);
+	cmd = ft_strjoin("/", command);
+	if (!cmd)
+	{
+		free_str_tab(paths_env);
+		return (NULL);
+	}
+	cmd_path = final_path(cmd, paths_env);
+	if (!cmd_path)
+	{
+		free_ptr(cmd);
+		free_str_tab(paths_env);
+		return (NULL);
+	}
+	return (cmd_path);
+}
+
+int	exec_with_path(t_data *data, t_command *cmd)
+{
+	if (!cmd->command || cmd->command[0] == '\0')
+		return (127);
+	if (is_directory(cmd->command))
+		return (127);
+	cmd->path = get_cmd_path(data, cmd->command);
+	if (!cmd->path)
+		return (127);
+	if (execve(cmd->path, cmd->args, data->env) == -1)
+	{
+		ft_putendl_fd("execve", 2);
+		return (errno);
+	}
+	return (EXIT_FAILURE);
+}
+
+int	launch_command(t_data *data, t_command *cmd)
+{
+	int	res;
+
+	res = check_command(data, cmd);
+	if (res != SUCCESS)
+		return (res);
+	if (execve(cmd->command, cmd->args, data->env) == -1)
+	{
+		ft_putendl_fd("execve", 2);
+		return (errno);
+	}
+	return (EXIT_FAILURE);
+}
+
+int	call_exec(t_data *data, t_command *cmd)
+{
+	int res;
+
+	if (ft_strchr(cmd->command, '/') == NULL)
+	{
+		if (check_builtins(cmd->command))
+			res = exec_builtins(data, cmd);
+		res = exec_with_path(data, cmd);
+	}
+	res = launch_command(data, cmd);
+	return (res);
 }

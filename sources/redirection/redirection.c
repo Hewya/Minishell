@@ -6,7 +6,7 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 10:53:06 by echapuis          #+#    #+#             */
-/*   Updated: 2024/06/25 00:00:52 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/06/25 23:39:32 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,8 +114,8 @@ int	create_pipes(t_data *data)
 			if (!fd || pipe(fd) == -1)
 			{
 				perror("create pipes failed\n");
-				// free data
-				// exit
+				free_data(&data, false);
+				return (EXIT_FAILURE);
 			}
 			cmd->pipe_fd = fd;
 		}

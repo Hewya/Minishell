@@ -6,7 +6,7 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 15:41:26 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/06/25 20:12:38 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/06/25 23:37:05 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,18 +18,17 @@
 # include ".././libft/libft.h"
 # include <errno.h>             // errno, strerror, etc.
 # include <fcntl.h>             // open, creat, fcntl, etc.
+# include <limits.h>            //
 # include <readline/history.h>  // add_history, history_list, etc.
 # include <readline/readline.h> // readline, add_history, etc.
 # include <signal.h>            // signal, kill, sigaction, etc.
 # include <stdbool.h>           // boolean
-# include <limits.h>            //
 # include <stdio.h>             // printf, scanf, perror, etc.
 # include <stdlib.h>            // malloc, free, exit, etc.
 # include <sys/stat.h>          // ?????????
 # include <sys/types.h>         // pid_t, uid_t, gid_t, etc.
 # include <sys/wait.h>          // wait, waitpid, waitid, etc.
 # include <unistd.h>            // fork, pipe, exec, read, write, close, etc.
-
 
 /* MACROS */
 # ifndef PATH_MAX
@@ -95,7 +94,7 @@ typedef struct s_data
 
 /* ENUMERATIONS */
 
-enum	e_token_types
+enum					e_token_types
 {
 	SPACES = 1,
 	WORD,
@@ -108,7 +107,7 @@ enum	e_token_types
 	END
 };
 
-enum	e_quoting_status
+enum					e_quoting_status
 {
 	UNQUOTED,
 	SINGLE_QUOTE,
@@ -116,7 +115,7 @@ enum	e_quoting_status
 };
 
 /* ************************************************************************** */
-/*  							FUNCTIONS									  */
+/*  							FUNCTIONS										*/
 /* ************************************************************************** */
 
 /* ------------------------------ LEXER --------------------------------------*/
@@ -183,7 +182,7 @@ int						check_if_var(t_token **token_lst);
 
 /// @brief
 int						var_expander(t_data *data, t_token **token_lst);
-char	*var_expander_heredoc(t_data *data, char *str);
+char					*var_expander_heredoc(t_data *data, char *str);
 
 // var_expander_utils.c
 
@@ -207,7 +206,8 @@ char					*get_new_token_string(char *oldstr, char *var_value,
  */
 int						replace_var(t_token **token_node, char *var_value,
 							int index);
-char	*replace_str_heredoc(char *str, char *var_value, int index);
+char					*replace_str_heredoc(char *str, char *var_value,
+							int index);
 
 // identify_var.c
 
@@ -378,17 +378,16 @@ void					parse_append(t_command **last_cmd, t_token **token_lst);
 /**
  * @brief 1??????????????????????????????????????????????????????????
  */
-bool	get_heredoc(t_data *data, t_io_fds *io);
-void	parse_heredoc(t_data *data, t_command **last_cmd, t_token **token_lst);
-
-
+bool					get_heredoc(t_data *data, t_io_fds *io);
+void					parse_heredoc(t_data *data, t_command **last_cmd,
+							t_token **token_lst);
 
 // parse_heredoc_utils.c
 
 /**
  * @brief 1??????????????????????????????????????????????????????????
  */
-bool	fill_heredoc(t_data *data, t_io_fds *io, int fd);
+bool					fill_heredoc(t_data *data, t_io_fds *io, int fd);
 
 // parse_input.c
 
@@ -477,10 +476,8 @@ bool					init_data(t_data *data, char **env);
  */
 void					init_io(t_command *cmd);
 
-
 // exit.c
-void	exit_shell(t_data *data, int exno);
-
+void					exit_shell(t_data *data, int exno);
 
 /* ------------------------------ DEBUGS --------------------------------------*/
 
@@ -497,7 +494,6 @@ void					print_token_list(t_token **tokens);
 void					print_tokens(t_token *head);
 t_token					*get_first_node(t_token *node);
 
-
 /* ------------------------------- ENV ---------------------------------------*/
 int						env_var_count(char **env);
 int						get_env_var_index(char **env, char *var);
@@ -507,102 +503,109 @@ bool					is_valid_env_var_key(char *var);
 /* ------------------------------ BUILTINS --------------------------------------*/
 
 /* ---- export ---- */
-bool		ft_valid_surcharge(char *s);
-int			valid_arg(char *s);
-int			find_key( t_data *data, char *s, size_t len, char *value);
-int			env_modif(t_data *data, char *s);
-int			env_surcharge(t_data *data, char *s);
-int			export_builtin(t_data *data, t_command *cmd);
-int			new_env_modif(t_data *data, char **new_env, char *s);
+bool					ft_valid_surcharge(char *s);
+int						valid_arg(char *s);
+int						find_key(t_data *data, char *s, size_t len,
+							char *value);
+int						env_modif(t_data *data, char *s);
+int						env_surcharge(t_data *data, char *s);
+int						new_env_modif(t_data *data, char **new_env, char *s);
+int						export_builtin(t_data *data, char **args);
 
 /* ---- cd ---- */
 
-int		count_arg(char *args[]);
-char	*ft_getenv(char **env, const char *name);
-void	change_env_var(char **env, const char *name, const char *value);
-void	change_pwd(t_data *data);
-int		change_directory(t_data *data, t_command *cmd);
-int cd_builtin(t_data *data, char **args);
+int						count_arg(char *args[]);
+char					*ft_getenv(char **env, const char *name);
+void					change_env_var(char **env, const char *name,
+							const char *value);
+void					change_pwd(t_data *data);
+int						change_directory(t_data *data, char **args);
+int						cd_builtin(t_data *data, char **args);
 
 /* ---- unset ---- */
 
-//int		length_env(char **env); // a mettre dans utils
-//bool	init_unset_vars(t_data *data, char ***new_env, int *new_env_index);
-//bool	perform_unset(t_data *data, char **new_env, int *new_env_index);
-//int		unset_builtin(t_data *data);
+// int		length_env(char **env); // a mettre dans utils
+// bool	init_unset_vars(t_data *data, char ***new_env, int *new_env_index);
+// bool	perform_unset(t_data *data, char **new_env, int *new_env_index);
+// int		unset_builtin(t_data *data);
 
-int length_env(char **env);
+int						length_env(char **env);
 
-int	search_in_env(char *s, char **env, size_t len);
+int						search_in_env(char *s, char **env, size_t len);
 // static char **alloc_new_env(t_data *data, int len);
-void	remove_var(t_data *data, int index);
-int	prep_unset(char **env, char *s);
-int	unset_builtin(t_data *data, char **args);
+void					remove_var(t_data *data, int index);
+int						prep_unset(char **env, char *s);
+int						unset_builtin(t_data *data, char **args);
 
 /* ---- echo ---- */
 
-bool	is_flag(char *args);
-void	print_args(char **args, bool flag_newline);
-int		echo_builtin(t_data *data, t_command *cmd);
+bool					is_flag(char *args);
+void					print_args(char **args, bool flag_newline);
+int						echo_builtin(t_data *data, char **args);
 
 /* ---- env ---- */
 
-int		print_env(t_data *data);
-int		env_builtin(t_data *data, t_command *cmd);
+int						print_env(t_data *data);
+int						env_builtin(t_data *data, char **args);
 
 /* ---- pwd ---- */
 
-int		pwd_builtin(void);
+int						pwd_builtin(void);
 
 /* ---- exit ---- */
 
-int	exit_builtin(t_data *data, char **args);
-
+int						exit_builtin(t_data *data, char **args);
 
 /* ------------------------------ EXECUTING --------------------------------------*/
 
-/* ---- executing ---- */
+//* ---- executing ---- */
 int		exec_command(t_data *data, t_command *cmd);
 int		executing(t_data *data);
 int		exec_builtins(t_data *data, t_command *cmd);
 
 /* ---- childrens ---- */
 
-int		wait_childrens(/*t_data *data*/ void);
+int		wait_childrens(t_data *data);
 int		create_childrens(t_data *data);
 
 /* ---- exec_command ---- */
-/*
-int		_launch_command(char *pn, t_data *data, char **env);
-char	**_final_path(char **ext_path);
-int		_with_path(t_data *data, char **env);
-void	call_exec(t_data *data);
-*/
+
+int	call_exec(t_data *data, t_command *cmd);
+int launch_command(t_data *data, t_command *cmd);
+int exec_with_path(t_data *data, t_command *cmd);
+char *get_cmd_path(t_data *data, char *command);
+int check_command(t_data *data, t_command *cmd);
+
 /* ---- redirections ---- */
 
 /*checker */
 void	close_fd(t_command *command);
 int		io_fd_handler(t_io_fds *io_fds);
 int		io_fd_restore(t_io_fds *io_fds);
-int		pipes_handler(t_data *data);
+int		pipes_handler(t_command *command);
 int		create_pipes(t_data *data);
-void	close_pipes(t_data *data);
-bool	check_infile_outfile(t_io_fds *io);
+void	close_pipes(t_command *command);
+
+/* ---- utils ---- */
+
+int is_directory(char *dir);
+bool	check_builtins(char *cmd);
+char *final_path(char *cmd, char **path_env);
+char *get_path_env(char **env, char *var);
+char    **extract_path(t_data *data);
 
 /* ---- utils_redirections ---- */
 
-//int		length_env(char **env);
-bool	check_builtins(char *cmd);
-int		_srch_path(char *envp[]);
-char	**extract_path(char *envp[]);
-void	_free(char *path[]);
+// int		length_env(char **env);
+bool					check_builtins(char *cmd);
+int						_srch_path(char *envp[]);
+char					**extract_path(char *envp[]);
+void					_free(char *path[]);
 
+/* ---- prep executing ---- */
 
-
-
-
+bool    check_infile_outfile(t_io_fds *io);
 
 void					running(t_data *data);
-
 
 #endif
