@@ -6,7 +6,7 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 14:47:15 by echapuis          #+#    #+#             */
-/*   Updated: 2024/06/25 01:05:50 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/06/25 14:17:27 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,9 @@ char *ft_getenv(char **env, const char *name)
 				 printf("malloc failed\n");
 				 return;
 			 }
-			 strcpy(new_var, name);
-			 strcat(new_var, "=");
-			 strcat(new_var, value);
+			 ft_strcpy(new_var, name);
+			 ft_strcat(new_var, "=");
+			 ft_strcat(new_var, value);
 			 env[i] = new_var;
 			 return;
 		 }
@@ -71,9 +71,9 @@ char *ft_getenv(char **env, const char *name)
 		 printf("malloc failed\n");
 		 return;
 	 }
-	 strcpy(new_var, name);
-	 strcat(new_var, "=");
-	 strcat(new_var, value);
+	 ft_strcpy(new_var, name);
+	 ft_strcat(new_var, "=");
+	 ft_strcat(new_var, value);
 	 env[i] = new_var;
 	 env[i + 1] = NULL;
  }

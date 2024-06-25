@@ -20,12 +20,15 @@ SRCS		= ft_atoi.c \
 			  ft_putstr_fd.c \
 			  ft_split.c \
 			  ft_strchr.c \
+			  ft_strndup.c \
 			  ft_strdup.c \
 			  ft_striteri.c \
 			  ft_strjoin.c \
 			  ft_strjoin_free.c \
+			  ft_strcat.c \
 			  ft_strlcat.c \
 			  ft_strlcpy.c \
+			  ft_strcpy.c \
 			  ft_strlen.c \
 			  ft_strmapi.c \
 			  ft_strncmp.c \

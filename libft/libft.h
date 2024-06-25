@@ -51,11 +51,14 @@ char	*ft_strchr(const char *s, int c);
 char	*ft_strrchr(const char *s, int c);
 int	ft_strncmp(const char *s1, const char *s2, size_t n);
 int	ft_strcmp(const char *s1, const char *s2);
+char	*ft_strcpy(char *dst, const char *src);
 size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize);
+char	*ft_strcat(char *dst, const char *src);
 size_t	ft_strlcat(char *d, const char *s, size_t dstsize);
 char	*ft_strnstr(const char *haystack, const char *needle, size_t len);
 int	ft_atoi(const char *str);
 void	*ft_calloc(size_t count, size_t size);
+char	*ft_strndup(const char *s1, size_t n);
 char	*ft_strdup(const char *s1);
 
 /* additional functions */
