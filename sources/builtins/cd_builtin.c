@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   cd_builtin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: echapuis <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 14:47:15 by echapuis          #+#    #+#             */
-/*   Updated: 2024/06/25 14:17:27 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/06/24 10:37:57 by echapuis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int count_arg(char *args[])
+int count_args(char *args[])
 {
 	int	i;
 
@@ -57,9 +57,9 @@ char *ft_getenv(char **env, const char *name)
 				 printf("malloc failed\n");
 				 return;
 			 }
-			 ft_strcpy(new_var, name);
-			 ft_strcat(new_var, "=");
-			 ft_strcat(new_var, value);
+			 strcpy(new_var, name);
+			 strcat(new_var, "=");
+			 strcat(new_var, value);
 			 env[i] = new_var;
 			 return;
 		 }
@@ -71,9 +71,9 @@ char *ft_getenv(char **env, const char *name)
 		 printf("malloc failed\n");
 		 return;
 	 }
-	 ft_strcpy(new_var, name);
-	 ft_strcat(new_var, "=");
-	 ft_strcat(new_var, value);
+	 strcpy(new_var, name);
+	 strcat(new_var, "=");
+	 strcat(new_var, value);
 	 env[i] = new_var;
 	 env[i + 1] = NULL;
  }
@@ -102,12 +102,12 @@ int change_directory(t_data *data)
 	home = ft_getenv(data->env, "HOME");
 	cmd = data->cmd;
 
-	if (count_arg(cmd->args) > 0 && chdir(cmd->args[0]) != -1)
+	if (count_args(cmd->args) > 0 && chdir(cmd->args[0]) != -1)
 	{
 		change_pwd(data);
 		return (0);
 	}
-	else if (count_arg(cmd->args) == 0 || ft_strcmp(cmd->args[0], "") == 0)
+	else if (count_args(cmd->args) == 0 || ft_strcmp(cmd->args[0], "") == 0)
 	{
 		if (home != NULL && chdir(home) != -1)
 		{
@@ -126,7 +126,7 @@ int change_directory(t_data *data)
 	 t_command *cmd;
 
 	 cmd = data->cmd;
-	 if (count_arg(cmd->args) > 1)
+	 if (count_args(cmd->args) > 1)
 	 {
 		 printf("cd: too many arguments\n");
 		 return (1);

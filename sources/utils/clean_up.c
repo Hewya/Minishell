@@ -6,7 +6,7 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 17:44:16 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/06/25 01:14:24 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/06/25 14:45:29 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,16 +41,7 @@ void	free_ptr(void *ptr)
 	}
 }
 
-/* partie de redirection */
-void	close_fd(t_data *data)
-{
-	if (!data->cmd->io_fds)
-		return ;
-	if (data->cmd->io_fds->fd_in != -1)
-		close(data->cmd->io_fds->fd_in);
-	if (data->cmd->io_fds->fd_out != -1)
-		close(data->cmd->io_fds->fd_out);
-}
+
 
 void	free_io(t_io_fds *io)
 {

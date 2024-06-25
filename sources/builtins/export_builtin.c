@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_builtin.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: echapuis <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 14:49:21 by echapuis          #+#    #+#             */
-/*   Updated: 2024/06/25 14:17:43 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/06/24 19:12:42 by echapuis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ int	env_surcharge(t_data *data, char *s)
 	int		key;
 	char	*new_value;
 
-	key = 0;
 	value = ft_strchr(s, '=') + 1;
 	len = (ft_strlen(s) - ft_strlen(value)) - 2;
 	if (find_key(data, s, len, value) == 0)

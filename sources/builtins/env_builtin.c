@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_builtin.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: echapuis <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 14:51:38 by echapuis          #+#    #+#             */
-/*   Updated: 2024/06/24 18:43:22 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/06/24 19:02:20 by echapuis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,14 @@ int	env_builtin(t_data *data)
 {
 	if (data->cmd->args[1] != NULL)
 	{
-		printf("env: %s: No such file or directory\n", data->cmd->args[0]);
+		printf("env: %s: No such file or directory\n", data->cmd->args[1]);
 		return (127);
 	}
 	return (print_env(data));
 }
+
 /*
-int	main(int argc, char **argv)
+int main(int argc, char **argv)
 {
 	t_data data;
 	t_command cmd;

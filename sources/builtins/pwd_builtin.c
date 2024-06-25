@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pwd_builtin.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: echapuis <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 14:48:24 by echapuis          #+#    #+#             */
-/*   Updated: 2024/06/23 18:15:38 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/06/21 14:43:01 by echapuis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	pwd_builtin(void)
 	return (0);
 }
 /*
-int	main(void)
+int main()
 {
 	pwd();
 	return (0);

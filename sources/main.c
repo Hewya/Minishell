@@ -6,7 +6,7 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 19:53:16 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/06/24 18:08:57 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/06/25 15:32:03 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ int	main(int ac, char **av, char **env)
 	t_data	data;
 
 	(void)av;
+	rl_outstream = stderr;
 	ft_memset(&data, 0, sizeof(t_data));
 	if (ac != 1)
 	{

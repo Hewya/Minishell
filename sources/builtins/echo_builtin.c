@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo_builtin.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: echapuis <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 14:45:57 by echapuis          #+#    #+#             */
-/*   Updated: 2024/06/24 18:46:34 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/06/24 19:06:39 by echapuis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int	echo_builtin(t_data *data)
 	int		i;
 	bool	flag_newline;
 
-	i = 0;
+	i = 1;
 	flag_newline = false;
 	while (data->cmd->args[i])
 	{
@@ -68,18 +68,18 @@ int	echo_builtin(t_data *data)
 	return (0);
 }
 /*
-int	main(void)
+int main()
 {
-	char *args1[] = {"-n","-nn","-n", "hello", "fuck", NULL};
-	t_data data1;
+    char *args1[] = {"-n","-nn","-n", "hello", "fuck", NULL};
+    t_data data1;
 	t_command command;
-
+	
 	command.args = args1;
 	data1.cmd = &command;
-	echo(&data1);
+    echo_builtin(&data1);
 
-	//char *args2[] = {"Hello,", "world!", NULL};
-	//t_data data2 = {args2};
-	//echo(&data2);
-	return (0);
+    //char *args2[] = {"Hello,", "world!", NULL};
+    //t_data data2 = {args2};
+    //echo(&data2);
+    return (0);
 }*/

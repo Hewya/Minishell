@@ -6,7 +6,7 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 15:41:26 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/06/25 01:13:32 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/06/25 15:33:31 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ extern int				g_last_exit_code;
 # define SUCCESS 0
 # define FAILURE 1
 
-# define PROMPT "\nMinishell ->	"
+# define PROMPT "bash-5.1$ "
 # define HEREDOC_NAME "/tmp/.minishell_heredoc_"
 
 /* STRUCTURES */

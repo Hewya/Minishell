@@ -6,7 +6,7 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 11:52:45 by echapuis          #+#    #+#             */
-/*   Updated: 2024/06/24 20:35:01 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/06/25 15:35:28 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,12 +78,8 @@ int	executing(t_data *data)
 		return (res);
 	else
 	{
-		// gestion erreur nom commande builtins
-		// jkdfhkhdfvgkwbhvlswkvb
-		// sdnfklcerhvglwrbhilj
-		// dxnkweifhncwlkvjnb w;nplor
-		// daxnskwvbfwkriuvb labscnkswrevbl
-		// bcfwjergfkuwfb whiovnwlbl
+		free_data(data , false);
+		// return (127);
 	}
 	create_pipes(data);
 	create_childrens(data);
