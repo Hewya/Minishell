@@ -50,6 +50,7 @@ SRC		=	expander/identify_var	\
 			redirection/childrens	\
 			redirection/redirection	\
 			redirection/redirection_utils	\
+			redirection/file	\
 			utils/clean_up	\
 			utils/errors	\
 			utils/init_data	\

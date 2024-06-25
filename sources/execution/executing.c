@@ -6,7 +6,7 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 11:52:45 by echapuis          #+#    #+#             */
-/*   Updated: 2024/06/25 15:35:28 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/06/25 20:08:28 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,47 +20,62 @@ void	exit_minishell(t_data *data)
 //close_pipes
 }
 */
-int		g_last_exit_code;
 
-int	exec_builtins(t_data *data)
+static int	prep_for_exec(t_data *data)
+{
+	if (!data || !data->cmd)
+		return (EXIT_SUCCESS);
+	if (!data->cmd->command)
+	{
+		if (data->cmd->io_fds
+			&& !check_infile_outfile(data->cmd->io_fds))
+			return (EXIT_FAILURE);
+		return (EXIT_SUCCESS);
+	}
+	if (!create_pipes(data))
+		return (EXIT_FAILURE);
+	return (CMD_NOT_FOUND);
+}
+
+int	exec_builtins(t_data *data, t_command *cmd)
 {
 	int	res;
 
 	res = FAILURE;
-	if (ft_strcmp(data->cmd->command, "cd") == 0)
-		res = cd_builtin(data);
-	else if (ft_strcmp(data->cmd->command, "echo") == 0)
-		res = echo_builtin(data);
-	else if (ft_strcmp(data->cmd->command, "env") == 0)
-		res = env_builtin(data);
-	else if (ft_strcmp(data->cmd->command, "export") == 0)
-		res = export_builtin(data);
-	else if (ft_strcmp(data->cmd->command, "pwd") == 0)
+	if (ft_strcmp(cmd->command, "cd") == 0)
+		res = cd_builtin(data, cmd->args);
+	else if (ft_strcmp(cmd->command, "echo") == 0)
+		res = echo_builtin(data, cmd->args);
+	else if (ft_strcmp(cmd->command, "env") == 0)
+		res = env_builtin(data, cmd->args);
+	else if (ft_strcmp(cmd->command, "export") == 0)
+		res = export_builtin(data, cmd->args);
+	else if (ft_strcmp(cmd->command, "pwd") == 0)
 		res = pwd_builtin();
-	else if (ft_strcmp(data->cmd->command, "unset") == 0)
-		res = unset_builtin(data);
-	else if (ft_strcmp(data->cmd->command, "exit") == 0)
-		res = exit_builtin();
+	else if (ft_strcmp(cmd->command, "unset") == 0)
+		res = unset_builtin(data, cmd->args);
+	else if (ft_strcmp(cmd->command, "exit") == 0)
+		res = exit_builtin(data, cmd->args);
 	return (res);
 }
-// PIPEX (DANS CREATE CHILDRENS)
-int	exec_command(t_data *data)
+
+int	exec_command(t_data *data, t_command *cmd)
 {
 	int	res;
+	char	**cmd;
 
 	res = FAILURE;
-	if (pipes_handler(data) == -1)
-		ft_putendl_fd("error in exec_command pipes", 2); // free and exit
-	close_pipes(data);
-	if (io_fd_handler(NULL) == -1)
-		ft_putendl_fd("error in exec_command io_fd_handler", 2);
-			// free and exit
-	close_fd(data);
-	if (check_builtins(data->cmd->command))
-		res = exec_builtins(data);
-	else
-		call_exec(data);
-	// exit_minishell
+	if (pipes_handler(cmd) == -1)
+		ft_putendl_fd("error in exec_command pipes", 2); // free and exit en +
+	close_pipes(cmd);
+	if (io_fd_handler(cmd->io_fds) == -1)
+		ft_putendl_fd("error in exec_command io_fd_handler", 2); //free and exit en +
+	close_fd(cmd);
+//	if (check_builtins(cmd->command))
+//		res = exec_builtins(data, cmd);
+//	else
+		res = call_exec(data, cmd);
+	//exit_minishell
 	return (res);
 }
 // LANCEMENT EXECUTION
@@ -68,7 +83,9 @@ int	executing(t_data *data)
 {
 	int	res;
 
-	res = FAILURE; // VERIFICATION ET PREP
+	res = prep_for_exec(data);
+	if (res != CMD_NOT_FOUND)
+		return (res);
 	if (data == NULL || data->cmd == NULL)
 		return (SUCCESS);
 	if (check_builtins(data->cmd->command) && (!data->cmd->next)

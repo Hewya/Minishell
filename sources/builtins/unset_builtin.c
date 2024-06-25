@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset_builtin.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: echapuis <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 14:49:57 by echapuis          #+#    #+#             */
-/*   Updated: 2024/06/24 19:12:12 by echapuis         ###   ########.fr       */
+/*   Updated: 2024/06/25 20:02:57 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,18 +105,18 @@ int	prep_unset(char **env, char *s)
 	return (index_to_remove);
 }
 
-int	unset_builtin(t_data *data)
+int	unset_builtin(t_data *data, char **args)
 {
 	int	i;
 	int	index_to_remove;
 
 	i = 1;
 	index_to_remove = -1;
-	if (!data->env || !data->cmd->args[1])
+	if (!data->env || !args[1])
 		return (0);
 	while (data->cmd->args[i])
 	{
-		index_to_remove = prep_unset(data->env, data->cmd->args[i]);
+		index_to_remove = prep_unset(data->env, args[i]);
 		if (index_to_remove != -1)
 			remove_env_var(data, index_to_remove);
 		i++;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_builtin.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: echapuis <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 14:49:21 by echapuis          #+#    #+#             */
-/*   Updated: 2024/06/24 19:12:42 by echapuis         ###   ########.fr       */
+/*   Updated: 2024/06/25 20:11:31 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ int	env_surcharge(t_data *data, char *s)
 	int		key;
 	char	*new_value;
 
+	key = 0;
 	value = ft_strchr(s, '=') + 1;
 	len = (ft_strlen(s) - ft_strlen(value)) - 2;
 	if (find_key(data, s, len, value) == 0)
@@ -63,7 +64,7 @@ int	env_surcharge(t_data *data, char *s)
 	return (0);
 }
 
-int	export_perform(t_data *data, t_command *command)
+int	export_perform(t_data *data, char **args)
 {
 	int	i;
 	int	res;
@@ -72,18 +73,18 @@ int	export_perform(t_data *data, t_command *command)
 	i = 1;
 	res = 0;
 	invalid = -1;
-	while (command->args[i] != NULL)
+	while (args[i] != NULL)
 	{
-		if (valid_arg(command->args[i]) != 0)
+		if (valid_arg(args[i]) != 0)
 		{
 			invalid = i;
-			printf("export: %s: not a valid arg\n", command->args[i]);
+			printf("export: %s: not a valid arg\n", args[i]);
 		}
-		if (valid_arg(command->args[i]) == 0
-			&& ft_valid_surcharge(command->args[i]))
-			res = env_surcharge(data, command->args[i]);
-		else if ((valid_arg(command->args[i])) == 0)
-			res = env_modif(data, command->args[i]);
+		if (valid_arg(args[i]) == 0
+			&& ft_valid_surcharge(args[i]))
+			res = env_surcharge(data, args[i]);
+		else if ((valid_arg(args[i])) == 0)
+			res = env_modif(data, args[i]);
 		i++;
 	}
 	if (invalid > -1)
@@ -91,15 +92,15 @@ int	export_perform(t_data *data, t_command *command)
 	return (res);
 }
 
-int	export_builtin(t_data *data)
+int	export_builtin(t_data *data, char **args)
 {
 	int	invalid;
 
 	invalid = -1;
-	if (data->cmd->args[1] == NULL)
+	if (args[1] == NULL)
 		printf("yeah go see the man brooo !\n");
 	else
-		invalid = export_perform(data, data->cmd);
+		invalid = export_perform(data, *args);
 	if (invalid > -1)
 		return (1);
 	return (0);

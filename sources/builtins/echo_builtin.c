@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo_builtin.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: echapuis <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 14:45:57 by echapuis          #+#    #+#             */
-/*   Updated: 2024/06/24 19:06:39 by echapuis         ###   ########.fr       */
+/*   Updated: 2024/06/25 20:09:54 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,23 +48,24 @@ void	print_args(char **args, bool flag_newline)
 		printf("\n");
 }
 
-int	echo_builtin(t_data *data)
+int	echo_builtin(t_data *data, char **args)
 {
 	int		i;
 	bool	flag_newline;
 
+	(void)data;
 	i = 1;
 	flag_newline = false;
-	while (data->cmd->args[i])
+	while (args[i])
 	{
-		if (is_flag(data->cmd->args[i]) == true)
+		if (is_flag(args[i]) == true)
 		{
 			flag_newline = true;
 			break ;
 		}
 		i++;
 	}
-	print_args(data->cmd->args, flag_newline);
+	print_args(args, flag_newline);
 	return (0);
 }
 /*
@@ -73,7 +74,7 @@ int main()
     char *args1[] = {"-n","-nn","-n", "hello", "fuck", NULL};
     t_data data1;
 	t_command command;
-	
+
 	command.args = args1;
 	data1.cmd = &command;
     echo_builtin(&data1);

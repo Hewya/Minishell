@@ -1,29 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils_builtin.c                                    :+:      :+:    :+:   */
+/*   file.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/21 14:39:05 by echapuis          #+#    #+#             */
-/*   Updated: 2024/06/25 17:39:49 by gabarnou         ###   ########.fr       */
+/*   Created: 2024/06/25 17:20:52 by gabarnou          #+#    #+#             */
+/*   Updated: 2024/06/25 17:21:17 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	search_in_env(char *s, char **env, size_t len)
+bool	check_infile_outfile(t_io_fds *io)
 {
-	int	i;
-
-	i = 0;
-	while (env[i])
-	{
-		if (strncmp(s, env[i], len) == 0)
-			return (i);
-		i++;
-	}
-	return (-1);
+	if (!io || (!io->infile && !io->outfile))
+		return (true);
+	if ((io->infile && io->fd_in == -1)
+		|| (io->outfile && io->fd_out == -1))
+		return (false);
+	return (true);
 }
-
-
