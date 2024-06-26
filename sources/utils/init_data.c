@@ -6,7 +6,7 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 20:53:36 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/06/25 18:03:17 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/06/26 01:35:22 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static bool	init_env(t_data *data, char **env)
 {
 	int	i;
 
-	data->env = ft_calloc(env_var_count(env) + 1, sizeof * data->env);
+	data->env = ft_calloc(length_env(env) + 1, sizeof * data->env);
 	if (!data->env)
 		return (false);
 	i = 0;

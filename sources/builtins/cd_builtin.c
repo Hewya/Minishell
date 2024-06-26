@@ -6,7 +6,7 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 14:47:15 by echapuis          #+#    #+#             */
-/*   Updated: 2024/06/25 20:13:20 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/06/26 00:33:28 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,62 +25,68 @@ int count_arg(char *args[])
 char *ft_getenv(char **env, const char *name)
 {
 	int i;
-	size_t len;
+	char *tmp;
+
+	i = 0;
+	tmp = ft_strjoin(name, "=");
+	if (!tmp)
+		return (NULL);
+	while (env[i])
+	{
+		if (ft_strncmp(env[i], name, ft_strlen(tmp)) == 0 )
+		{
+			free_ptr(tmp);
+			return (ft_strchr(env[i], '=') + 1);
+		}
+		i++;
+	}
+	free_ptr(tmp);
+	return (NULL);
+ }
+
+ void change_env_var(char **env, const char *name, const char *value)
+ {
+	int len;
+	int i;
+	char *new_var;
 
 	i = 0;
 	len = ft_strlen(name);
 	while (env[i])
 	{
 		if (ft_strncmp(env[i], name, len) == 0 && env[i][len] == '=')
-			return (env[i] + len + 1);
+		{
+			free(env[i]);
+			new_var = malloc((len + ft_strlen(value) + 2)*sizeof(char*));
+			if (!new_var)
+			{
+				printf("malloc failed\n");
+				return;
+			}
+			ft_strcpy(new_var, name);
+			ft_strcat(new_var, "=");
+			ft_strcat(new_var, value);
+			env[i] = new_var;
+			return;
+		}
 		i++;
 	}
-	 return (NULL);
- }
-
- void change_env_var(char **env, const char *name, const char *value)
- {
-	 int len;
-	 int i;
-	 char *new_var;
-
-	 i = 0;
-	 len = ft_strlen(name);
-	 while (env[i])
-	 {
-		 if (ft_strncmp(env[i], name, len) == 0 && env[i][len] == '=')
-		 {
-			 free(env[i]);
-			 new_var = malloc((len + ft_strlen(value) + 2)*sizeof(char*));
-			 if (!new_var)
-			 {
-				 printf("malloc failed\n");
-				 return;
-			 }
-			 ft_strcpy(new_var, name);
-			 ft_strcat(new_var, "=");
-			 ft_strcat(new_var, value);
-			 env[i] = new_var;
-			 return;
-		 }
-		 i++;
-	 }
-	 new_var = malloc(len + ft_strlen(value) + 2);
-	 if (!new_var)
-	 {
-		 printf("malloc failed\n");
-		 return;
-	 }
-	 ft_strcpy(new_var, name);
-	 ft_strcat(new_var, "=");
-	 ft_strcat(new_var, value);
-	 env[i] = new_var;
-	 env[i + 1] = NULL;
- }
+	new_var = malloc(len + ft_strlen(value) + 2);
+	if (!new_var)
+	{
+		printf("malloc failed\n");
+		return;
+	}
+	ft_strcpy(new_var, name);
+	ft_strcat(new_var, "=");
+	ft_strcat(new_var, value);
+	env[i] = new_var;
+	env[i + 1] = NULL;
+}
 
 void change_pwd(t_data *data)
 {
-	char cwd[1024];
+	char cwd[PATH_MAX];
 	char *oldpwd;
 
 	if (getcwd(cwd, sizeof(cwd)) != NULL)
@@ -120,13 +126,13 @@ int change_directory(t_data *data, char **args)
 
  int cd_builtin(t_data *data, char **args)
  {
-	 if (count_arg(*args) > 1)
+	 if (count_arg(args) > 1)
 	 {
 		 printf("cd: too many arguments\n");
 		 return (1);
 	 }
 	 else
-		 return (change_directory(data, *args));
+		 return (change_directory(data, args));
  }
 
 /*

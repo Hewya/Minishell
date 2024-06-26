@@ -6,7 +6,7 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 14:45:57 by echapuis          #+#    #+#             */
-/*   Updated: 2024/06/25 20:09:54 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/06/26 00:43:06 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,9 @@ bool	is_flag(char *args)
 	}
 	return (true);
 }
-
+/* A tester :
+presence du retour a la ligne si on lance un echo sans argument
+*/
 void	print_args(char **args, bool flag_newline)
 {
 	int	i;

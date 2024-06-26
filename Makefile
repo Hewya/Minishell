@@ -43,7 +43,6 @@ SRC		=	expander/identify_var	\
 			builtins/export_utils	\
 			builtins/pwd_builtin	\
 			builtins/unset_builtin	\
-			builtins/utils_builtin	\
 			execution/exec_command	\
 			execution/executing	\
 			execution/utils_executing	\
@@ -57,6 +56,7 @@ SRC		=	expander/identify_var	\
 			utils/exit	\
 			debug/debug	\
 			env/env	\
+			env/env_set	\
 			main	\
 
 SRCS		= $(addsuffix .c, $(addprefix $(SRCS_PATH), $(SRC)))

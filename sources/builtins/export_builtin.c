@@ -6,7 +6,7 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 14:49:21 by echapuis          #+#    #+#             */
-/*   Updated: 2024/06/25 20:11:31 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/06/26 01:00:17 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ int	export_perform(t_data *data, char **args)
 		{
 			invalid = i;
 			printf("export: %s: not a valid arg\n", args[i]);
+			res = 1;
 		}
 		if (valid_arg(args[i]) == 0
 			&& ft_valid_surcharge(args[i]))
@@ -100,7 +101,7 @@ int	export_builtin(t_data *data, char **args)
 	if (args[1] == NULL)
 		printf("yeah go see the man brooo !\n");
 	else
-		invalid = export_perform(data, *args);
+		invalid = export_perform(data, args);
 	if (invalid > -1)
 		return (1);
 	return (0);

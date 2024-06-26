@@ -6,17 +6,14 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 21:11:48 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/06/22 12:57:05 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/06/26 01:39:28 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/* env_var_count:
- *	Counts how many original environment variables there are.
- *	Returns the number of environment variables.
- */
-int	env_var_count(char **env)
+
+int	length_env(char **env)
 {
 	int	i;
 
@@ -26,14 +23,20 @@ int	env_var_count(char **env)
 	return (i);
 }
 
-/* get_env_var_index:
- *	Searches for the given variable in the environment variables.
- *
- *	Returns the index of the variable in the environment
- *	matching the given string. Partial variable names are not
- *	supported: the given string must be a full variable name.
- *	Returns -1 if the string cannot be found in the environment.
- */
+int	search_in_env(char *s, char **env, size_t len)
+{
+	int	i;
+
+	i = 0;
+	while (env[i])
+	{
+		if (ft_strncmp(s, env[i], len) == 0)
+			return (i);
+		i++;
+	}
+	return (-1);
+}
+
 int	get_env_var_index(char **env, char *var)
 {
 	int		i;
@@ -56,14 +59,6 @@ int	get_env_var_index(char **env, char *var)
 	return (-1);
 }
 
-/* get_env_var_value:
- *	Searches for the given variable in the environment variables.
- *
- *	Returns a pointer to the value of the variable in the environment
- *	matching the given string. Partial variable names are not
- *	supported: the given string must be a full variable name.
- *	Returns NULL if the string cannot be found in the environment.
- */
 char	*get_env_var_value(char **env, char *var)
 {
 	int		i;
@@ -86,12 +81,6 @@ char	*get_env_var_value(char **env, char *var)
 	return (NULL);
 }
 
-/* is_valid_env_var_key:
- *	Checks if the key is a valid name for an evironment
- *	variable.
- *	Returns true if the key contains only alphanumeric chars
- *	or '_', or false if not.
- */
 bool	is_valid_env_var_key(char *var)
 {
 	int	i;

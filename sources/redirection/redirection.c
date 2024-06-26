@@ -6,7 +6,7 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 10:53:06 by echapuis          #+#    #+#             */
-/*   Updated: 2024/06/25 23:39:32 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/06/26 01:49:16 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,43 +60,26 @@ int	io_fd_restore(t_io_fds *io_fds)
 	return (res);
 }
 
-void	close_pipes(t_data *data)
-{
-	t_data	*tmp;
 
-	tmp = data;
-	while (tmp->cmd)
-	{
-		if (tmp->cmd && tmp->cmd->pipe_fd)
-		{
-			close(tmp->cmd->pipe_fd[0]);
-			close(tmp->cmd->pipe_fd[1]);
-		}
-		tmp->cmd = tmp->cmd->next;
-	}
-}
-
-int	pipes_handler(t_data *data)
+int	pipes_handler(t_command *command)
 {
-	int			res;
-	t_command	*command;
+	int res;
 
 	res = SUCCESS;
-	command = data->cmd;
+	if (!command)
+		res = FAILURE;
 	if (command && command->pipe_output)
-		if (dup2(command->pipe_fd[1], STDOUT_FILENO) == -1)
+		if (dup2(command->pipe_fd[1],STDOUT_FILENO) == -1)
 		{
 			ft_putendl_fd("error pipes handler fd[1]", 2);
 			res = FAILURE;
 		}
-	if (command && command->prev && command->prev->pipe_output)
+	if (command && command->prev->pipe_output)
 		if (dup2(command->pipe_fd[0], STDIN_FILENO) == -1)
 		{
 			ft_putendl_fd("error pipes handler fd[0]", 2);
 			res = FAILURE;
 		}
-	if (!command)
-		res = FAILURE;
 	return (res);
 }
 
@@ -114,7 +97,7 @@ int	create_pipes(t_data *data)
 			if (!fd || pipe(fd) == -1)
 			{
 				perror("create pipes failed\n");
-				free_data(&data, false);
+				free_data(data, false);
 				return (EXIT_FAILURE);
 			}
 			cmd->pipe_fd = fd;

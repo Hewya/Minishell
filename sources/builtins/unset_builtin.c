@@ -6,7 +6,7 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 14:49:57 by echapuis          #+#    #+#             */
-/*   Updated: 2024/06/25 20:02:57 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/06/26 01:25:35 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,105 +24,31 @@
 	}
 }*/
 
-/*
-void	_free_ptr(void *ptr)
-{
-	if (ptr != NULL)
-	{
-		free(ptr);
-		ptr = NULL;
-	}
-}*/
-
-int	length_env(char **env)
-{
-	int	i;
-
-	i = 0;
-	while (env[i])
-		i++;
-	return (i);
-}
-
-/*
-int	search_in_env(char *s, char **env)
-{
-	int	i;
-
-	i = 0;
-	while (env[i])
-	{
-		if (strncmp(s, env[i], strlen(s)) == 0)
-			return (i);
-		i++;
-	}
-	return (-1);
-}*/
-
-static char	**alloc_new_env(t_data *data, int len)
-{
-	int		i;
-	char	**new_env;
-
-	i = 0;
-	new_env = ft_calloc((len + 1), sizeof * new_env);
-	if (!new_env)
-		return (NULL);
-	while (data->env[i] && i < len)
-	{
-		new_env[i] = ft_strdup(data->env[i]);
-		i++;
-	}
-	return (new_env);
-}
-
-void	remove_env_var(t_data *data, int index)
-{
-	int	i;
-	int	len;
-
-	i = index;
-	len = index;
-	if (index > length_env(data->env))
-		return ;
-	while (data->env[i + 1])
-	{
-		data->env[i] = ft_strdup(data->env[i + 1]);
-		len++;
-		i++;
-	}
-	data->env = alloc_new_env(data, len);
-}
-
-int	prep_unset(char **env, char *s)
-{
-	int	index_to_remove;
-
-	index_to_remove = -1;
-	if (ft_strchr(s, '=') != 0 || search_in_env(s, env, ft_strlen(s)) == -1)
-		return (-1);
-	index_to_remove = search_in_env(s, env, ft_strlen(s));
-	return (index_to_remove);
-}
-
 int	unset_builtin(t_data *data, char **args)
 {
 	int	i;
 	int	index_to_remove;
+	int	ret;
 
+	ret = EXIT_SUCCESS;
 	i = 1;
 	index_to_remove = -1;
-	if (!data->env || !args[1])
-		return (0);
-	while (data->cmd->args[i])
+	while (args[i])
 	{
-		index_to_remove = prep_unset(data->env, args[i]);
-		if (index_to_remove != -1)
-			remove_env_var(data, index_to_remove);
+		if (!is_valid_env_var_key(args[i]) || ft_strchr(args[i], '=') != NULL)
+		{
+		errmsg_cmd("unset", args[i], "not a valid identifier", false);
+		ret = EXIT_FAILURE;
+		}
+		else
+		{
+			index_to_remove = get_env_var_index(data->env, args[i]);
+			if (index_to_remove != -1)
+				remove_env_var(data, index_to_remove);
+		}
 		i++;
 	}
-	//here_print_env(data->env);
-	return (0);
+	return (ret);
 }
 /*
 int main(int argc, char **argv)

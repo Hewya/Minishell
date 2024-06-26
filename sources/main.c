@@ -6,7 +6,7 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 19:53:16 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/06/25 18:03:17 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/06/26 00:09:54 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,6 @@ int	main(int ac, char **av, char **env)
 		return (1);
 	}
 	running(&data);
-	exit_shell(&data, data->last_exit_code);
+	exit_shell(&data, data.last_exit_code);
 	return (0);
 }
