@@ -6,7 +6,7 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 10:53:06 by echapuis          #+#    #+#             */
-/*   Updated: 2024/06/26 01:49:16 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/06/26 12:51:25 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ int	pipes_handler(t_command *command)
 	return (res);
 }
 
-int	create_pipes(t_data *data)
+bool	create_pipes(t_data *data)
 {
 	t_command	*cmd;
 	int			*fd;
@@ -91,18 +91,18 @@ int	create_pipes(t_data *data)
 	cmd = data->cmd;
 	while (cmd)
 	{
-		if (cmd->next != NULL && cmd->pipe_output)
+		if (cmd->pipe_output == true || (cmd->prev && cmd->prev->pipe_output))
 		{
 			fd = malloc(2 * sizeof(int));
 			if (!fd || pipe(fd) == -1)
 			{
 				perror("create pipes failed\n");
 				free_data(data, false);
-				return (EXIT_FAILURE);
+				return (false);
 			}
 			cmd->pipe_fd = fd;
 		}
 		cmd = cmd->next;
 	}
-	return (0);
+	return (true);
 }

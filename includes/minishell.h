@@ -6,7 +6,7 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 15:41:26 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/06/26 02:17:54 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/06/26 12:51:45 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -487,7 +487,7 @@ void					close_pipes(t_command *command);
 int						io_fd_handler(t_io_fds *io_fds);
 int						io_fd_restore(t_io_fds *io_fds);
 int						pipes_handler(t_command *command);
-int						create_pipes(t_data *data);
+bool					create_pipes(t_data *data);
 
 /* ---- utils ---- */
 

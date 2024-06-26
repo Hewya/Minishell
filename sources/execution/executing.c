@@ -6,7 +6,7 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 11:52:45 by echapuis          #+#    #+#             */
-/*   Updated: 2024/06/26 00:01:04 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/06/26 12:52:18 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static int	prep_for_exec(t_data *data)
 {
 	if (!data || !data->cmd)
 		return (EXIT_SUCCESS);
-	if (!data->cmd->command)
+	if (data->cmd->command == NULL)
 	{
 		if (data->cmd->io_fds
 			&& !check_infile_outfile(data->cmd->io_fds))
@@ -70,16 +70,14 @@ int	exec_command(t_data *data, t_command *cmd)
 	exit_shell(data, res);
 	return (res);
 }
-// LANCEMENT EXECUTION
+
 int	executing(t_data *data)
 {
-	int	res;
+	int	res = 0;
 
 	res = prep_for_exec(data);
 	if (res != CMD_NOT_FOUND)
 		return (res);
-	if (data == NULL || data->cmd == NULL)
-		return (SUCCESS);
 	if (check_builtins(data->cmd->command) && (!data->cmd->next)
 		&& (!data->cmd->prev))
 		res = exec_builtins(data, data->cmd);
@@ -90,7 +88,6 @@ int	executing(t_data *data)
 		free_data(data , false);
 		// return (127);
 	}
-	create_pipes(data);
 	create_childrens(data);
 	return (0);
 }
