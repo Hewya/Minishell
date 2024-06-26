@@ -6,7 +6,7 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 14:49:57 by echapuis          #+#    #+#             */
-/*   Updated: 2024/06/26 01:25:35 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/06/26 20:29:54 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 	i = 0;
 	while (env[i])
 	{
-		printf("%s\n", env[i]);
+		ft_printf("%s\n", env[i]);
 		i++;
 	}
 }*/
@@ -75,8 +75,8 @@ int main(int argc, char **argv)
 
 
 	if (unset_builtin(&data) == 0)
-		printf("Unset function executed successfully.\n");
+		ft_printf("Unset function executed successfully.\n");
 	else
-		printf("Unset function failed.\n");
+		ft_printf("Unset function failed.\n");
 	return (0);
 }*/

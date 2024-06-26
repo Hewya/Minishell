@@ -6,134 +6,78 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 14:47:15 by echapuis          #+#    #+#             */
-/*   Updated: 2024/06/26 00:33:28 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/06/26 20:42:58 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int count_arg(char *args[])
+static void	update_wds(t_data *data, char *wd)
 {
-	int	i;
-
-	i = 0;
-	while (args[i])
-		i++;
-	return (i);
+	set_env_var(data, "OLDPWD", get_env_var_value(data->env, "PWD"));
+	set_env_var(data, "PWD", wd);
+	if (data->old_working_dir)
+	{
+		free_ptr(data->old_working_dir);
+		data->old_working_dir = ft_strdup(data->working_dir);
+	}
+	if (data->working_dir)
+	{
+		free_ptr(data->working_dir);
+		data->working_dir = ft_strdup(wd);
+	}
+	free_ptr(wd);
 }
 
-char *ft_getenv(char **env, const char *name)
+static	bool	chdir_errno_mod(char *path)
 {
-	int i;
-	char *tmp;
-
-	i = 0;
-	tmp = ft_strjoin(name, "=");
-	if (!tmp)
-		return (NULL);
-	while (env[i])
-	{
-		if (ft_strncmp(env[i], name, ft_strlen(tmp)) == 0 )
-		{
-			free_ptr(tmp);
-			return (ft_strchr(env[i], '=') + 1);
-		}
-		i++;
-	}
-	free_ptr(tmp);
-	return (NULL);
- }
-
- void change_env_var(char **env, const char *name, const char *value)
- {
-	int len;
-	int i;
-	char *new_var;
-
-	i = 0;
-	len = ft_strlen(name);
-	while (env[i])
-	{
-		if (ft_strncmp(env[i], name, len) == 0 && env[i][len] == '=')
-		{
-			free(env[i]);
-			new_var = malloc((len + ft_strlen(value) + 2)*sizeof(char*));
-			if (!new_var)
-			{
-				printf("malloc failed\n");
-				return;
-			}
-			ft_strcpy(new_var, name);
-			ft_strcat(new_var, "=");
-			ft_strcat(new_var, value);
-			env[i] = new_var;
-			return;
-		}
-		i++;
-	}
-	new_var = malloc(len + ft_strlen(value) + 2);
-	if (!new_var)
-	{
-		printf("malloc failed\n");
-		return;
-	}
-	ft_strcpy(new_var, name);
-	ft_strcat(new_var, "=");
-	ft_strcat(new_var, value);
-	env[i] = new_var;
-	env[i + 1] = NULL;
+	if (errno == ESTALE)
+		errno = ENOENT;
+	errmsg_cmd("cd", path, strerror(errno), errno);
+	return (false);
 }
 
-void change_pwd(t_data *data)
+static bool	change_dir(t_data *data, char *path)
 {
-	char cwd[PATH_MAX];
-	char *oldpwd;
+	char	*ret;
+	char	*tmp;
+	char	cwd[PATH_MAX];
 
-	if (getcwd(cwd, sizeof(cwd)) != NULL)
+	ret = NULL;
+	if (chdir(path) != 0)
+		return (chdir_errno_mod(path));
+	ret = getcwd(cwd, PATH_MAX);
+	if (!ret)
 	{
-		oldpwd = ft_getenv(data->env, "PWD");
-		if (oldpwd)
-			change_env_var(data->env, "OLDPWD", oldpwd);
-		change_env_var(data->env, "PWD", cwd);
+		errmsg_cmd("cd: error retrieving current directory",
+			"getcwd: cannot access parent directories",
+			strerror(errno), errno);
+		ret = ft_strjoin(data->working_dir, "/");
+		tmp = ret;
+		ret = ft_strjoin(tmp, path);
+		free_ptr(tmp);
 	}
 	else
-		perror("getcwd");
- }
+		ret = ft_strdup(cwd);
+	update_wds(data, ret);
+	return (true);
+}
 
-int change_directory(t_data *data, char **args)
+int	cd_builtin(t_data *data, char **args)
 {
-	char *home;
+	char	*path;
 
-	home = ft_getenv(data->env, "HOME");
-	if (count_arg(args) > 0 && chdir(args[0]) != -1)
+	if (!args || !args[1] || ft_isspace(args[1][0]) || args[1][0] == '\0')
 	{
-		change_pwd(data);
-		return (0);
+		path = get_env_var_value(data->env, "HOME");
+		if (!path || *path == '\0' || ft_isspace(*path))
+			return (errmsg_cmd("cd", NULL, "HOME not set", EXIT_FAILURE));
+		return (!change_dir(data, path));
 	}
-	else if (count_arg(args) == 0 || ft_strcmp(args[0], "") == 0)
-	{
-		if (home != NULL && chdir(home) != -1)
-		{
-			change_pwd(data);
-			return (0);
-		}
-		else
-			 return (-1);
-	 }
-	 printf("cd: %s: No such file or directory\n", args[0]);
-	 return (-1);
- }
-
- int cd_builtin(t_data *data, char **args)
- {
-	 if (count_arg(args) > 1)
-	 {
-		 printf("cd: too many arguments\n");
-		 return (1);
-	 }
-	 else
-		 return (change_directory(data, args));
- }
+	if (args[2])
+		return (errmsg_cmd("cd", NULL, "too many arguments", EXIT_FAILURE));
+	return (!change_dir(data, args[1]));
+}
 
 /*
  int main(int argc, char **argv) {
@@ -162,12 +106,12 @@ int change_directory(t_data *data, char **args)
 
 	 if (cd(&data) == 0)
 	 {
-		printf("Directory changed successfully.\n");
-		printf("%s\n",getcwd(NULL, 0));
+		ft_printf("Directory changed successfully.\n");
+		ft_printf("%s\n",getcwd(NULL, 0));
 
 	 }
 	 else
-		 printf("Failed to change directory.\n");
+		 ft_printf("Failed to change directory.\n");
 
 	 return (0);
  }*/

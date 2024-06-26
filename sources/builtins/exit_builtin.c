@@ -6,23 +6,11 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 14:52:19 by echapuis          #+#    #+#             */
-/*   Updated: 2024/06/26 00:46:33 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/06/26 19:19:23 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-/*
-
-exit [n]
-provoque l'arrêt du programme shell avec un code de retour ($?) égal à n.
-Si n n'est pas précisé, le code de retour fourni est celui de la dernière commande exécutée.
-exit prend seulement des arguments de type entier compris entre 0 et 255 d'où :
-long long	code2;
-code2 = ft_atoi_exit(args[1], 0, &pbm); // atoi adapté à exit, qui renvoie un long long (voir tests en dessous)
-g_status = code2 % 256;
-
-*/
 
 static bool	check_out_of_range(int neg, unsigned long long num, bool *error)
 {
@@ -87,13 +75,15 @@ static int	get_exit_code(t_data *data, char *arg, bool *error)
 
 bool	exit_alone(t_data *data)
 {
-	if (data->cmd)
+	t_command	*cmd;
+
+	cmd = data->cmd;
+	if (!cmd)
 		return (false);
-	if (data->cmd->next || data->cmd->prev)
+	if (cmd->next != NULL || cmd->prev != NULL)
 		return (true);
 	return (false);
 }
-
 
 int exit_builtin(t_data *data, char **args)
 {

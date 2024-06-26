@@ -6,7 +6,7 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/24 14:06:05 by echapuis          #+#    #+#             */
-/*   Updated: 2024/06/25 17:39:56 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/06/26 20:29:54 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ int	new_env_modif(t_data *data, char **new_env, char *s)
 	new_env[i] = ft_strdup(s);
 	if (!new_env[i])
 	{
-		printf("strdup failed\n");
+		ft_printf("strdup failed\n");
 		free(new_env);
 		return (1);
 	}

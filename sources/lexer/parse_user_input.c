@@ -6,7 +6,7 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 10:48:45 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/06/22 12:55:53 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/06/26 20:29:54 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static bool	input_is_space(char *input)
 bool	parse_user_input(t_data *data)
 {
 	if (data->user_input == NULL)
-		printf("Wrong user input / call a function exit\n");
+		ft_printf("Wrong user input / call a function exit\n");
 	else if (ft_strcmp(data->user_input, "\0") == 0)
 		return (false);
 	else if (input_is_space(data->user_input))

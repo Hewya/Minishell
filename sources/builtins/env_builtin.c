@@ -6,7 +6,7 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 14:51:38 by echapuis          #+#    #+#             */
-/*   Updated: 2024/06/25 20:10:21 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/06/26 20:29:54 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	print_env(t_data *data)
 	while (tmp->env[i])
 	{
 		if (ft_strchr(tmp->env[i], '='))
-			printf("%s\n", tmp->env[i]);
+			ft_printf("%s\n", tmp->env[i]);
 		i++;
 	}
 	return (0);
@@ -32,7 +32,7 @@ int	env_builtin(t_data *data, char **args)
 {
 	if (args[1] != NULL)
 	{
-		printf("env: %s: No such file or directory\n", args[1]);
+		ft_printf("env: %s: No such file or directory\n", args[1]);
 		return (127);
 	}
 	return (print_env(data));

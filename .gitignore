@@ -2,7 +2,7 @@
 *.o
 minishell
 libft/libft.a
-libft/ft_printf/libftprintf.a
+libft/ft_printf/libftft_printf.a
 echo
 >
 |

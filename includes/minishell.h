@@ -6,7 +6,7 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 15:41:26 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/06/26 12:51:45 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/06/26 17:11:13 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,11 @@ typedef struct s_data
 	t_command			*cmd;
 }						t_data;
 
-/* ENUMERATIONS */
+
+/* ************************************************************************** */
+/*                               ENUMERATIONS                                 */
+/* ************************************************************************** */
+
 
 enum					e_token_types
 {
@@ -421,13 +425,7 @@ int						export_builtin(t_data *data, char **args);
 
 /* ---- cd ---- */
 
-int						count_arg(char *args[]);
-char					*ft_getenv(char **env, const char *name);
-void					change_env_var(char **env, const char *name,
-							const char *value);
-void					change_pwd(t_data *data);
-int						change_directory(t_data *data, char **args);
-int						cd_builtin(t_data *data, char **args);
+int	cd_builtin(t_data *data, char **args);
 
 /* ---- unset ---- */
 

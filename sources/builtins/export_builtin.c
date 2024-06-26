@@ -6,7 +6,7 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 14:49:21 by echapuis          #+#    #+#             */
-/*   Updated: 2024/06/26 01:00:17 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/06/26 20:29:54 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	env_modif(t_data *data, char *s)
 	new_env = malloc((i + 2) * sizeof(char *));
 	if (!new_env)
 	{
-		printf("malloc failed\n");
+		ft_printf("malloc failed\n");
 		return (1);
 	}
 	i = search_in_env(s, tmp->env, (ft_strlen(s) - ft_strlen(value)));
@@ -54,7 +54,7 @@ int	env_surcharge(t_data *data, char *s)
 		new_value = malloc(ft_strlen(data->env[key]) + ft_strlen(value) + 1);
 		if (!new_value)
 		{
-			printf("malloc failed\n");
+			ft_printf("malloc failed\n");
 			return (1);
 		}
 		ft_strcpy(new_value, data->env[key]);
@@ -78,7 +78,7 @@ int	export_perform(t_data *data, char **args)
 		if (valid_arg(args[i]) != 0)
 		{
 			invalid = i;
-			printf("export: %s: not a valid arg\n", args[i]);
+			ft_printf("export: %s: not a valid arg\n", args[i]);
 			res = 1;
 		}
 		if (valid_arg(args[i]) == 0
@@ -99,7 +99,7 @@ int	export_builtin(t_data *data, char **args)
 
 	invalid = -1;
 	if (args[1] == NULL)
-		printf("yeah go see the man brooo !\n");
+		ft_printf("yeah go see the man brooo !\n");
 	else
 		invalid = export_perform(data, args);
 	if (invalid > -1)

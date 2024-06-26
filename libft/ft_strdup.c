@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaelle <gaelle@student.42.fr>              +#+  +:+       +#+        */
+/*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 17:20:45 by gaelle            #+#    #+#             */
-/*   Updated: 2023/10/23 20:19:51 by gaelle           ###   ########.fr       */
+/*   Updated: 2024/06/26 20:29:54 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,12 +46,12 @@ char	*ft_strdup(const char *s)
 
 	if (copy)
 	{
-		printf("Copie : %s\n", copy);
+		ft_printf("Copie : %s\n", copy);
 		free(copy);
 	}
 	else
 	{
-		printf("Echec allocation memoire\n");
+		ft_printf("Echec allocation memoire\n");
 	}
 	return (0);
 }*/

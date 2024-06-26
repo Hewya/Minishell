@@ -6,7 +6,7 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 16:39:03 by echapuis          #+#    #+#             */
-/*   Updated: 2024/06/26 12:04:04 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/06/26 19:22:59 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,8 @@ bool	check_builtins(char *cmd)
 		|| (ft_strcmp(cmd, "env") == 0)
 		|| (ft_strcmp(cmd, "export") == 0)
 		|| (ft_strcmp(cmd, "pwd") == 0)
-		|| (ft_strcmp(cmd, "unset") == 0))
+		|| (ft_strcmp(cmd, "unset") == 0)
+		|| (ft_strcmp(cmd, "exit") == 0))
 		return (true);
 	return (false);
 }

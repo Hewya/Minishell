@@ -6,7 +6,7 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 14:48:24 by echapuis          #+#    #+#             */
-/*   Updated: 2024/06/25 17:39:54 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/06/26 20:29:54 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	pwd_builtin(void)
 	if (pwd == NULL)
 		return (1);
 	else
-		printf("%s\n", pwd);
+		ft_printf("%s\n", pwd);
 	free(pwd);
 	return (0);
 }

@@ -9,7 +9,7 @@ SRCS = ft_printf.c \
 
 OBJS = $(SRCS:.c=.o)
 
-LIB = libftprintf.a
+LIB = libftft_printf.a
 
 CPPFLAGS = -I..
 CFLAGS	 = -Wall -Werror -Wextra
@@ -19,7 +19,7 @@ $(LIB):	$(OBJS)
 
 all: 	$(LIB)
 
-clean:	
+clean:
 		rm -f $(OBJS)
 
 fclean:	clean;
