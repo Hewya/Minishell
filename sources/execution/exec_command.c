@@ -6,7 +6,7 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 09:59:36 by echapuis          #+#    #+#             */
-/*   Updated: 2024/06/25 23:48:35 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/06/28 14:46:14 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,11 @@ int	check_command(t_data *data, t_command *cmd)
 		return (127);
 	}
 	if (access(cmd->command, F_OK) != 0)
+	{
+		ft_putstr_fd(cmd->command, 2);
+		ft_putendl_fd(": No such file or directory", 2);
 		return (127);
+	}
 	else if (is_directory(cmd->command))
 	{
 		ft_putstr_fd(cmd->command, 2);
@@ -70,11 +74,13 @@ int	exec_with_path(t_data *data, t_command *cmd)
 	cmd->path = get_cmd_path(data, cmd->command);
 	if (!cmd->path)
 		return (127);
+	dprintf(1,"IN EXEC WITH PATH\n");
 	if (execve(cmd->path, cmd->args, data->env) == -1)
 	{
 		ft_putendl_fd("execve", 2);
-		return (errno);
+		return (CMD_NOT_FOUND);
 	}
+	dprintf(1,"IN EXEC WITH PATH 2\n");
 	return (EXIT_FAILURE);
 }
 
@@ -83,7 +89,7 @@ int	launch_command(t_data *data, t_command *cmd)
 	int	res;
 
 	res = check_command(data, cmd);
-	if (res != SUCCESS)
+	if (res != 0)
 		return (res);
 	if (execve(cmd->command, cmd->args, data->env) == -1)
 	{
@@ -91,18 +97,4 @@ int	launch_command(t_data *data, t_command *cmd)
 		return (errno);
 	}
 	return (EXIT_FAILURE);
-}
-
-int	call_exec(t_data *data, t_command *cmd)
-{
-	int res;
-
-	if (ft_strchr(cmd->command, '/') == NULL)
-	{
-		if (check_builtins(cmd->command))
-			res = exec_builtins(data, cmd);
-		res = exec_with_path(data, cmd);
-	}
-	res = launch_command(data, cmd);
-	return (res);
 }

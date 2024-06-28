@@ -6,24 +6,13 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 16:39:03 by echapuis          #+#    #+#             */
-/*   Updated: 2024/06/26 19:22:59 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/06/28 14:47:08 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/*
-int	length_env(char **env)
-{
-	int			i;
-	struct stat	cmd;
-
-	i = 0;
-	while (env[i])
-		i++;
-	return (i);
-}*/
-int	is_directory(char *dir)
+bool	is_directory(char *dir)
 {
 	struct stat cmd;
 
@@ -39,8 +28,7 @@ bool	check_builtins(char *cmd)
 		|| (ft_strcmp(cmd, "env") == 0)
 		|| (ft_strcmp(cmd, "export") == 0)
 		|| (ft_strcmp(cmd, "pwd") == 0)
-		|| (ft_strcmp(cmd, "unset") == 0)
-		|| (ft_strcmp(cmd, "exit") == 0))
+		|| (ft_strcmp(cmd, "unset") == 0))
 		return (true);
 	return (false);
 }
@@ -94,7 +82,7 @@ char	**extract_path(t_data *data)
 {
 	char	**env_path;
 
-	if (search_in_env("PATH", data->env, 4) != -1)
+	if (search_in_env("PATH", data->env, 4) == -1)
 		return (NULL);
 	env_path = ft_split(get_path_env(data->env, "PATH"), ':');
 	if (!env_path)

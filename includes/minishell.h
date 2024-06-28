@@ -6,7 +6,7 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 15:41:26 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/06/26 17:11:13 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/06/28 14:50:00 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -457,10 +457,10 @@ int						exit_builtin(t_data *data, char **args);
 
 /* ----------------------------- EXECUTING -----------------------------------*/
 
-//* ---- executing ---- */
+/* ---- executing ---- */
+int						exec_builtins(t_data *data, t_command *cmd);
 int						exec_command(t_data *data, t_command *cmd);
 int						executing(t_data *data);
-int						exec_builtins(t_data *data, t_command *cmd);
 
 /* ---- childrens ---- */
 
@@ -469,7 +469,7 @@ int						create_childrens(t_data *data);
 
 /* ---- exec_command ---- */
 
-int						call_exec(t_data *data, t_command *cmd);
+//int						call_exec(t_data *data, t_command *cmd);
 int						launch_command(t_data *data, t_command *cmd);
 int						exec_with_path(t_data *data, t_command *cmd);
 char					*get_cmd_path(t_data *data, char *command);
@@ -477,19 +477,19 @@ int						check_command(t_data *data, t_command *cmd);
 
 /* ---- redirections_utils ---- */
 
-void					close_fd(t_command *command);
-void					close_pipes(t_command *command);
+void					close_fd(t_command *command, bool close_back);
+void					close_pipes(t_command *command, t_command *skip_cmd);
 
 /* ---- redirections ---- */
 
-int						io_fd_handler(t_io_fds *io_fds);
-int						io_fd_restore(t_io_fds *io_fds);
-int						pipes_handler(t_command *command);
+bool					io_fd_handler(t_io_fds *io_fds);
+bool					io_fd_restore(t_io_fds *io_fds);
+bool					pipes_handler(t_command *cmds, t_command *command);
 bool					create_pipes(t_data *data);
 
 /* ---- utils ---- */
 
-int						is_directory(char *dir);
+bool					is_directory(char *dir);
 bool					check_builtins(char *cmd);
 char					*final_path(char *cmd, char **path_env);
 char					*get_path_env(char **env, char *var);
@@ -499,6 +499,13 @@ char					**extract_path(t_data *data);
 
 bool					check_infile_outfile(t_io_fds *io);
 
+/* ---- signals ---- */
+
+void	ctrlC_shell_wait(int sig);
+void	signal_handler_wait(void);
+void	new_line(int sig);
+void	signal_handler_run(void);
+void	sigquit_disapear();
 
 
 

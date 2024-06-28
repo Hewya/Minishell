@@ -6,12 +6,11 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 11:52:45 by echapuis          #+#    #+#             */
-/*   Updated: 2024/06/26 20:56:24 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/06/28 14:46:33 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
 
 static int	prep_for_exec(t_data *data)
 {
@@ -33,7 +32,7 @@ int	exec_builtins(t_data *data, t_command *cmd)
 {
 	int	res;
 
-	res = FAILURE;
+	res = CMD_NOT_FOUND;
 	if (ft_strcmp(cmd->command, "cd") == 0)
 		res = cd_builtin(data, cmd->args);
 	else if (ft_strcmp(cmd->command, "echo") == 0)
@@ -55,91 +54,50 @@ int	exec_command(t_data *data, t_command *cmd)
 {
 	int	res;
 
-	res = FAILURE;
 	if (!cmd || !cmd->command)
 		exit_shell(data, EXIT_FAILURE);
 	if (!check_infile_outfile(cmd->io_fds))
 		exit_shell(data, EXIT_FAILURE);
-	if (pipes_handler(cmd) == -1)
-		ft_putendl_fd("error in exec_command pipes", 2); // free and exit en +
-	close_pipes(cmd);
-	if (io_fd_handler(cmd->io_fds) == -1)
-		ft_putendl_fd("error in exec_command io_fd_handler", 2); //free and exit en +
-	close_fd(cmd);
-	res = call_exec(data, cmd);
+	pipes_handler(data->cmd, cmd);
+	io_fd_handler(cmd->io_fds);
+	close_fd(cmd, false);
+	if (ft_strchr(cmd->command, '/') == NULL)
+	{
+		dprintf(2,"EXEC : %s\n",cmd->command);
+		res = exec_builtins(data, cmd);
+		if (res != CMD_NOT_FOUND)
+		{
+			dprintf(2,"SUCCES BUILTIN: %s\n",cmd->command);
+			exit_shell(data, res);
+		}
+		res = exec_with_path(data, cmd);
+		if (res != CMD_NOT_FOUND)
+		{
+			dprintf(2,"SUCCESS CMD NORMAL: %s\n",cmd->command);
+			exit_shell(data, res);
+		}
+	}
+	res = launch_command(data, cmd);
+	dprintf(2,"EXECUTING END : %s\n",cmd->command);
 	exit_shell(data, res);
 	return (res);
 }
 
 int	executing(t_data *data)
 {
-	int	res = 0;
+	int	ret;
 
-	res = prep_for_exec(data);
-	if (res != CMD_NOT_FOUND)
-		return (res);
-	if (check_builtins(data->cmd->command) && (!data->cmd->next)
-		&& (!data->cmd->prev))
-		res = exec_builtins(data, data->cmd);
-	if (res != FAILURE)
-		return (res);
-	else
-	{
-		free_data(data , false);
-		// return (127);
-	}
-	create_childrens(data);
-	return (0);
-}
-
-/*
-int	main(void)
-{
-	t_data data;
-	t_command cmd;
-	char *command = "ls";
-	char *args[] = {
-		"FU=HEU",
-		"hello",
-		NULL
-	};
-	char *env[] = {
-		"FUCK=YEAH",
-		"PWD=ici",
-		"PATH=/usr/bin",
-		"USER=test_user",
-		NULL
-	};
-
-	data.env = env;
-	data.cmd = &cmd;
-
-	cmd.args = args;
-	cmd.prev = NULL;
-	cmd.command = command;
-
-	executing(&data);
-	return (0);
-}*/
-
-
-/*int	executing(t_data *data)
-{
-	int command;
-
-	command = FAILURE;
-	if (data == NULL || data->cmd == NULL)
-		return (SUCCESS);
-	else
-		create_pipes(data);
-	if (data->cmd->prev == NULL && check_builtins(data->cmd->command))
+	ret = prep_for_exec(data);
+	if (ret != CMD_NOT_FOUND)
+		return (ret);
+	if (!data->cmd->pipe_output && !data->cmd->prev
+		&& check_infile_outfile(data->cmd->io_fds))
 	{
 		io_fd_handler(data->cmd->io_fds);
-		command = exec_builtins(data);
+		ret = exec_builtins(data, data->cmd);
 		io_fd_restore(data->cmd->io_fds);
 	}
-	if (command != FAILURE)
-		return (command);
-	create_childrens(data);
-	return (wait_childrens(data));
-}*/
+	if (ret != CMD_NOT_FOUND)
+		return (ret);
+	return (create_childrens(data));
+}

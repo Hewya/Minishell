@@ -6,81 +6,68 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 10:53:06 by echapuis          #+#    #+#             */
-/*   Updated: 2024/06/26 12:51:25 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/06/28 14:44:59 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	io_fd_handler(t_io_fds *io_fds)
+bool	io_fd_handler(t_io_fds *io)
 {
-	if (io_fds && io_fds->fd_in != -1)
-	{
-		io_fds->stdin_backup = dup(STDIN_FILENO);
-		if (dup2(io_fds->fd_in, STDIN_FILENO) == -1 || io_fds->stdin_backup ==
-			-1)
-		{
-			ft_putendl_fd("error io_fd_handler", 2);
-			// free ?
-			return (1);
-		}
-	}
-	if (io_fds && io_fds->fd_out != -1)
-	{
-		io_fds->stdout_backup = dup(STDOUT_FILENO);
-		if (dup2(io_fds->fd_out, STDOUT_FILENO) == -1 || io_fds->fd_out == -1)
-		{
-			ft_putendl_fd("error io_fd_handler", 2);
-			// free ?
-			return (1);
-		}
-	}
-	return (0);
+	int	ret;
+
+	ret = true;
+	if (!io)
+		return (ret);
+	io->stdin_backup = dup(STDIN_FILENO);
+	if (io->stdin_backup == -1)
+		ret = errmsg_cmd("dup", "stdin backup", strerror(errno), false);
+	io->stdout_backup = dup(STDOUT_FILENO);
+	if (io->stdout_backup == -1)
+		ret = errmsg_cmd("dup", "stdout backup", strerror(errno), false);
+	if (io->fd_in == -1)
+		if (dup2(io->fd_in, STDIN_FILENO) == -1)
+			ret = errmsg_cmd("dup2", io->infile, strerror(errno), false);
+	if (io->fd_out == -1)
+		if (dup2(io->fd_out, STDOUT_FILENO) == -1)
+			ret = errmsg_cmd("dup2", io->outfile, strerror(errno), false);
+	return (ret);
 }
 
-int	io_fd_restore(t_io_fds *io_fds)
+bool	io_fd_restore(t_io_fds *io)
 {
-	int	res;
+	int	ret;
 
-	res = SUCCESS;
-	if (io_fds && io_fds->stdin_backup != -1)
+	ret = true;
+	if (!io)
+		return (ret);
+	if (io->stdin_backup != -1)
 	{
-		if (dup2(io_fds->stdin_backup, STDIN_FILENO) == -1)
-			res = FAILURE;
-		close(io_fds->stdin_backup);
-		io_fds->stdin_backup = -1;
+		if (dup2(io->stdin_backup, STDIN_FILENO) == -1)
+			ret = false;
+		close(io->stdin_backup);
+		io->stdin_backup = -1;
 	}
-	if (io_fds && io_fds->stdout_backup != -1)
+	if (io->stdout_backup != -1)
 	{
-		if (dup2(io_fds->stdout_backup, STDOUT_FILENO) == -1)
-			res = FAILURE;
-		close(io_fds->stdout_backup);
-		io_fds->stdout_backup = -1;
+		if (dup2(io->stdout_backup, STDOUT_FILENO) == -1)
+			ret = false;
+		close(io->stdout_backup);
+		io->stdout_backup = -1;
 	}
-	return (res);
+	return (ret);
 }
 
-
-int	pipes_handler(t_command *command)
+bool	pipes_handler(t_command *cmds, t_command *command)
 {
-	int res;
-
-	res = SUCCESS;
 	if (!command)
-		res = FAILURE;
-	if (command && command->pipe_output)
-		if (dup2(command->pipe_fd[1],STDOUT_FILENO) == -1)
-		{
-			ft_putendl_fd("error pipes handler fd[1]", 2);
-			res = FAILURE;
-		}
-	if (command && command->prev->pipe_output)
-		if (dup2(command->pipe_fd[0], STDIN_FILENO) == -1)
-		{
-			ft_putendl_fd("error pipes handler fd[0]", 2);
-			res = FAILURE;
-		}
-	return (res);
+		return (false);
+	if (command->prev && command->prev->pipe_output)
+		dup2(command->prev->pipe_fd[0], STDIN_FILENO);
+	if (command->pipe_output)
+		dup2(command->pipe_fd[1], STDOUT_FILENO);
+	close_pipes(cmds, command);
+	return (true);
 }
 
 bool	create_pipes(t_data *data)
@@ -91,10 +78,10 @@ bool	create_pipes(t_data *data)
 	cmd = data->cmd;
 	while (cmd)
 	{
-		if (cmd->pipe_output == true || (cmd->prev && cmd->prev->pipe_output))
+		if (cmd->pipe_output || (cmd->prev && cmd->prev->pipe_output))
 		{
-			fd = malloc(2 * sizeof(int));
-			if (!fd || pipe(fd) == -1)
+			fd = malloc(sizeof * fd * 2);
+			if (!fd || pipe(fd) != 0)
 			{
 				perror("create pipes failed\n");
 				free_data(data, false);
