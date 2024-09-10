@@ -32,7 +32,8 @@ int	env_builtin(t_data *data, char **args)
 {
 	if (args[1] != NULL)
 	{
-		ft_printf("env: %s: No such file or directory\n", args[1]);
+		errmsg_cmd("env", args[1], "No such file or directory", false);
+		//ft_printf("env: %s: No such file or directory\n", args[1]);
 		return (127);
 	}
 	return (print_env(data));

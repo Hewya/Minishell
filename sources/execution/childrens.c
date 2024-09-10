@@ -53,7 +53,6 @@ int	create_childrens(t_data *data)
 		}
 		else if (data->pid == 0)
 		{
-			dprintf(2,"CREATE CHILDREN\n");
 			exec_command(data, command);
 		}
 		command = command->next;

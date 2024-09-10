@@ -74,13 +74,11 @@ int	exec_with_path(t_data *data, t_command *cmd)
 	cmd->path = get_cmd_path(data, cmd->command);
 	if (!cmd->path)
 		return (127);
-	dprintf(1,"IN EXEC WITH PATH\n");
 	if (execve(cmd->path, cmd->args, data->env) == -1)
 	{
-		ft_putendl_fd("execve", 2);
+		//ft_putendl_fd("execve", 2);
 		return (CMD_NOT_FOUND);
 	}
-	dprintf(1,"IN EXEC WITH PATH 2\n");
 	return (EXIT_FAILURE);
 }
 
@@ -93,7 +91,7 @@ int	launch_command(t_data *data, t_command *cmd)
 		return (res);
 	if (execve(cmd->command, cmd->args, data->env) == -1)
 	{
-		ft_putendl_fd("execve", 2);
+		//ft_putendl_fd("execve", 2);
 		return (errno);
 	}
 	return (EXIT_FAILURE);

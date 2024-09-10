@@ -63,22 +63,18 @@ int	exec_command(t_data *data, t_command *cmd)
 	close_fd(cmd, false);
 	if (ft_strchr(cmd->command, '/') == NULL)
 	{
-		dprintf(2,"EXEC : %s\n",cmd->command);
 		res = exec_builtins(data, cmd);
 		if (res != CMD_NOT_FOUND)
 		{
-			dprintf(2,"SUCCES BUILTIN: %s\n",cmd->command);
 			exit_shell(data, res);
 		}
 		res = exec_with_path(data, cmd);
 		if (res != CMD_NOT_FOUND)
 		{
-			dprintf(2,"SUCCESS CMD NORMAL: %s\n",cmd->command);
 			exit_shell(data, res);
 		}
 	}
 	res = launch_command(data, cmd);
-	dprintf(2,"EXECUTING END : %s\n",cmd->command);
 	exit_shell(data, res);
 	return (res);
 }

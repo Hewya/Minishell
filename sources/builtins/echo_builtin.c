@@ -58,7 +58,7 @@ int	echo_builtin(t_data *data, char **args)
 	flag_newline = false;
 	while (args[i])
 	{
-		if (is_flag(args[i]) == true)
+		if ((i != 1 && is_flag(args[i - 1]) == true && is_flag(args[i]) == true ) || (i == 1 && is_flag(args[i]) == true))
 		{
 			flag_newline = true;
 			break ;

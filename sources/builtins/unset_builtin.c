@@ -28,17 +28,14 @@ int	unset_builtin(t_data *data, char **args)
 {
 	int	i;
 	int	index_to_remove;
-	int	ret;
 
-	ret = EXIT_SUCCESS;
 	i = 1;
 	index_to_remove = -1;
 	while (args[i])
 	{
 		if (!is_valid_env_var_key(args[i]) || ft_strchr(args[i], '=') != NULL)
 		{
-		errmsg_cmd("unset", args[i], "not a valid identifier", false);
-		ret = EXIT_FAILURE;
+			errmsg_cmd("unset", args[i], "not a valid identifier", false);
 		}
 		else
 		{
@@ -48,7 +45,7 @@ int	unset_builtin(t_data *data, char **args)
 		}
 		i++;
 	}
-	return (ret);
+	return (EXIT_SUCCESS);
 }
 /*
 int main(int argc, char **argv)

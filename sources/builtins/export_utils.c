@@ -54,6 +54,7 @@ int	valid_arg(char *s)
 	return (0);
 }
 
+/*
 int	find_key( t_data *data, char *s, size_t len, char *value)
 {
 	char	*final_key;
@@ -78,8 +79,58 @@ int	find_key( t_data *data, char *s, size_t len, char *value)
 		return (1);
 	}
 	return (0);
+}*/
+
+
+// a diviser
+int find_key(t_data *data, char *s, size_t len, char *value)
+{
+	char *new_entry;
+	char *key_part;
+	char *final_key;
+	bool key_status;
+	int i;
+
+	i = 0;
+	key_status = false;
+	while (data->env[i])
+	{
+		if (ft_strncmp(data->env[i], s, len) == 0 && data->env[i][len] == '=')
+		{
+			key_status = true;
+			break;
+		}
+		i++;
+	}
+	if (!key_status)
+	{
+		key_part = ft_strndup(s, len);
+		final_key = ft_strjoin(key_part, "=");
+
+		if (final_key == NULL)
+		{
+			free(key_part);
+			return (1);
+		}
+		new_entry = ft_strjoin(final_key, value);
+		if (new_entry == NULL)
+		{
+			free(key_part);
+			free(final_key);
+			return (1);
+		}
+		env_modif(data, new_entry);
+		free(key_part);
+		free(final_key);
+		free(new_entry);
+		return (1);
+	}
+	return (0);
 }
 
+
+
+/*
 int	new_env_modif(t_data *data, char **new_env, char *s)
 {
 	int	i;
@@ -100,4 +151,28 @@ int	new_env_modif(t_data *data, char **new_env, char *s)
 	new_env[i + 1] = NULL;
 	data->env = new_env;
 	return (0);
+}*/
+
+int new_env_modif(t_data *data, char **new_env, char *s)
+{
+	int i;
+
+	i = 0;
+	while (data->env[i])
+	{
+		new_env[i] = data->env[i];
+		i++;
+	}
+	new_env[i] = ft_strdup(s);
+	if (!new_env[i])
+	{
+		ft_printf("strdup failed\n");
+		free(new_env);
+		return (1);
+	}
+	new_env[i + 1] = NULL;
+	free(data->env);
+	data->env = new_env;
+	return (0);
 }
+

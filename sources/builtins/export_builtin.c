@@ -12,6 +12,7 @@
 
 #include "minishell.h"
 
+/*
 int	env_modif(t_data *data, char *s)
 {
 	t_data		*tmp;
@@ -37,8 +38,46 @@ int	env_modif(t_data *data, char *s)
 	else
 		data->env[i] = s;
 	return (0);
+}*/
+
+int env_modif(t_data *data, char *s)
+{
+	t_data *tmp;
+	int i;
+	char *value;
+	char **new_env;
+
+	i = 0;
+	tmp = data;
+	value = ft_strchr(s, '=');
+	new_env = NULL;
+	while (data->env[i])
+		i++;
+	new_env = malloc((i + 2) * sizeof(char *));
+	if (!new_env)
+	{
+		ft_printf("malloc failed\n");
+		return (1);
+	}
+
+	i = search_in_env(s, tmp->env, (ft_strlen(s) - ft_strlen(value)));
+	if (i == -1)
+	{
+		if (new_env_modif(data, new_env, s) != 0)
+		{
+			free(new_env);
+			return (1);
+		}
+	}
+	else
+	{
+		free(data->env[i]);
+		data->env[i] = ft_strdup(s);
+	}
+	return (0);
 }
 
+/*
 int	env_surcharge(t_data *data, char *s)
 {
 	size_t	len;
@@ -62,7 +101,35 @@ int	env_surcharge(t_data *data, char *s)
 		data->env[key] = new_value;
 	}
 	return (0);
+}*/
+
+int env_surcharge(t_data *data, char *s)
+{
+	size_t len;
+	char *value;
+	int key;
+	char *new_value;
+
+	key = 0;
+	value = ft_strchr(s, '=') + 1;
+	len = (ft_strlen(s) - ft_strlen(value)) - 2;
+
+	if (find_key(data, s, len, value) == 0)
+	{
+		new_value = malloc(ft_strlen(data->env[key]) + ft_strlen(value) + 1);
+		if (!new_value)
+		{
+			ft_printf("malloc failed\n");
+			return (1);
+		}
+		ft_strcpy(new_value, data->env[key]);
+		ft_strcat(new_value, value);
+		free(data->env[key]);
+		data->env[key] = new_value;
+	}
+	return (0);
 }
+
 
 int	export_perform(t_data *data, char **args)
 {
@@ -78,7 +145,7 @@ int	export_perform(t_data *data, char **args)
 		if (valid_arg(args[i]) != 0)
 		{
 			invalid = i;
-			ft_printf("export: %s: not a valid arg\n", args[i]);
+			errmsg_cmd("export", args[i], "No such file or directory", CMD_NOT_FOUND);
 			res = 1;
 		}
 		if (valid_arg(args[i]) == 0

@@ -44,7 +44,7 @@ int	errmsg_cmd(char *command, char *detail, char *error_message, int error_nb)
 	bool	detail_quotes;
 
 	detail_quotes = add_detail_quotes(command);
-	msg = ft_strdup("minishell: ");
+	msg = ft_strdup("bash: ");
 	if (command != NULL)
 	{
 		msg = join_strs(msg, command);
@@ -69,7 +69,7 @@ void	errmsg(char *errmsg, char *detail, int quotes)
 {
 	char	*msg;
 
-	msg = ft_strdup("minishell: ");
+	msg = ft_strdup("bash: ");
 	msg = join_strs(msg, errmsg);
 	if (quotes)
 		msg = join_strs(msg, " `");
