@@ -6,7 +6,7 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 10:53:06 by echapuis          #+#    #+#             */
-/*   Updated: 2024/06/28 14:44:59 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/09/16 12:24:52 by echapuis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,10 @@ bool	io_fd_handler(t_io_fds *io)
 	io->stdout_backup = dup(STDOUT_FILENO);
 	if (io->stdout_backup == -1)
 		ret = errmsg_cmd("dup", "stdout backup", strerror(errno), false);
-	if (io->fd_in == -1)
+	if (io->fd_in != -1) // seulement si fd_in est valide
 		if (dup2(io->fd_in, STDIN_FILENO) == -1)
 			ret = errmsg_cmd("dup2", io->infile, strerror(errno), false);
-	if (io->fd_out == -1)
+	if (io->fd_out != -1)
 		if (dup2(io->fd_out, STDOUT_FILENO) == -1)
 			ret = errmsg_cmd("dup2", io->outfile, strerror(errno), false);
 	return (ret);
@@ -63,9 +63,11 @@ bool	pipes_handler(t_command *cmds, t_command *command)
 	if (!command)
 		return (false);
 	if (command->prev && command->prev->pipe_output)
-		dup2(command->prev->pipe_fd[0], STDIN_FILENO);
+		if (dup2(command->prev->pipe_fd[0], STDIN_FILENO) == -1)
+			return (errmsg_cmd("dup2", "pipe_fd[0]", strerror(errno), false));
 	if (command->pipe_output)
-		dup2(command->pipe_fd[1], STDOUT_FILENO);
+		if (dup2(command->pipe_fd[1], STDOUT_FILENO) == -1)
+			return (errmsg_cmd("dup2", "pipe_fd[1]", strerror(errno), false));
 	close_pipes(cmds, command);
 	return (true);
 }
