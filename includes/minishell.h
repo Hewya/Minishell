@@ -6,7 +6,7 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 15:41:26 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/06/28 14:50:00 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/09/16 19:23:57 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -425,7 +425,7 @@ int						export_builtin(t_data *data, char **args);
 
 /* ---- cd ---- */
 
-int	cd_builtin(t_data *data, char **args);
+int						cd_builtin(t_data *data, char **args);
 
 /* ---- unset ---- */
 
@@ -501,11 +501,11 @@ bool					check_infile_outfile(t_io_fds *io);
 
 /* ---- signals ---- */
 
-void	ctrlC_shell_wait(int sig);
-void	signal_handler_wait(void);
-void	new_line(int sig);
-void	signal_handler_run(void);
-void	sigquit_disapear();
+void					ctrlC_shell_wait(int sig);
+void					signal_handler_wait(void);
+void					new_line(int sig);
+void					signal_handler_run(void);
+void					sigquit_disapear(void);
 
 
 

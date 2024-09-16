@@ -6,7 +6,7 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 17:25:16 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/06/24 14:21:01 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/09/16 18:51:17 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ bool	fill_heredoc(t_data *data, t_io_fds *io, int fd)
 	line = NULL;
 	while (1)
 	{
-		line = readline(">");
+		line = readline("> ");
 		if (eval_heredoc_line(data, &line, io, &ret) == false)
 			break ;
 		ft_putendl_fd(line, fd);

@@ -6,7 +6,7 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/24 16:05:31 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/06/28 15:01:01 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/09/16 19:30:21 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void	exit_shell(t_data *data, int exno)
 		if (data->cmd && data->cmd->io_fds)
 			close_fd(data->cmd, true);
 		free_data(data, true);
+		rl_clear_history();
 	}
 	exit(exno);
 }
