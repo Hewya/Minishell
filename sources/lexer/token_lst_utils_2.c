@@ -6,7 +6,7 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 17:56:19 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/06/22 12:55:40 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/09/17 18:30:50 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,6 @@ t_token	*insert_lst_between(t_token **head, t_token *to_del, t_token *insert)
 	else
 		_link_extremities(to_del, tmp, insert);
 	free_ptr(to_del->str);
-	free(to_del);
+	free_ptr(to_del); //modif le free en free_ptr
 	return (insert);
 }

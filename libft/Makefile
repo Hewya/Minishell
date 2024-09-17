@@ -51,7 +51,8 @@ SRCS		= ft_atoi.c \
 			  get_next_line/get_next_line.c \
 			  get_next_line/get_next_line_utils.c \
 
-OBJS		= $(SRCS:.c=.o)
+OBJS_PRINTF	= ft_printf.o ft_putadress.o ft_putchar.o ft_puthexa_lower.o ft_puthexa_upper.o ft_putnbr.o ft_putstr.o ft_putunbr.o
+OBJS		= $(SRCS:.c=.o) $(addprefix $(PRINTF_DIR)/, $(OBJS_PRINTF))
 NAME		= libft.a
 CFLAGS		= -Wall -Wextra -Werror
 
@@ -66,7 +67,7 @@ $(PRINTF_PATH):
 
 $(NAME):	$(OBJS) $(PRINTF_PATH)
 			$(AR) crs $(NAME) $(OBJS)
-			printf "OPEN $@\nADDLIB $(PRINTF_PATH)\nSAVE\nEND" | $(AR) -M
+			# $(AR) rs $(NAME) $(OBJS_PRINTF)
 
 clean:
 			$(MAKE) -C $(PRINTF_DIR) fclean

@@ -6,22 +6,12 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 20:41:51 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/06/24 16:50:30 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/09/17 18:45:26 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/*
-**  This function deals with the specific case when the command is "echo"
-**    - It allocates the array of arguments thanks to the count_args function
-**    - It loops through the tokens list while the nodes are of type
-**        VAR or WORD:
-**         * If "bool join = true" in the token structure is true : we join all
-**           the tokens of type VAR that have the setting "join = true"
-**         * if "join = false" we just fill the last_cmd_>args[i]
-**            with the current token.
-*/
 int	create_args_echo_mode(t_token **token_node, t_command *last_cmd)
 {
 	int		nb_args;
@@ -31,7 +21,7 @@ int	create_args_echo_mode(t_token **token_node, t_command *last_cmd)
 	remove_empty_var_args(token_node);
 	tmp = *token_node;
 	nb_args = count_args(tmp);
-	last_cmd->args = malloc(sizeof(char *) * (nb_args + 3));
+	last_cmd->args = malloc(sizeof(char *) * (nb_args + 2)); // modif 3 par 2
 	if (!last_cmd->args)
 		return (FAILURE);
 	i = 0;

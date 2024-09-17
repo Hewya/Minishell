@@ -6,7 +6,7 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 20:31:01 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/06/25 18:03:17 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/09/17 19:20:39 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ char	*recover_value(t_token *token, char *str, t_data *data)
 			token->var_exist = true;
 		value = search_env_var(data, var);
 	}
-	else if (var && var[0] == '?' && var[1] == '=')
+	else if (var && var[0] == '?')
 		value = ft_itoa(data->last_exit_code);
 	else
 		value = NULL;

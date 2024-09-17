@@ -9,7 +9,7 @@ SRCS = ft_printf.c \
 
 OBJS = $(SRCS:.c=.o)
 
-LIB = libftft_printf.a
+LIB = libftprintf.a
 
 CPPFLAGS = -I..
 CFLAGS	 = -Wall -Werror -Wextra

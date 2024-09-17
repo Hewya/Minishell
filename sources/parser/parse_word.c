@@ -6,7 +6,7 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 18:59:34 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/06/22 12:52:32 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/09/17 18:46:12 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void	parse_word(t_command **cmds, t_token **token_lst)
 	while (tmp->type == WORD || tmp->type == VAR)
 	{
 		last_cmd = lst_last_cmd(*cmds);
-		if (tmp->prev == NULL || (tmp->prev && tmp->prev->type == HEREDOC)
+		if (tmp->prev == NULL || (tmp->prev && tmp->prev->type == PIPE) // modif HEREDOC par PIPE
 			|| last_cmd->command == NULL)
 		{
 			if (tmp->type == VAR && contains_space(tmp->str))
