@@ -6,7 +6,7 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 19:29:25 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/09/17 18:53:44 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/09/18 15:48:35 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ char	*identify_var(char *str)
 	while (str[i])
 	{
 		if (str[i] == '$')
-		//  && is_var_friendly(str[i + 1]) == true)
 		{
 			start = i + 1;
 			break ;
