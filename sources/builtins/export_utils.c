@@ -6,7 +6,7 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/24 14:06:05 by echapuis          #+#    #+#             */
-/*   Updated: 2024/06/26 20:29:54 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/09/18 17:48:29 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	valid_arg(char *s)
 	}
 	if (!ft_strchr(s, '='))
 		return (1);
-	while (s[i])
+	while (s[i] != '=')
 	{
 		if (s[i] == '+' && s[i + 1] != '=')
 			return (1);
