@@ -40,7 +40,6 @@ SRC		=	expander/identify_var	\
 			builtins/env_builtin	\
 			builtins/exit_builtin	\
 			builtins/export_builtin	\
-			builtins/export_utils	\
 			builtins/pwd_builtin	\
 			builtins/unset_builtin	\
 			execution/exec_command	\

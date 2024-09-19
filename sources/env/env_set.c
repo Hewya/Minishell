@@ -6,12 +6,11 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 00:23:47 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/06/26 01:37:00 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/09/19 15:37:28 by echapuis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
 
 static char	**alloc_new_env(t_data *data, int len)
 {

@@ -6,130 +6,45 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 14:49:21 by echapuis          #+#    #+#             */
-/*   Updated: 2024/09/18 17:47:02 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/09/19 15:42:17 by echapuis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/*
+int	valid_arg(char *s)
+{
+	int	i;
+
+	i = 0;
+	if (ft_isalpha(s[i]) == 0 && s[i] != '_')
+		return (1);
+	i++;
+	if (!ft_strchr(s, '='))
+		return (1);
+	while (s[i] != '=')
+	{
+		if (ft_isalnum(s[i]) == 0 && s[i] != '_')
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
 int	env_modif(t_data *data, char *s)
 {
-	t_data		*tmp;
-	int			i;
-	char		*value;
-	char		**new_env;
+	char **tab_pair;
+	char *val;
 
-	i = 0;
-	tmp = data;
-	value = ft_strchr(s, '=');
-	new_env = NULL;
-	while (data->env[i])
-		i++;
-	new_env = malloc((i + 2) * sizeof(char *));
-	if (!new_env)
-	{
-		ft_printf("malloc failed\n");
-		return (1);
-	}
-	i = search_in_env(s, tmp->env, (ft_strlen(s) - ft_strlen(value)));
-	if (i == -1)
-		new_env_modif(data, new_env, s);
-	else
-		data->env[i] = s;
-	return (0);
-}*/
-
-int env_modif(t_data *data, char *s)
-{
-	t_data *tmp;
-	int i;
-	char *value;
-	char **new_env;
-
-	i = 0;
-	tmp = data;
-	value = ft_strchr(s, '=');
-	new_env = NULL;
-	while (data->env[i])
-		i++;
-	new_env = malloc((i + 2) * sizeof(char *));
-	if (!new_env)
-	{
-		ft_printf("malloc failed\n");
-		return (1);
-	}
-
-	i = search_in_env(s, tmp->env, (ft_strlen(s) - ft_strlen(value)));
-	if (i == -1)
-	{
-		if (new_env_modif(data, new_env, s) != 0)
-		{
-			free(new_env);
-			return (1);
-		}
-	}
-	else
-	{
-		free(data->env[i]);
-		data->env[i] = ft_strdup(s);
-	}
+	val = ft_strchr(s, '=');
+	tab_pair = malloc(sizeof * tab_pair * (2 + 1));
+	tab_pair[0] = ft_substr(s, 0, val - s);
+	tab_pair[1] = ft_substr(val, 1, ft_strlen(val));
+	tab_pair[2] = NULL;
+	set_env_var(data, tab_pair[0], tab_pair[1]);
+	free_str_tab(tab_pair);
 	return (0);
 }
-
-/*
-int	env_surcharge(t_data *data, char *s)
-{
-	size_t	len;
-	char	*value;
-	int		key;
-	char	*new_value;
-
-	key = 0;
-	value = ft_strchr(s, '=') + 1;
-	len = (ft_strlen(s) - ft_strlen(value)) - 2;
-	if (find_key(data, s, len, value) == 0)
-	{
-		new_value = malloc(ft_strlen(data->env[key]) + ft_strlen(value) + 1);
-		if (!new_value)
-		{
-			ft_printf("malloc failed\n");
-			return (1);
-		}
-		ft_strcpy(new_value, data->env[key]);
-		ft_strcat(new_value, value);
-		data->env[key] = new_value;
-	}
-	return (0);
-}*/
-
-int env_surcharge(t_data *data, char *s)
-{
-	size_t len;
-	char *value;
-	int key;
-	char *new_value;
-
-	key = 0;
-	value = ft_strchr(s, '=') + 1;
-	len = (ft_strlen(s) - ft_strlen(value)) - 2;
-
-	if (find_key(data, s, len, value) == 0)
-	{
-		new_value = malloc(ft_strlen(data->env[key]) + ft_strlen(value) + 1);
-		if (!new_value)
-		{
-			ft_printf("malloc failed\n");
-			return (1);
-		}
-		ft_strcpy(new_value, data->env[key]);
-		ft_strcat(new_value, value);
-		free(data->env[key]);
-		data->env[key] = new_value;
-	}
-	return (0);
-}
-
 
 int	export_perform(t_data *data, char **args)
 {
@@ -145,12 +60,9 @@ int	export_perform(t_data *data, char **args)
 		if (valid_arg(args[i]) != 0)
 		{
 			invalid = i;
-			errmsg_cmd("export", args[i], "No such file or directory", CMD_NOT_FOUND);
+			errmsg_cmd("export", args[i], "not a valid identifier", CMD_NOT_FOUND);
 			res = 1;
 		}
-		if (valid_arg(args[i]) == 0
-			&& ft_valid_surcharge(args[i]))
-			res = env_surcharge(data, args[i]);
 		else if ((valid_arg(args[i])) == 0)
 			res = env_modif(data, args[i]);
 		i++;

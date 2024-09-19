@@ -6,12 +6,11 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 21:11:48 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/06/26 01:39:28 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/09/19 15:38:25 by echapuis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
 
 int	length_env(char **env)
 {

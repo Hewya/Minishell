@@ -6,7 +6,7 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 15:41:26 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/09/16 19:23:57 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/09/19 15:53:00 by echapuis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -408,18 +408,10 @@ bool					remove_env_var(t_data *data, int index);
 
 /* ------------------------------- BUILTINS ----------------------------------*/
 
-/* ---- export_utils ---- */
-
-bool					ft_valid_surcharge(char *s);
-int						valid_arg(char *s);
-int						find_key(t_data *data, char *s, size_t len,
-							char *value);
-int						new_env_modif(t_data *data, char **new_env, char *s);
-
 /* ---- export ---- */
 
+int						valid_arg(char *s);
 int						env_modif(t_data *data, char *s);
-int						env_surcharge(t_data *data, char *s);
 int						export_perform(t_data *data, char **args);
 int						export_builtin(t_data *data, char **args);
 
