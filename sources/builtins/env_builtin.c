@@ -6,7 +6,7 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 14:51:38 by echapuis          #+#    #+#             */
-/*   Updated: 2024/06/26 20:29:54 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/09/23 16:56:31 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ int	env_builtin(t_data *data, char **args)
 	if (args[1] != NULL)
 	{
 		errmsg_cmd("env", args[1], "No such file or directory", false);
-		//ft_printf("env: %s: No such file or directory\n", args[1]);
 		return (127);
 	}
 	return (print_env(data));

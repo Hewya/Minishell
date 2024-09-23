@@ -6,7 +6,7 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 17:03:11 by echapuis          #+#    #+#             */
-/*   Updated: 2024/06/28 14:45:52 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/09/23 17:06:40 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,10 @@ int	wait_childrens(t_data *data)
 		wpid = waitpid(-1, &status, 0);
 		if (wpid == data->pid)
 			save_status = status;
-		continue;
+		continue ;
 	}
 	if (WIFSIGNALED(save_status))
-		status = 128 + WTERMSIG(save_status); // signal effect
+		status = 128 + WTERMSIG(save_status);
 	else if (WIFEXITED(save_status))
 		status = WEXITSTATUS(save_status);
 	else

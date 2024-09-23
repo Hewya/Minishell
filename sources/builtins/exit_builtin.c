@@ -6,7 +6,7 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 14:52:19 by echapuis          #+#    #+#             */
-/*   Updated: 2024/06/26 19:19:23 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/09/23 17:24:26 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ bool	exit_alone(t_data *data)
 	return (false);
 }
 
-int exit_builtin(t_data *data, char **args)
+int	exit_builtin(t_data *data, char **args)
 {
 	int		exit_code;
 	bool	error;

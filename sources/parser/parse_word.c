@@ -6,15 +6,12 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 18:59:34 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/09/17 18:46:12 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/09/23 17:18:59 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/**
- * @brief Checks if a string contains a space character.
- */
 static bool	contains_space(char *str)
 {
 	int	i;
@@ -29,17 +26,6 @@ static bool	contains_space(char *str)
 	return (false);
 }
 
-/**
- * @brief Splits a command string into individual tokens, handling variables,
- * commands, and arguments. It allocates memory for the tokens, initializes the
- * token structures, and populates the token lists.The function takes a
- * command string as input, splits it into tokens using spaces as delimiters,
- * and then processes each token to determine its type (variable, command, or
- * argument). It handles variables by extracting their values from the
- * environment, and commands by setting up their argument lists. The function
- * returns a pointer to the first token in the list, which can be used to
- * traverse the token list.
- */
 static void	split_var_cmd_token(t_command *last_cmd, char *cmd_str)
 {
 	t_token	*new_token;
@@ -74,7 +60,7 @@ void	parse_word(t_command **cmds, t_token **token_lst)
 	while (tmp->type == WORD || tmp->type == VAR)
 	{
 		last_cmd = lst_last_cmd(*cmds);
-		if (tmp->prev == NULL || (tmp->prev && tmp->prev->type == PIPE) // modif HEREDOC par PIPE
+		if (tmp->prev == NULL || (tmp->prev && tmp->prev->type == PIPE)
 			|| last_cmd->command == NULL)
 		{
 			if (tmp->type == VAR && contains_space(tmp->str))

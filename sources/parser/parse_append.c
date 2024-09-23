@@ -6,17 +6,12 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 18:05:58 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/06/22 12:52:58 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/09/23 17:17:47 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/**
- * @brief Opens an outfile in append mode. If an outfile was already set, frees
- * it and overwrites it. If a previous infile or outfile open failed (file does
- *	not exist or permission denied), does not open any further output file.
- */
 static void	open_outfile_append(t_io_fds *io, char *file, char *var_filename)
 {
 	if (!remove_old_file_ref(io, false))

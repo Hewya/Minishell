@@ -6,16 +6,12 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 18:12:03 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/06/24 15:35:03 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/09/23 17:17:34 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/**
- * @brief Prepares command tokens with no arguments by initializing their
- * arguments array and setting the command string.
- */
 static void	prep_no_arg_cmds(t_data *data)
 {
 	t_command	*cmd;

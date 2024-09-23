@@ -6,13 +6,13 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/28 14:40:03 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/06/28 14:57:02 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/09/23 17:28:07 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ctrlC_shell_wait(int sig)
+void	ctrlc_shell_wait(int sig)
 {
 	(void)sig;
 	write(1, "\n", 1);
@@ -23,11 +23,11 @@ void	ctrlC_shell_wait(int sig)
 
 void	signal_handler_wait(void)
 {
-	struct	sigaction act;
+	struct sigaction	act;
 
 	sigquit_disapear();
 	ft_memset(&act, 0, sizeof(act));
-	act.sa_handler = &ctrlC_shell_wait;
+	act.sa_handler = &ctrlc_shell_wait;
 	sigaction(SIGINT, &act, NULL);
 }
 
@@ -39,7 +39,7 @@ void	new_line(int sig)
 
 void	signal_handler_run(void)
 {
-	struct sigaction act;
+	struct sigaction	act;
 
 	ft_memset(&act, 0, sizeof(act));
 	act.sa_handler = &new_line;
@@ -47,9 +47,9 @@ void	signal_handler_run(void)
 	sigaction(SIGQUIT, &act, NULL);
 }
 
-void	sigquit_disapear()
+void	sigquit_disapear(void)
 {
-	struct	sigaction	act;
+	struct sigaction	act;
 
 	ft_memset(&act, 0, sizeof(act));
 	act.sa_handler = SIG_IGN;

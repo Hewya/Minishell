@@ -6,16 +6,12 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 18:10:14 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/06/24 18:08:52 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/09/23 17:17:30 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/**
- * @brief Initializes a command structure, setting its arguments, command
- * string, and pipe information to default values.
- */
 static void	initialize_cmd(t_command **cmd)
 {
 	(*cmd)->args = NULL;

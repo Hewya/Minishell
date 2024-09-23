@@ -6,7 +6,7 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 09:59:36 by echapuis          #+#    #+#             */
-/*   Updated: 2024/06/28 14:46:14 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/09/23 17:07:20 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,10 +75,7 @@ int	exec_with_path(t_data *data, t_command *cmd)
 	if (!cmd->path)
 		return (127);
 	if (execve(cmd->path, cmd->args, data->env) == -1)
-	{
-		//ft_putendl_fd("execve", 2);
 		return (CMD_NOT_FOUND);
-	}
 	return (EXIT_FAILURE);
 }
 
@@ -90,9 +87,6 @@ int	launch_command(t_data *data, t_command *cmd)
 	if (res != 0)
 		return (res);
 	if (execve(cmd->command, cmd->args, data->env) == -1)
-	{
-		//ft_putendl_fd("execve", 2);
 		return (errno);
-	}
 	return (EXIT_FAILURE);
 }

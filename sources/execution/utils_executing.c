@@ -6,7 +6,7 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 16:39:03 by echapuis          #+#    #+#             */
-/*   Updated: 2024/06/28 14:47:08 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/09/23 17:30:27 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 bool	is_directory(char *dir)
 {
-	struct stat cmd;
+	struct stat	cmd;
 
 	ft_memset(&cmd, 0, sizeof(cmd));
 	stat(dir, &cmd);

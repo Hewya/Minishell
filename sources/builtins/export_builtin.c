@@ -6,7 +6,7 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 14:49:21 by echapuis          #+#    #+#             */
-/*   Updated: 2024/09/19 15:42:17 by echapuis         ###   ########.fr       */
+/*   Updated: 2024/09/23 17:05:02 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,19 @@ int	valid_arg(char *s)
 			return (1);
 		i++;
 	}
+	while (s[i])
+	{
+		if ((s[i]) == '$')
+			return (1);
+		i++;
+	}
 	return (0);
 }
 
 int	env_modif(t_data *data, char *s)
 {
-	char **tab_pair;
-	char *val;
+	char	**tab_pair;
+	char	*val;
 
 	val = ft_strchr(s, '=');
 	tab_pair = malloc(sizeof * tab_pair * (2 + 1));
@@ -60,7 +66,8 @@ int	export_perform(t_data *data, char **args)
 		if (valid_arg(args[i]) != 0)
 		{
 			invalid = i;
-			errmsg_cmd("export", args[i], "not a valid identifier", CMD_NOT_FOUND);
+			errmsg_cmd("export", args[i], "not a valid input",
+				CMD_NOT_FOUND);
 			res = 1;
 		}
 		else if ((valid_arg(args[i])) == 0)

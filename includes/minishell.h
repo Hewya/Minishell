@@ -6,7 +6,7 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 15:41:26 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/09/19 15:53:00 by echapuis         ###   ########.fr       */
+/*   Updated: 2024/09/23 17:30:15 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -366,26 +366,6 @@ void					exit_shell(t_data *data, int exno);
 
 
 
-/* -------------------------------- DEBUGS -----------------------------------*/
-
-/* ---- debug --- */
-
-void					print_cmd_args(t_command *cmd);
-void					print_cmd_io(t_command *cmd);
-void					print_cmd_list(t_data *data);
-void					print_token_type(t_token *token, char *prefix);
-void					print_token_status(t_token *token, char *prefix);
-void					print_token_var(t_token *token, char *prefix);
-void					print_token_list(t_token **tokens);
-
-void					print_tokens(t_token *head);
-t_token					*get_first_node(t_token *node);
-
-
-
-
-
-
 /* --------------------------------- ENV -------------------------------------*/
 
 /* ---- env --- */
@@ -461,7 +441,6 @@ int						create_childrens(t_data *data);
 
 /* ---- exec_command ---- */
 
-//int						call_exec(t_data *data, t_command *cmd);
 int						launch_command(t_data *data, t_command *cmd);
 int						exec_with_path(t_data *data, t_command *cmd);
 char					*get_cmd_path(t_data *data, char *command);
@@ -469,7 +448,7 @@ int						check_command(t_data *data, t_command *cmd);
 
 /* ---- redirections_utils ---- */
 
-void					close_fd(t_command *command, bool close_back);
+void					_fd(t_command *command, bool close_back);
 void					close_pipes(t_command *command, t_command *skip_cmd);
 
 /* ---- redirections ---- */
@@ -493,7 +472,7 @@ bool					check_infile_outfile(t_io_fds *io);
 
 /* ---- signals ---- */
 
-void					ctrlC_shell_wait(int sig);
+void					ctrlc_shell_wait(int sig);
 void					signal_handler_wait(void);
 void					new_line(int sig);
 void					signal_handler_run(void);

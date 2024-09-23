@@ -6,7 +6,7 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 23:30:41 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/06/24 15:43:31 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/09/23 17:07:52 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,6 @@ char	*join_strs(char *str, char *add)
 	return (str);
 }
 
-/**
- * @brief Checks whether to add quotes around the error detail:
- * i.e. "unset: `@': not a valid identifier"
- */
 static bool	add_detail_quotes(char *command)
 {
 	if (ft_strncmp(command, "export", 7) == 0 || ft_strncmp(command, "unset",

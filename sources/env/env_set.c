@@ -6,7 +6,7 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 00:23:47 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/09/19 15:37:28 by echapuis         ###   ########.fr       */
+/*   Updated: 2024/09/23 17:28:47 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ static char	**alloc_new_env(t_data *data, int len)
 	free(data->env);
 	return (new_env);
 }
-
 
 bool	set_env_var(t_data *data, char *key, char *value)
 {

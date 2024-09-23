@@ -6,7 +6,7 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 20:41:51 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/09/17 18:45:26 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/09/23 17:18:43 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	create_args_echo_mode(t_token **token_node, t_command *last_cmd)
 	remove_empty_var_args(token_node);
 	tmp = *token_node;
 	nb_args = count_args(tmp);
-	last_cmd->args = malloc(sizeof(char *) * (nb_args + 2)); // modif 3 par 2
+	last_cmd->args = malloc(sizeof(char *) * (nb_args + 2));
 	if (!last_cmd->args)
 		return (FAILURE);
 	i = 0;

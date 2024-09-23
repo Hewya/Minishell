@@ -6,7 +6,7 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 14:26:55 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/06/25 14:29:27 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/09/23 17:31:44 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,9 @@
 
 char	*ft_strcpy(char *dst, const char *src)
 {
-	size_t i = 0;
+	size_t	i;
 
+	i = 0;
 	while (src[i] != '\0')
 	{
 		dst[i] = src[i];
@@ -24,4 +25,3 @@ char	*ft_strcpy(char *dst, const char *src)
 	dst[i] = '\0';
 	return (dst);
 }
-

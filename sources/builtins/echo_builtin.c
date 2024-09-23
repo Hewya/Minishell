@@ -6,7 +6,7 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 14:45:57 by echapuis          #+#    #+#             */
-/*   Updated: 2024/06/26 20:29:54 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/09/23 17:18:28 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,9 @@ int	echo_builtin(t_data *data, char **args)
 	flag_newline = false;
 	while (args[i])
 	{
-		if ((i != 1 && is_flag(args[i - 1]) == true && is_flag(args[i]) == true ) || (i == 1 && is_flag(args[i]) == true))
+		if ((i != 1 && is_flag(args[i - 1]) == true
+				&& is_flag(args[i]) == true)
+			|| (i == 1 && is_flag(args[i]) == true))
 		{
 			flag_newline = true;
 			break ;
@@ -68,19 +70,3 @@ int	echo_builtin(t_data *data, char **args)
 	print_args(args, flag_newline);
 	return (0);
 }
-/*
-int main()
-{
-    char *args1[] = {"-n","-nn","-n", "hello", "fuck", NULL};
-    t_data data1;
-	t_command command;
-
-	command.args = args1;
-	data1.cmd = &command;
-    echo_builtin(&data1);
-
-    //char *args2[] = {"Hello,", "world!", NULL};
-    //t_data data2 = {args2};
-    //echo(&data2);
-    return (0);
-}*/

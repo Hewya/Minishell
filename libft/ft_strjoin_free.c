@@ -6,7 +6,7 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 18:33:01 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/06/12 20:14:50 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/09/23 17:33:09 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ static void	free_join(char const *s1, char const *s2, int freed)
 	else
 		return ;
 }
+
 /**
  * @brief Joins two strings, freeing on demand, and returns the resulting
  * concatenated string.

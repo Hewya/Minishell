@@ -6,7 +6,7 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 20:22:05 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/09/17 18:31:49 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/09/23 17:17:42 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,12 +52,6 @@ int	create_args_default_mode(t_token **token_node, t_command *last_cmd)
 	return (SUCCESS);
 }
 
-/**
- * @brief Creates a new table of strings, copies the default environment
- * variables from the original table, and returns the new table. The function
- * allocates memory for the new table and each string, and then duplicates
- * the default environment variables from the original table to the new one.
- */
 static char	**copy_default_in_new_tab(int len, char **new_tab,
 		t_command *last_cmd, t_token **tk_node)
 {

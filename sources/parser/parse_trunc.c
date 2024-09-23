@@ -6,7 +6,7 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 21:03:42 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/06/24 15:36:02 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/09/23 17:17:54 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,6 @@ char	*get_relative_path(char *file_to_open)
 	return (ret);
 }
 
-/**
- * @brief Opens an outfile in truncated mode. If an outfile was already set,
- * frees it and overwrites it. If a previous infile or outfile open failed
- * (file does not exist or permission denied), does not open any further
- * output file.
- */
 static void	open_outfile_trunc(t_io_fds *io, char *file, char *var_filename)
 {
 	if (!remove_old_file_ref(io, false))
