@@ -6,7 +6,7 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 10:53:06 by echapuis          #+#    #+#             */
-/*   Updated: 2024/09/16 17:22:39 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/09/23 11:11:17 by echapuis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,11 +63,17 @@ bool	pipes_handler(t_command *cmds, t_command *command)
 	if (!command)
 		return (false);
 	if (command->prev && command->prev->pipe_output)
+	{
 		if (dup2(command->prev->pipe_fd[0], STDIN_FILENO) == -1)
 			return (errmsg_cmd("dup2", "pipe_fd[0]", strerror(errno), false));
+		close(command->prev->pipe_fd[0]);
+	}
 	if (command->pipe_output)
+	{
 		if (dup2(command->pipe_fd[1], STDOUT_FILENO) == -1)
 			return (errmsg_cmd("dup2", "pipe_fd[1]", strerror(errno), false));
+		close(command->pipe_fd[1]);
+	}
 	close_pipes(cmds, command);
 	return (true);
 }
@@ -86,6 +92,8 @@ bool	create_pipes(t_data *data)
 			if (!fd || pipe(fd) != 0)
 			{
 				perror("create pipes failed\n");
+				free(fd);
+				close_pipes(data->cmd, NULL);
 				free_data(data, false);
 				return (false);
 			}

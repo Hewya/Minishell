@@ -6,7 +6,7 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 17:43:44 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/09/16 12:25:36 by echapuis         ###   ########.fr       */
+/*   Updated: 2024/09/23 11:11:38 by echapuis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ void	close_pipes(t_command *command, t_command *skip_cmd)
 		{
 			close(command->pipe_fd[0]);
 			close(command->pipe_fd[1]);
+			free(command->pipe_fd);
+			command->pipe_fd = NULL;
 		}
 		command = command->next;
 	}
