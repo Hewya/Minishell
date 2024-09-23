@@ -6,7 +6,7 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 15:41:26 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/09/23 17:30:15 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/09/23 18:48:16 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -448,7 +448,7 @@ int						check_command(t_data *data, t_command *cmd);
 
 /* ---- redirections_utils ---- */
 
-void					_fd(t_command *command, bool close_back);
+void					close_fd(t_command *command, bool close_back);
 void					close_pipes(t_command *command, t_command *skip_cmd);
 
 /* ---- redirections ---- */
