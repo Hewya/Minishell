@@ -6,7 +6,7 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 15:41:26 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/09/23 18:48:16 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/09/24 17:40:31 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@
 # define FAILURE 1
 # define CMD_NOT_FOUND 127
 
-# define PROMPT "bash-5.1$ "
+# define PROMPT "Mini_Inclusivite --> "
 # define HEREDOC_NAME "/tmp/.minishell_heredoc_"
 
 

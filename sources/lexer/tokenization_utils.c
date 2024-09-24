@@ -6,7 +6,7 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 23:45:40 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/06/22 12:55:14 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/09/24 18:21:02 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int	is_separator(char *str, int i)
 		return (PIPE);
 	else if (str[i] == '<' && str[i + 1] == '<')
 		return (HEREDOC);
-	else if (str[i] == '>' && str[i + 1] == '<')
+	else if (str[i] == '>' && str[i + 1] == '>')
 		return (APPEND);
 	else if (str[i] == '<')
 		return (INPUT);
