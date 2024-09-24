@@ -55,6 +55,7 @@ SRC		=	expander/identify_var	\
 			utils/exit	\
 			env/env	\
 			env/env_set	\
+			signal/signals_handler \
 			main	\
 
 SRCS		= $(addsuffix .c, $(addprefix $(SRCS_PATH), $(SRC)))
@@ -74,6 +75,7 @@ $(OBJ_PATH):
 	mkdir -p $(OBJ_PATH)/execution
 	mkdir -p $(OBJ_PATH)/builtins
 	mkdir -p $(OBJ_PATH)/redirection
+	mkdir -p $(OBJ_PATH)/signal
 
 $(OBJ_PATH)%.o: $(SRCS_PATH)%.c
 	$(CC) $(CFLAGS) $(INCS) -c $< -o $@
