@@ -16,6 +16,7 @@ void	running(t_data *data)
 {
 	while (1)
 	{
+		signal_handler_wait();
 		data->user_input = readline(PROMPT);
 		if (data->user_input == NULL)
 			return ;
