@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: Antoine Massias <massias.antoine.pro@gm    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 19:53:16 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/09/17 12:30:42 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/09/25 22:57:42 by Antoine Mas      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ void	running(t_data *data)
 		{
 			if (parse_user_input(data) == true)
 				data->last_exit_code = executing(data);
+			else
+				data->last_exit_code = 2;
 		}
 		else
 			data->last_exit_code = 1;
