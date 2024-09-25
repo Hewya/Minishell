@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   parse_heredoc.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: Antoine Massias <massias.antoine.pro@gm    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 17:24:29 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/06/24 15:35:27 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/09/25 17:12:58 by Antoine Mas      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+#define DEFAULT_RESULT_SIZE 32
 
 bool	get_heredoc(t_data *data, t_io_fds *io)
 {
@@ -39,18 +41,51 @@ static char	*get_heredoc_name(void)
 	return (name);
 }
 
-static char	*get_delim(char *delim, bool *quotes)
+// `*result` musn't be NULL
+static char	*append_char(char **result, size_t *result_capacity, char c)
 {
-	int	len;
+	size_t	length;
+	char	*tmp;
 
-	len = ft_strlen(delim) - 1;
-	if ((delim[0] == '\"' && delim[len] == '\"')
-		|| (delim[0] == '\'' && delim[len] == '\''))
+	length = strlen(*result);
+	if (length + 1 == *result_capacity)
 	{
-		*quotes = true;
-		return (ft_strtrim(delim, "\"\'"));
+		tmp = malloc(*result_capacity * 2);
+		if (tmp == NULL)
+			return (NULL);
+		memcpy(tmp, *result, length);
+		free(*result);
+		*result = tmp;
 	}
-	return (ft_strdup(delim));
+	(*result)[length] = c;
+	(*result)[length + 1] = '\0';
+	return (*result);
+}
+
+static char	*get_delim(char *delim)
+{
+	char	*result;
+	size_t	result_capacity;
+	char	quote;
+
+	result = calloc(DEFAULT_RESULT_SIZE, 1);
+	result_capacity = DEFAULT_RESULT_SIZE;
+	if (result == NULL)
+		return (NULL);
+	while (*delim)
+	{
+		if (*delim == '\'' || *delim == '\"')
+		{
+			quote = *delim++;
+			while (*delim && *delim != quote)
+				append_char(&result, &result_capacity, *delim++);
+			if (*delim++ != quote)
+				return (free(result), NULL);
+			continue ;
+		}
+		append_char(&result, &result_capacity, *delim++);
+	}
+	return (result);
 }
 
 void	parse_heredoc(t_data *data, t_command **last_cmd, t_token **token_lst)
@@ -66,7 +101,9 @@ void	parse_heredoc(t_data *data, t_command **last_cmd, t_token **token_lst)
 	if (!remove_old_file_ref(io, true))
 		return ;
 	io->infile = get_heredoc_name();
-	io->delimiter = get_delim(tmp->next->str, &(io->heredoc_quotes));
+	io->delimiter = get_delim(tmp->next->str);
+	if (io->delimiter == NULL)
+		exit_shell(data, 3);
 	if (get_heredoc(data, io))
 		io->fd_in = open(io->infile, O_RDONLY);
 	else
