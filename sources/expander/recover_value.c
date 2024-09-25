@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   recover_value.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: Antoine Massias <massias.antoine.pro@gm    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 20:31:01 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/09/23 17:17:16 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/09/25 21:50:29 by Antoine Mas      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,10 @@ char	*recover_value(t_token *token, char *str, t_data *data)
 	char	*value;
 	char	*var;
 
+	value = NULL;
 	var = identify_var(str);
+	if (var == NULL)
+		return (value);
 	if (var && var_exists(data, var) == 0)
 	{
 		if (token != NULL)
@@ -60,8 +63,8 @@ char	*recover_value(t_token *token, char *str, t_data *data)
 	}
 	else if (var && var[0] == '?')
 		value = ft_itoa(data->last_exit_code);
-	else
-		value = NULL;
+	else if (var && var[0] == '$')
+		value = ft_itoa(getpid());
 	free_ptr(var);
 	return (value);
 }

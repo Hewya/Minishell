@@ -3,24 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   replace_var.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: Antoine Massias <massias.antoine.pro@gm    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 15:07:09 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/09/18 18:32:36 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/09/25 21:10:17 by Antoine Mas      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 static char	*erase_and_replace(t_token **token_node, char *str, char *var_value,
-		int index)
+		size_t *index)
 {
 	char	*newstr;
 	int		newstr_size;
+	size_t	vl;
 
-	newstr_size = (ft_strlen(str) - var_length(str + index)
-			+ ft_strlen(var_value));
-	newstr = get_new_token_string(str, var_value, newstr_size, index);
+	vl = var_length(str + *index);
+	newstr_size = (ft_strlen(str) - vl + ft_strlen(var_value));
+	newstr = get_new_token_string(str, var_value, newstr_size, *index);
+	*index += vl;
 	if (token_node && *token_node)
 	{
 		free_ptr((*token_node)->str);
@@ -29,7 +31,7 @@ static char	*erase_and_replace(t_token **token_node, char *str, char *var_value,
 	return (newstr);
 }
 
-int	replace_var(t_token **token_node, char *var_value, int index)
+int	replace_var(t_token **token_node, char *var_value, size_t *index)
 {
 	if (var_value == NULL)
 	{
@@ -47,17 +49,16 @@ int	replace_var(t_token **token_node, char *var_value, int index)
 	return (0);
 }
 
-char	*replace_str_heredoc(char *str, char *var_value, int index)
+char	*replace_str_heredoc(char *str, char *var_value, size_t index)
 {
 	char	*tmp;
 
-	tmp = NULL;
 	if (var_value == NULL)
 		*str = '\0';
 	else
 	{
 		tmp = str;
-		str = erase_and_replace(NULL, str, var_value, index);
+		str = erase_and_replace(NULL, str, var_value, &index);
 		free_ptr(tmp);
 	}
 	free_ptr(var_value);

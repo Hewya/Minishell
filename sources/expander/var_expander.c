@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   var_expander.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: Antoine Massias <massias.antoine.pro@gm    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 15:01:13 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/09/23 17:16:33 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/09/25 21:46:02 by Antoine Mas      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,51 +24,57 @@ static void	update_status(t_token **token_node, char c)
 		(*token_node)->status = UNQUOTED;
 }
 
-static bool	is_next_char_a_sep(char c)
+static bool	is_next_char_valid(char c)
 {
-	if (c == '$' || c == ' ' || c == '=' || c == '\0')
-		return (true);
-	else
-		return (false);
+	return (ft_isalpha(c) || c == '_');
 }
 
-static bool	var_between_quotes(char *str, int i)
+static void	expand(t_data *data, t_token **token, size_t *i, bool *flag)
 {
-	if (i > 0)
+	// TODO: change name lol
+	if ((*token)->str[*i] != '$')
+		++(*i);
+	else if ((*token)->str[*i + 1] == '\'')
 	{
-		if (str[i - 1] == '\"' && str[i + 1] == '\"')
-			return (true);
-		else
-			return (false);
+		ft_strcpy(&(*token)->str[*i], &(*token)->str[*i + 2]);
+		while ((*token)->str[*i] && (*token)->str[*i] != '\'')
+			++*i;
+		ft_strcpy(&(*token)->str[*i], &(*token)->str[*i + 1]);
 	}
-	return (false);
+	else if ((*token)->str[*i + 1] == '\"')
+	{
+		if (!*flag)
+			ft_strcpy(&(*token)->str[*i], &(*token)->str[*i + 1]);
+		*i += *flag == true;
+		*flag = !*flag;
+	}
+	else if ((*token)->status != SINGLE_QUOTE)
+		replace_var(token,
+			recover_value(*token, (*token)->str + *i, data), i);
+	else
+		++(*i);
 }
 
 int	var_expander(t_data *data, t_token **token_lst)
 {
-	t_token	*temp;
-	int		i;
+	t_token	*tmp;
+	size_t	i;
+	bool	flag;
 
-	temp = *token_lst;
-	while (temp)
+	flag = false;
+	tmp = *token_lst;
+	while (tmp)
 	{
-		if (temp->type == VAR)
+		if (tmp->type == VAR)
 		{
 			i = 0;
-			while (temp->str[i])
+			while (tmp->str[i])
 			{
-				update_status(&temp, temp->str[i]);
-				if (temp->str[i] == '$' && is_next_char_a_sep(temp->str[i + 1])
-					== false && var_between_quotes(temp->str, i) == false
-					&& (temp->status == UNQUOTED || temp->status
-						== DOUBLE_QUOTE))
-					replace_var(&temp, recover_value(temp, temp->str + i, data),
-						i);
-				else
-					i++;
+				update_status(&tmp, tmp->str[i]);
+				expand(data, &tmp, &i, &flag);
 			}
 		}
-		temp = temp->next;
+		tmp = tmp->next;
 	}
 	return (0);
 }
@@ -81,12 +87,10 @@ char	*var_expander_heredoc(t_data *data, char *str)
 	while (str[i])
 	{
 		if (str[i] == '$'
-			&& is_next_char_a_sep(str[i + 1]) == false
-			&& var_between_quotes(str, i) == false)
+			&& is_next_char_valid(str[i + 1]))
 			str = replace_str_heredoc(str,
 					recover_value(NULL, str + i, data), i);
-		else
-			i++;
+		i++;
 	}
 	return (str);
 }

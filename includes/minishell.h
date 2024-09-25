@@ -6,7 +6,7 @@
 /*   By: Antoine Massias <massias.antoine.pro@gm    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 15:41:26 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/09/25 18:30:21 by Antoine Mas      ###   ########.fr       */
+/*   Updated: 2024/09/25 22:00:21 by Antoine Mas      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -213,9 +213,9 @@ char					*get_new_token_string(char *oldstr, char *var_value,
 /* ---- replace_var ---- */
 
 int						replace_var(t_token **token_node, char *var_value,
-							int index);
+							size_t *index);
 char					*replace_str_heredoc(char *str, char *var_value,
-							int index);
+							size_t index);
 
 
 /* ---- identify_var ---- */

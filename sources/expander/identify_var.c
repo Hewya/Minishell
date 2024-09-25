@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   identify_var.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: Antoine Massias <massias.antoine.pro@gm    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 19:29:25 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/09/18 15:48:35 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/09/25 21:47:17 by Antoine Mas      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	var_length(char *str)
 
 	i = 0;
 	len = 0;
-	if ((str[i] >= '0' && str[i] <= '9') || str[i] == '?')
+	if ((str[i] >= '0' && str[i] <= '9') || str[i] == '?' || str[i] == '$')
 		return (len + 1);
 	while (str[i])
 	{
