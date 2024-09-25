@@ -6,7 +6,7 @@
 /*   By: Antoine Massias <massias.antoine.pro@gm    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 17:24:29 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/09/25 17:12:58 by Antoine Mas      ###   ########.fr       */
+/*   Updated: 2024/09/25 18:15:02 by Antoine Mas      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ bool	get_heredoc(t_data *data, t_io_fds *io)
 
 static char	*get_heredoc_name(void)
 {
-	static int	i;
+	static int	i = 0;
 	char		*name;
 	char		*number;
 
@@ -78,12 +78,14 @@ static char	*get_delim(char *delim)
 		{
 			quote = *delim++;
 			while (*delim && *delim != quote)
-				append_char(&result, &result_capacity, *delim++);
+				if (append_char(&result, &result_capacity, *delim++) == NULL)
+					return (free(result), NULL);
 			if (*delim++ != quote)
 				return (free(result), NULL);
 			continue ;
 		}
-		append_char(&result, &result_capacity, *delim++);
+		if (append_char(&result, &result_capacity, *delim++) == NULL)
+			return (free(result), NULL);
 	}
 	return (result);
 }
