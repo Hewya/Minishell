@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: Antoine Massias <massias.antoine.pro@gm    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/24 16:05:31 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/09/23 18:31:08 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/09/25 23:45:52 by Antoine Mas      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ void	exit_shell(t_data *data, int exno)
 {
 	if (data)
 	{
+		if (!data->cmd)
+			dprintf(STDERR_FILENO, "exit\n");
 		if (data->cmd && data->cmd->io_fds)
 			close_fd(data->cmd, true);
 		free_data(data, true);

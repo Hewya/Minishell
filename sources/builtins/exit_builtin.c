@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit_builtin.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: Antoine Massias <massias.antoine.pro@gm    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 14:52:19 by echapuis          #+#    #+#             */
-/*   Updated: 2024/09/23 17:24:26 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/09/25 23:49:59 by Antoine Mas      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,12 +90,11 @@ int	exit_builtin(t_data *data, char **args)
 	int		exit_code;
 	bool	error;
 
+	exit_code = 0;
 	error = false;
 	if (exit_alone(data) == false)
 		ft_putendl_fd("exit", 2);
-	if (!args || !args[1])
-		exit_code = data->last_exit_code;
-	else
+	if (args != NULL && args[1] != NULL)
 	{
 		exit_code = get_exit_code(data, args[1], &error);
 		if (error)
