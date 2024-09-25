@@ -3,38 +3,32 @@
 /*                                                        :::      ::::::::   */
 /*   export_builtin.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: Antoine Massias <massias.antoine.pro@gm    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 14:49:21 by echapuis          #+#    #+#             */
-/*   Updated: 2024/09/23 17:05:02 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/09/25 22:19:50 by Antoine Mas      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	valid_arg(char *s)
+bool	valid_arg(char *s)
 {
 	int	i;
 
 	i = 0;
 	if (ft_isalpha(s[i]) == 0 && s[i] != '_')
-		return (1);
+		return (false);
 	i++;
 	if (!ft_strchr(s, '='))
-		return (1);
+		return (true);
 	while (s[i] != '=')
 	{
 		if (ft_isalnum(s[i]) == 0 && s[i] != '_')
-			return (1);
+			return (false);
 		i++;
 	}
-	while (s[i])
-	{
-		if ((s[i]) == '$')
-			return (1);
-		i++;
-	}
-	return (0);
+	return (true);
 }
 
 int	env_modif(t_data *data, char *s)
@@ -42,55 +36,63 @@ int	env_modif(t_data *data, char *s)
 	char	**tab_pair;
 	char	*val;
 
-	val = ft_strchr(s, '=');
 	tab_pair = malloc(sizeof * tab_pair * (2 + 1));
-	tab_pair[0] = ft_substr(s, 0, val - s);
-	tab_pair[1] = ft_substr(val, 1, ft_strlen(val));
-	tab_pair[2] = NULL;
+	if (tab_pair == NULL)
+		return (EXIT_FAILURE);
+	val = ft_strchr(s, '=');
+	if (val != NULL)
+	{
+		tab_pair[0] = ft_substr(s, 0, val - s);
+		tab_pair[1] = ft_substr(val, 1, ft_strlen(val));
+		tab_pair[2] = NULL;
+	}
+	else
+	{
+		tab_pair[0] = ft_substr(s, 0, val - s);
+		tab_pair[1] = ft_strdup("");
+		tab_pair[2] = NULL;
+	}
+	if (tab_pair[0] == NULL || tab_pair[1] == NULL)
+		return (free(tab_pair[0]), free(tab_pair[1]), EXIT_FAILURE);
 	set_env_var(data, tab_pair[0], tab_pair[1]);
 	free_str_tab(tab_pair);
-	return (0);
+	return (EXIT_SUCCESS);
 }
 
 int	export_perform(t_data *data, char **args)
 {
-	int	i;
-	int	res;
-	int	invalid;
+	int		i;
+	int		res;
+	bool	invalid;
 
 	i = 1;
-	res = 0;
-	invalid = -1;
+	res = EXIT_SUCCESS;
+	invalid = false;
 	while (args[i] != NULL)
 	{
-		if (valid_arg(args[i]) != 0)
+		if (valid_arg(args[i]) == false)
 		{
-			invalid = i;
+			printf("Failure on \"%s\"\n", args[i]);
+			invalid = true;
 			errmsg_cmd("export", args[i], "not a valid input",
 				CMD_NOT_FOUND);
-			res = 1;
+			res = EXIT_FAILURE;
 		}
-		else if ((valid_arg(args[i])) == 0)
+		else
 			res = env_modif(data, args[i]);
 		i++;
 	}
-	if (invalid > -1)
-		return (1);
+	if (invalid == true)
+		return (EXIT_FAILURE);
 	return (res);
 }
 
 int	export_builtin(t_data *data, char **args)
 {
-	int	invalid;
-
-	invalid = -1;
-	if (args[1] == NULL)
-		ft_printf("yeah go see the man brooo !\n");
-	else
-		invalid = export_perform(data, args);
-	if (invalid > -1)
-		return (1);
-	return (0);
+	if (args[1] != NULL)
+		return (export_perform(data, args));
+	ft_printf("yeah go see the man brooo !\n");
+	return (EXIT_SUCCESS);
 }
 
 /*

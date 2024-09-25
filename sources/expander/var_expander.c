@@ -6,7 +6,7 @@
 /*   By: Antoine Massias <massias.antoine.pro@gm    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 15:01:13 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/09/25 21:46:02 by Antoine Mas      ###   ########.fr       */
+/*   Updated: 2024/09/25 22:56:46 by Antoine Mas      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ static bool	is_next_char_valid(char c)
 
 static void	expand(t_data *data, t_token **token, size_t *i, bool *flag)
 {
-	// TODO: change name lol
 	if ((*token)->str[*i] != '$')
 		++(*i);
 	else if ((*token)->str[*i + 1] == '\'')
