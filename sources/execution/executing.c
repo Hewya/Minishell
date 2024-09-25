@@ -6,7 +6,7 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 11:52:45 by echapuis          #+#    #+#             */
-/*   Updated: 2024/06/28 14:46:33 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/09/25 10:44:57 by echapuis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,14 +65,10 @@ int	exec_command(t_data *data, t_command *cmd)
 	{
 		res = exec_builtins(data, cmd);
 		if (res != CMD_NOT_FOUND)
-		{
 			exit_shell(data, res);
-		}
 		res = exec_with_path(data, cmd);
 		if (res != CMD_NOT_FOUND)
-		{
 			exit_shell(data, res);
-		}
 	}
 	res = launch_command(data, cmd);
 	exit_shell(data, res);

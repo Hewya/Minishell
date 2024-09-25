@@ -6,7 +6,7 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 17:03:11 by echapuis          #+#    #+#             */
-/*   Updated: 2024/09/23 17:06:40 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/09/25 10:46:22 by echapuis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,7 @@ int	create_childrens(t_data *data)
 			return (EXIT_FAILURE);
 		}
 		else if (data->pid == 0)
-		{
 			exec_command(data, command);
-		}
 		command = command->next;
 	}
 	return (wait_childrens(data));
