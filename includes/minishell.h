@@ -6,7 +6,7 @@
 /*   By: Antoine Massias <massias.antoine.pro@gm    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 15:41:26 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/09/25 22:13:25 by Antoine Mas      ###   ########.fr       */
+/*   Updated: 2024/09/26 00:18:57 by Antoine Mas      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -391,7 +391,7 @@ bool					remove_env_var(t_data *data, int index);
 
 /* ---- export ---- */
 
-bool					valid_arg(char *s);
+int						valid_arg(char *s);
 int						env_modif(t_data *data, char *s);
 int						export_perform(t_data *data, char **args);
 int						export_builtin(t_data *data, char **args);

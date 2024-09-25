@@ -6,29 +6,41 @@
 /*   By: Antoine Massias <massias.antoine.pro@gm    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 14:49:21 by echapuis          #+#    #+#             */
-/*   Updated: 2024/09/25 22:19:50 by Antoine Mas      ###   ########.fr       */
+/*   Updated: 2024/09/26 00:56:21 by Antoine Mas      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-bool	valid_arg(char *s)
+int	valid_arg(char *s)
 {
-	int	i;
+	const char	*assign;
+	size_t		i;
 
+	assign = ft_strchr(s, '=');
+	if (s[0] == '=')
+		return (1);
 	i = 0;
 	if (ft_isalpha(s[i]) == 0 && s[i] != '_')
-		return (false);
+	{
+		if (assign == NULL || assign[1] == '\0')
+			return (1);
+		else
+			return (2);
+	}
 	i++;
-	if (!ft_strchr(s, '='))
-		return (true);
-	while (s[i] != '=')
+	while (s[i] && s[i] != '=')
 	{
 		if (ft_isalnum(s[i]) == 0 && s[i] != '_')
-			return (false);
+		{
+			if (assign == NULL || assign[1] == '\0')
+				return (1);
+			else
+				return (2);
+		}
 		i++;
 	}
-	return (true);
+	return (0);
 }
 
 int	env_modif(t_data *data, char *s)
@@ -38,7 +50,7 @@ int	env_modif(t_data *data, char *s)
 
 	tab_pair = malloc(sizeof * tab_pair * (2 + 1));
 	if (tab_pair == NULL)
-		return (EXIT_FAILURE);
+		return (2);
 	val = ft_strchr(s, '=');
 	if (val != NULL)
 	{
@@ -53,37 +65,38 @@ int	env_modif(t_data *data, char *s)
 		tab_pair[2] = NULL;
 	}
 	if (tab_pair[0] == NULL || tab_pair[1] == NULL)
-		return (free(tab_pair[0]), free(tab_pair[1]), EXIT_FAILURE);
+		return (free(tab_pair[0]), free(tab_pair[1]), 1);
 	set_env_var(data, tab_pair[0], tab_pair[1]);
 	free_str_tab(tab_pair);
-	return (EXIT_SUCCESS);
+	return (0);
 }
 
 int	export_perform(t_data *data, char **args)
 {
 	int		i;
 	int		res;
-	bool	invalid;
+	int		code;
 
 	i = 1;
 	res = EXIT_SUCCESS;
-	invalid = false;
 	while (args[i] != NULL)
 	{
-		if (valid_arg(args[i]) == false)
+		code = valid_arg(args[i]);
+		if (code != 0)
 		{
 			printf("Failure on \"%s\"\n", args[i]);
-			invalid = true;
 			errmsg_cmd("export", args[i], "not a valid input",
 				CMD_NOT_FOUND);
-			res = EXIT_FAILURE;
+			res = code;
 		}
 		else
-			res = env_modif(data, args[i]);
+		{
+			code = env_modif(data, args[i]);
+			if (res == 0 && code)
+				res = code;
+		}
 		i++;
 	}
-	if (invalid == true)
-		return (EXIT_FAILURE);
 	return (res);
 }
 

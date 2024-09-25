@@ -6,7 +6,7 @@
 /*   By: Antoine Massias <massias.antoine.pro@gm    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 17:24:29 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/09/25 18:15:02 by Antoine Mas      ###   ########.fr       */
+/*   Updated: 2024/09/26 01:04:03 by Antoine Mas      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,11 +68,9 @@ static char	*get_delim(char *delim)
 	size_t	result_capacity;
 	char	quote;
 
-	result = calloc(DEFAULT_RESULT_SIZE, 1);
 	result_capacity = DEFAULT_RESULT_SIZE;
-	if (result == NULL)
-		return (NULL);
-	while (*delim)
+	result = calloc(DEFAULT_RESULT_SIZE, 1);
+	while (result != NULL && *delim)
 	{
 		if (*delim == '\'' || *delim == '\"')
 		{
@@ -82,9 +80,8 @@ static char	*get_delim(char *delim)
 					return (free(result), NULL);
 			if (*delim++ != quote)
 				return (free(result), NULL);
-			continue ;
 		}
-		if (append_char(&result, &result_capacity, *delim++) == NULL)
+		else if (append_char(&result, &result_capacity, *delim++) == NULL)
 			return (free(result), NULL);
 	}
 	return (result);
