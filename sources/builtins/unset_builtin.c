@@ -6,23 +6,11 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 14:49:57 by echapuis          #+#    #+#             */
-/*   Updated: 2024/06/26 20:29:54 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/09/25 14:28:28 by echapuis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-/*void	here_print_env(char **env)
-{
-	int	i;
-
-	i = 0;
-	while (env[i])
-	{
-		ft_printf("%s\n", env[i]);
-		i++;
-	}
-}*/
 
 int	unset_builtin(t_data *data, char **args)
 {
