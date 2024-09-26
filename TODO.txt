@@ -7,17 +7,6 @@ PROBLEMS:
 
 ******************************* ECHO *********************************
 
-/bin/echo $USER$TESTNOTFOUND$HOME$
-
-/bin/echo $USER$TESTNOTFOUND$HOME$WTF$PWD
-
-/bin/echo $HOME$NOTHING$USER$
-
-/bin/echo $TESTNOTFOUND$HOME
-
-/bin/echo $TESTNOTFOUND$HOME$
-
-
 echo "" "" "" -n -n -n -n
 
 
