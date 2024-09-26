@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_user_input.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: Antoine Massias <massias.antoine.pro@gm    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 10:48:45 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/09/23 17:25:34 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/09/26 20:27:43 by Antoine Mas      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ bool	parse_user_input(t_data *data)
 	if (check_if_var(&data->token) == FAILURE)
 		return (false);
 	var_expander(data, &data->token);
-	handle_quotes(data);
+	// handle_quotes(data);
 	create_command(data, data->token);
 	return (true);
 }

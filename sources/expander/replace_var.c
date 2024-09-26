@@ -6,7 +6,7 @@
 /*   By: Antoine Massias <massias.antoine.pro@gm    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 15:07:09 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/09/26 17:03:56 by Antoine Mas      ###   ########.fr       */
+/*   Updated: 2024/09/26 20:21:43 by Antoine Mas      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,20 +33,15 @@ static char	*erase_and_replace(t_token **token_node, char *str, char *var_value,
 
 int	replace_var(t_token **token_node, char *var_value, size_t *index)
 {
+	char	*val;
+
 	if (var_value == NULL)
-	{
-		if (erase_and_replace(token_node, (*token_node)->str,
-				"", index) == NULL)
-			return (1);
-	}
+		val = "";
 	else
-	{
-		if (erase_and_replace(token_node, (*token_node)->str, var_value,
-				index) == NULL)
-			return (1);
-	}
+		val = var_value;
+	val = erase_and_replace(token_node, (*token_node)->str, val, index);
 	free_ptr(var_value);
-	return (0);
+	return (val == NULL);
 }
 
 char	*replace_str_heredoc(char *str, char *var_value, size_t index)
