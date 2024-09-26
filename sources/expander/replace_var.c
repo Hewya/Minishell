@@ -6,7 +6,7 @@
 /*   By: Antoine Massias <massias.antoine.pro@gm    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 15:07:09 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/09/25 21:10:17 by Antoine Mas      ###   ########.fr       */
+/*   Updated: 2024/09/26 17:03:56 by Antoine Mas      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static char	*erase_and_replace(t_token **token_node, char *str, char *var_value,
 	vl = var_length(str + *index);
 	newstr_size = (ft_strlen(str) - vl + ft_strlen(var_value));
 	newstr = get_new_token_string(str, var_value, newstr_size, *index);
-	*index += vl;
+	*index += vl - 1;
 	if (token_node && *token_node)
 	{
 		free_ptr((*token_node)->str);
