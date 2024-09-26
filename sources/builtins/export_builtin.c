@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_builtin.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Antoine Massias <massias.antoine.pro@gm    +#+  +:+       +#+        */
+/*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 14:49:21 by echapuis          #+#    #+#             */
-/*   Updated: 2024/09/26 00:56:21 by Antoine Mas      ###   ########.fr       */
+/*   Updated: 2024/09/26 14:31:32 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ int	export_perform(t_data *data, char **args)
 		code = valid_arg(args[i]);
 		if (code != 0)
 		{
-			printf("Failure on \"%s\"\n", args[i]);
+			//printf("Failure on \"%s\"\n", args[i]);
 			errmsg_cmd("export", args[i], "not a valid input",
 				CMD_NOT_FOUND);
 			res = code;
@@ -108,34 +108,3 @@ int	export_builtin(t_data *data, char **args)
 	return (EXIT_SUCCESS);
 }
 
-/*
-int main(int argc, char **argv)
-{
-	(void)argc;
-	(void)argv;
-    t_data data;
-    t_command cmd;
-	char *args[] = {
-		"./a.out",
-		"_hello=ahnon",
-		"HELL=YO",
-		"AIDEzMoi",
-		"FUCK=YEAH",
-		"FUCK+=OK",
-		"AHOUI+=etoui",
-		NULL
-	};
-    char *env[] = {
-		"FUCK=HOLA",
-		"PWD=ici",
-		"HELL=OUI",
-        "PATH=/usr/bin",
-        "USER=test_user",
-        NULL
-    };
-
-    data.env = env;
-    data.cmd = &cmd;
-    cmd.args = args;
-    return (export_builtin(&data));
-}*/

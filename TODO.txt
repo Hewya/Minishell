@@ -1,0 +1,142 @@
+PROBLEMS:
+	1- Variable d'environnement
+		a. Inexistante ?
+		b. Plusieurs dans la chaine Seule la premiere est expand
+	2- Mix de quotes et dollar
+
+
+******************************* ECHO *********************************
+
+/bin/echo $USER$TESTNOTFOUND$HOME$
+
+/bin/echo $USER$TESTNOTFOUND$HOME$WTF$PWD
+
+/bin/echo $HOME$NOTHING$USER$
+
+/bin/echo $TESTNOTFOUND$HOME
+
+/bin/echo $TESTNOTFOUND$HOME$
+
+
+echo "" "" "" -n -n -n -n
+
+
+echo '$'$'$'$'$'
+
+echo '$'$'$'$'$'$'$'
+
+echo "$"$'$'$"$"$"$"$'$'
+
+
+
+echo '$USER' "$USER" "text  ' text"
+
+echo text"'$USER'" ' $USER '
+
+echo "text"   "$USER"    "$USER"
+
+
+/bin/echo $
+
+/bin/echo "$"
+
+/bin/echo "$""$"
+
+/bin/echo "$"$
+
+/bin/echo "$ "
+
+echo "   $   "
+
+echo "$""
+
+
+<| echo ok
+
+
+
+echo $/ $/
+
+echo "$/ $/"
+
+echo $/"$/"
+
+********************************* CD ***********************************
+
+cd ../../
+cd -
+cd -
+
+
+
+
+******************************* EXPORT *********************************
+
+export T="-n test1 -n test 2"
+echo $T
+
+export T=nnnnnnnn
+echo "-""$T"nnnnnnnnnnnnn -nnnnnnnn"$T" '-'"$T"
+
+export T=nnnnnnnn
+echo "-""$T"nnnnnnnnnnnnn -nnnnnnnn"$T" '-''$T'
+
+export T=nnnnnnnn
+echo "-"'$T'nnnnnnnnnnnnn -nnnnnnnn'$T' '-'"$T "
+
+export T=-nnnnnnnn"nnnnnnn "
+echo $T
+
+export T='|'
+echo $T echo lala $T echo $T echo ?
+
+echo $?
+export ?=hallo
+echo $?
+
+
+ls | cat << stop | ls -la | cat << stop1 | ls | cat << stop2 | ls -la > out | cat << 'stop3'
+$USER
+ad
+stop
+dsa
+stop1
+sad
+stop2
+as $HOME
+stop3
+/bin/rm -f out
+
+
+cat << 'lim'
+$USER
+$NOVAR
+$HOME
+lim
+
+cat << lim''
+$USER
+$NOVAR
+$HOME
+lim
+
+cat << "lim"
+$USER
+$NOVAR
+$HOME
+lim
+
+cat << 'lim'
+$USER
+$NOVAR
+$HOME
+lim
+
+
+<<| echo wtf
+
+<| echo wtf
+
+>tmp_out | echo 1
+cat tmp_out
+rm -f tmp_out
