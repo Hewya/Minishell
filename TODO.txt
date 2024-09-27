@@ -1,88 +1,52 @@
-PROBLEMS:
-	1- Variable d'environnement
-		a. Inexistante ?
-		b. Plusieurs dans la chaine Seule la premiere est expand
-	2- Mix de quotes et dollar
+TODO.txt --- V2
 
+	PROBLEMS:
+		1. cd -
+		2. EXPORT
+			a. '?' = non valid input
+			b. *...* = "-n *...*"
+				echo traite le -n comme des caracteres lambda et non comme une option
 
-******************************* ECHO *********************************
-
-echo "" "" "" -n -n -n -n
-
-
-echo '$'$'$'$'$'
-
-echo '$'$'$'$'$'$'$'
-
-echo "$"$'$'$"$"$"$"$'$'
-
-
-
-echo '$USER' "$USER" "text  ' text"
-
-echo text"'$USER'" ' $USER '
-
-echo "text"   "$USER"    "$USER"
-
-
-/bin/echo $
-
-/bin/echo "$"
-
-/bin/echo "$""$"
-
-/bin/echo "$"$
-
-/bin/echo "$ "
-
-echo "   $   "
-
-echo "$""
-
-
-<| echo ok
-
-
-
-echo $/ $/
-
-echo "$/ $/"
-
-echo $/"$/"
-
-********************************* CD ***********************************
+------------- CD ----------
 
 cd ../../
 cd -
 cd -
 
+unset PATH
+echo $PATH
+/bin/ls
+echo 1
+cd -
+echo 42
 
+cd -
 
-
-******************************* EXPORT *********************************
+------------- EXPORT ----------
 
 export T="-n test1 -n test 2"
 echo $T
 
-export T=nnnnnnnn
-echo "-""$T"nnnnnnnnnnnnn -nnnnnnnn"$T" '-'"$T"
-
-export T=nnnnnnnn
-echo "-""$T"nnnnnnnnnnnnn -nnnnnnnn"$T" '-''$T'
-
-export T=nnnnnnnn
-echo "-"'$T'nnnnnnnnnnnnn -nnnnnnnn'$T' '-'"$T "
-
 export T=-nnnnnnnn"nnnnnnn "
 echo $T
-
-export T='|'
-echo $T echo lala $T echo $T echo ?
 
 echo $?
 export ?=hallo
 echo $?
 
+------------- DELIMITEUR ----------
+
+cat << "$USER"
+why
+not
+$USER
+
+cat << "$US"E"R"
+because
+we
+love
+bash
+$USER
 
 ls | cat << stop | ls -la | cat << stop1 | ls | cat << stop2 | ls -la > out | cat << 'stop3'
 $USER
@@ -95,7 +59,6 @@ stop2
 as $HOME
 stop3
 /bin/rm -f out
-
 
 cat << 'lim'
 $USER
@@ -121,6 +84,9 @@ $NOVAR
 $HOME
 lim
 
+------------- RANDOM ----------
+
+/bin/env | grep "_="
 
 <<| echo wtf
 
