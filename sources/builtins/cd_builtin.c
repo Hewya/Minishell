@@ -6,26 +6,23 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 14:47:15 by echapuis          #+#    #+#             */
-/*   Updated: 2024/09/23 17:30:36 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/09/27 12:07:41 by echapuis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	update_wds(t_data *data, char *wd)
+static void update_wds(t_data *data, char *wd)
 {
-	set_env_var(data, "OLDPWD", get_env_var_value(data->env, "PWD"));
+	if (data->working_dir)
+		set_env_var(data, "OLDPWD", data->working_dir);
 	set_env_var(data, "PWD", wd);
 	if (data->old_working_dir)
-	{
 		free_ptr(data->old_working_dir);
-		data->old_working_dir = ft_strdup(data->working_dir);
-	}
+	data->old_working_dir = ft_strdup(data->working_dir);
 	if (data->working_dir)
-	{
 		free_ptr(data->working_dir);
-		data->working_dir = ft_strdup(wd);
-	}
+	data->working_dir = ft_strdup(wd);
 	free_ptr(wd);
 }
 
@@ -73,6 +70,13 @@ int	cd_builtin(t_data *data, char **args)
 		if (!path || *path == '\0' || ft_isspace(*path))
 			return (errmsg_cmd("cd", NULL, "HOME not set", EXIT_FAILURE));
 		return (!change_dir(data, path));
+	}
+	if (ft_strcmp(args[1], "-") == 0)
+	{
+		if (data->old_working_dir == NULL)
+			return (errmsg_cmd("cd", NULL, "OLDPWD not set", EXIT_FAILURE));
+		ft_printf("%s\n", data->old_working_dir);
+		return (!change_dir(data, data->old_working_dir));
 	}
 	if (args[2])
 		return (errmsg_cmd("cd", NULL, "too many arguments", EXIT_FAILURE));

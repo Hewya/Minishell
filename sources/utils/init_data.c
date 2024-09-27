@@ -6,7 +6,7 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 20:53:36 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/06/26 01:35:22 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/09/27 12:07:25 by echapuis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,19 +39,7 @@ static bool	init_wds(t_data *data)
 	data->working_dir = ft_strdup(wd);
 	if (!data->working_dir)
 		return (false);
-	if (get_env_var_index(data->env, "OLDPWD") != -1)
-	{
-		data->old_working_dir = ft_strdup(get_env_var_value(data->env,
-					"OLDPWD"));
-		if (!data->old_working_dir)
-			return (false);
-	}
-	else
-	{
-		data->old_working_dir = ft_strdup(wd);
-		if (!data->old_working_dir)
-			return (false);
-	}
+	data->old_working_dir = NULL;
 	return (true);
 }
 
