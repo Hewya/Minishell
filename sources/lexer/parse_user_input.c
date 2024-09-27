@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_user_input.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Antoine Massias <massias.antoine.pro@gm    +#+  +:+       +#+        */
+/*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 10:48:45 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/09/26 20:27:43 by Antoine Mas      ###   ########.fr       */
+/*   Updated: 2024/09/27 13:23:26 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

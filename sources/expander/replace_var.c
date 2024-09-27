@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   replace_var.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Antoine Massias <massias.antoine.pro@gm    +#+  +:+       +#+        */
+/*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 15:07:09 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/09/26 20:21:43 by Antoine Mas      ###   ########.fr       */
+/*   Updated: 2024/09/27 13:41:34 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

@@ -3,36 +3,43 @@
 /*                                                        :::      ::::::::   */
 /*   var_expander.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Antoine Massias <massias.antoine.pro@gm    +#+  +:+       +#+        */
+/*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 15:01:13 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/09/26 20:44:12 by Antoine Mas      ###   ########.fr       */
+/*   Updated: 2024/09/27 13:17:45 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static bool	update_status(t_token **token_node, char *str)
+static void	update_status(t_token *token_node, char *str)
 {
-	if (*str == '\'' && (*token_node)->status != DOUBLE_QUOTE)
+	while (1)
 	{
-		if ((*token_node)->status == UNQUOTED)
-			(*token_node)->status = SINGLE_QUOTE;
-		else if ((*token_node)->status == SINGLE_QUOTE)
-			(*token_node)->status = UNQUOTED;
-		ft_strcpy(str, str + 1);
-		return (true);
+		if (*str == '\'' && token_node->status != DOUBLE_QUOTE)
+		{
+			if (token_node->status == UNQUOTED)
+				token_node->status = SINGLE_QUOTE;
+			else if (token_node->status == SINGLE_QUOTE)
+				token_node->status = UNQUOTED;
+			ft_strcpy(str, str + 1);
+			if (token_node->prev != NULL && token_node->prev->type == HEREDOC)
+				token_node->prev->type = HEREDOC_NO_EXPAND;
+			continue ;
+		}
+		if (*str == '\"' && token_node->status != SINGLE_QUOTE)
+		{
+			if (token_node->status == UNQUOTED)
+				token_node->status = DOUBLE_QUOTE;
+			else if (token_node->status == DOUBLE_QUOTE)
+				token_node->status = UNQUOTED;
+			ft_strcpy(str, str + 1);
+			if (token_node->prev != NULL && token_node->prev->type == HEREDOC)
+				token_node->prev->type = HEREDOC_NO_EXPAND;
+			continue ;
+		}
+		break ;
 	}
-	if (*str == '\"' && (*token_node)->status != SINGLE_QUOTE)
-	{
-		if ((*token_node)->status == UNQUOTED)
-			(*token_node)->status = DOUBLE_QUOTE;
-		else if ((*token_node)->status == DOUBLE_QUOTE)
-			(*token_node)->status = UNQUOTED;
-		ft_strcpy(str, str + 1);
-		return (true);
-	}
-	return (false);
 }
 
 static bool	is_next_char_valid(char c)
@@ -43,6 +50,8 @@ static bool	is_next_char_valid(char c)
 static void	expand(t_data *data, t_token **token, size_t *i)
 {
 	if ((*token)->str[*i] != '$')
+		++(*i);
+	else if ((*token)->prev != NULL && ((*token)->prev->type == HEREDOC || (*token)->prev->type == HEREDOC_NO_EXPAND))
 		++(*i);
 	else if ((*token)->str[*i + 1] == '\'' && (*token)->status == UNQUOTED)
 		ft_strcpy(&(*token)->str[*i], &(*token)->str[*i + 1]);
@@ -71,8 +80,7 @@ int	var_expander(t_data *data, t_token **token_lst)
 			i = 0;
 			while (tmp->str[i])
 			{
-				if (update_status(&tmp, &tmp->str[i]))
-					continue ;
+				update_status(tmp, &tmp->str[i]);
 				expand(data, &tmp, &i);
 			}
 		}

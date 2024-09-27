@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_heredoc.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Antoine Massias <massias.antoine.pro@gm    +#+  +:+       +#+        */
+/*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 17:24:29 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/09/26 01:04:03 by Antoine Mas      ###   ########.fr       */
+/*   Updated: 2024/09/27 13:03:19 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,8 @@ void	parse_heredoc(t_data *data, t_command **last_cmd, t_token **token_lst)
 	cmd = lst_last_cmd(*last_cmd);
 	init_io(cmd);
 	io = cmd->io_fds;
+	if ((*token_lst)->type == HEREDOC_NO_EXPAND)
+		io->heredoc_quotes = true;
 	if (!remove_old_file_ref(io, true))
 		return ;
 	io->infile = get_heredoc_name();
