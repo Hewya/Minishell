@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amassias <amassias@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 15:41:26 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/09/27 12:29:13 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/09/28 14:22:18 by amassias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -363,6 +363,11 @@ void					init_io(t_command *cmd);
 
 void					exit_shell(t_data *data, int exno);
 
+
+/* ---- exit--- */
+
+void					ft_free_tab(void **tab);
+char					**ft_multi_split(char const *s, const char *c);
 
 
 

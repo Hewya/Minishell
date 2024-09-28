@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   cd_builtin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amassias <amassias@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 14:47:15 by echapuis          #+#    #+#             */
-/*   Updated: 2024/09/27 12:07:41 by echapuis         ###   ########.fr       */
+/*   Updated: 2024/09/28 18:49:28 by amassias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void update_wds(t_data *data, char *wd)
+static void	update_wds(t_data *data, char *wd)
 {
 	if (data->working_dir)
 		set_env_var(data, "OLDPWD", data->working_dir);
@@ -26,7 +26,7 @@ static void update_wds(t_data *data, char *wd)
 	free_ptr(wd);
 }
 
-static	bool	chdir_errno_mod(char *path)
+static bool	chdir_errno_mod(char *path)
 {
 	if (errno == ESTALE)
 		errno = ENOENT;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   recover_value.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Antoine Massias <massias.antoine.pro@gm    +#+  +:+       +#+        */
+/*   By: amassias <amassias@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 20:31:01 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/09/25 21:50:29 by Antoine Mas      ###   ########.fr       */
+/*   Updated: 2024/09/28 16:56:45 by amassias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,10 +51,10 @@ char	*recover_value(t_token *token, char *str, t_data *data)
 	char	*value;
 	char	*var;
 
-	value = NULL;
 	var = identify_var(str);
 	if (var == NULL)
-		return (value);
+		return (NULL);
+	value = NULL;
 	if (var && var_exists(data, var) == 0)
 	{
 		if (token != NULL)
