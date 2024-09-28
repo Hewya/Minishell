@@ -6,7 +6,7 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 10:48:45 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/09/27 13:23:26 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/09/28 21:28:38 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ bool	parse_user_input(t_data *data)
 	if (check_if_var(&data->token) == FAILURE)
 		return (false);
 	var_expander(data, &data->token);
-	// handle_quotes(data);
 	create_command(data, data->token);
 	return (true);
 }

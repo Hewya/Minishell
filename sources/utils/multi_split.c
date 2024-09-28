@@ -3,38 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   multi_split.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amassias <amassias@student.42lehavre.fr    +#+  +:+       +#+        */
+/*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 23:24:41 by amassias          #+#    #+#             */
-/*   Updated: 2024/09/28 18:49:00 by amassias         ###   ########.fr       */
+/*   Updated: 2024/09/28 21:32:32 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static
-size_t	_count_words(
-			char const *s,
-			const char *c
-			);
-
-static
-void	_fill_tab(
-			char *new,
-			char const *s,
-			const char *c
-			);
-
-static
-void	_set_mem(
-			char **tab,
-			char const *s,
-			const char *c
-			);
-
-void	ft_free_tab(
-			void **tab
-			)
+void	ft_free_tab(void **tab)
 {
 	void	**itr;
 
@@ -46,10 +24,7 @@ void	ft_free_tab(
 	free(tab);
 }
 
-char	**ft_multi_split(
-			char const *s,
-			const char *c
-			)
+char	**ft_multi_split(char const *s, const char *c)
 {
 	size_t	words;
 	char	**tab;
@@ -62,11 +37,7 @@ char	**ft_multi_split(
 	return (tab);
 }
 
-static
-size_t	_count_words(
-			char const *s,
-			const char *c
-			)
+static size_t	_count_words(char const *s, const char *c)
 {
 	size_t	words;
 
@@ -81,24 +52,14 @@ size_t	_count_words(
 	return (words);
 }
 
-static
-void	_fill_tab(
-			char *new,
-			char const *s,
-			const char *c
-			)
+static void	_fill_tab(char *new, char const *s, const char *c)
 {
 	while (*s && ft_strchr(c, *s) == NULL)
 		*new++ = *s++;
 	*new = '\0';
 }
 
-static
-void	_set_mem(
-			char **tab,
-			char const *s,
-			const char *c
-			)
+static void	_set_mem( char **tab, char const *s, const char *c)
 {
 	size_t	count;
 	size_t	i;

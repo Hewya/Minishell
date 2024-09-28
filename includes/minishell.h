@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amassias <amassias@student.42lehavre.fr    +#+  +:+       +#+        */
+/*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 15:41:26 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/09/28 14:22:18 by amassias         ###   ########.fr       */
+/*   Updated: 2024/09/28 21:28:06 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -230,12 +230,6 @@ char					*identify_var(char *str);
 
 char					*recover_value(t_token *token, char *str, t_data *data);
 
-
-/* ---- quotes_handler ---- */
-
-int						count_len(char *str, int count, int i);
-bool					quotes_in_string(char *str);
-int						handle_quotes(t_data *data);
 
 /* ---- quotes_remover ---- */
 

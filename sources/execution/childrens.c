@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   childrens.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Antoine Massias <massias.antoine.pro@gm    +#+  +:+       +#+        */
+/*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 17:03:11 by echapuis          #+#    #+#             */
-/*   Updated: 2024/09/25 18:32:36 by Antoine Mas      ###   ########.fr       */
+/*   Updated: 2024/09/28 21:26:35 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,7 @@ int	create_childrens(t_data *data)
 		if (command->pid == -1)
 		{
 			ft_putendl_fd("error with childrens", 2);
-			// TODO: Properly close minishell (& pipes!!)
-			return (EXIT_FAILURE);
+			exit_shell(data, EXIT_FAILURE);
 		}
 		else if (command->pid == 0)
 			exec_command(data, command);

@@ -6,11 +6,40 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 12:19:20 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/09/23 17:17:05 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/09/28 21:29:52 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static int	count_len(char *str, int count, int i)
+{
+	int	status;
+
+	status = 0;
+	while (str[i])
+	{
+		if ((str[i] == '\'' || str[i] == '\"') && status == UNQUOTED)
+		{
+			if (str[i] == '\'')
+				status = SINGLE_QUOTE;
+			if (str[i] == '\"')
+				status = DOUBLE_QUOTE;
+			i++;
+			continue ;
+		}
+		else if ((str[i] == '\'' && status == SINGLE_QUOTE) || (str[i] == '\"'
+				&& status == DOUBLE_QUOTE))
+		{
+			status = UNQUOTED;
+			i++;
+			continue ;
+		}
+		count++;
+		i++;
+	}
+	return (count + 1);
+}
 
 static void	change_status_to_quote(t_token **token_node, int *i)
 {

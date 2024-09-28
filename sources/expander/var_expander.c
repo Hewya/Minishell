@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   var_expander.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amassias <amassias@student.42lehavre.fr    +#+  +:+       +#+        */
+/*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 15:01:13 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/09/28 18:45:10 by amassias         ###   ########.fr       */
+/*   Updated: 2024/09/28 21:24:20 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,8 +170,7 @@ static void	expand(t_data *data, t_token **token, size_t *i)
 
 // Searches for the first occurence of any char of `to_find` into `to_search`.
 // If none were found, returns NULL.
-static
-const char	*_search(const char *to_search, const char *to_find)
+static const char	*_search(const char *to_search, const char *to_find)
 {
 	while (*to_search)
 		if (strchr(to_find, *to_search++))
