@@ -95,3 +95,33 @@ lim
 >tmp_out | echo 1
 cat tmp_out
 rm -f tmp_out
+
+
+
+
+
+
+LEAKS
+
+ls | cat << stop | ls -la | cat << stop1 | ls | cat << stop2 | ls -la > out | cat << 'stop3'
+$USER
+ad
+stop
+dsa
+stop1
+sad
+stop2
+as $HOME
+stop3
+/bin/rm -f out
+
+ls|cat Makefile|cat<<asd>out
+$USER
+asd
+/bin/rm -f out
+
+cat << hello
+$USER
+$NOVAR
+$HOME
+hello

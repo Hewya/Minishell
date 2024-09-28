@@ -3,3 +3,7 @@
 minishell
 libft/libft.a
 libft/ft_printf/libftprintf.a
+|
+log
+logs
+TODO.txt

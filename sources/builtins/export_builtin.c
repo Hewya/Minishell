@@ -3,32 +3,42 @@
 /*                                                        :::      ::::::::   */
 /*   export_builtin.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amassias <amassias@student.42lehavre.fr    +#+  +:+       +#+        */
+/*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 14:49:21 by echapuis          #+#    #+#             */
-/*   Updated: 2024/09/28 18:49:54 by amassias         ###   ########.fr       */
+/*   Updated: 2024/09/28 21:06:57 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+static int	is_valid_start_char(char c, char *str)
+{
+	int	i;
+
+	i = 0;
+	if (ft_isalpha(c) == 0 && c != '_')
+	{
+		if (str == NULL || str[1] == '\0')
+			i = 1;
+		else
+			i = 2;
+	}
+	return (i);
+}
+
 int	valid_arg(char *s)
 {
-	const char	*assign;
-	size_t		i;
+	char	*assign;
+	size_t	i;
 
 	assign = ft_strchr(s, '=');
-	if (s[0] == '=')
+	if (s[0] == '=' || s[0] == '?')
 		return (1);
 	i = 0;
-	if (ft_isalpha(s[i]) == 0 && s[i] != '_')
-	{
-		if (assign == NULL || assign[1] == '\0')
-			return (1);
-		else
-			return (2);
-	}
-	i++;
+	if (!is_valid_start_char(s[i], assign))
+		return (is_valid_start_char(s[i], assign));
+	i = 1;
 	while (s[i] && s[i] != '=')
 	{
 		if (ft_isalnum(s[i]) == 0 && s[i] != '_')
@@ -84,7 +94,6 @@ int	export_perform(t_data *data, char **args)
 		code = valid_arg(args[i]);
 		if (code != 0)
 		{
-			//printf("Failure on \"%s\"\n", args[i]);
 			errmsg_cmd("export", args[i], "not a valid input",
 				CMD_NOT_FOUND);
 			res = code;
