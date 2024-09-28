@@ -74,8 +74,7 @@ int	cd_builtin(t_data *data, char **args)
 	if (ft_strcmp(args[1], "-") == 0)
 	{
 		if (data->old_working_dir == NULL)
-			return (errmsg_cmd("cd", NULL, "OLDPWD not set", EXIT_FAILURE));
-		ft_printf("%s\n", data->old_working_dir);
+			return (pwd_builtin());
 		return (!change_dir(data, data->old_working_dir));
 	}
 	if (args[2])
