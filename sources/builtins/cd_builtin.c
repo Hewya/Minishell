@@ -71,13 +71,14 @@ int	cd_builtin(t_data *data, char **args)
 			return (errmsg_cmd("cd", NULL, "HOME not set", EXIT_FAILURE));
 		return (!change_dir(data, path));
 	}
+	if (args[2])
+		return (errmsg_cmd("cd", NULL, "too many arguments", EXIT_FAILURE));
 	if (ft_strcmp(args[1], "-") == 0)
 	{
 		if (data->old_working_dir == NULL)
 			return (pwd_builtin());
+		ft_printf("%s\n", data->old_working_dir);
 		return (!change_dir(data, data->old_working_dir));
 	}
-	if (args[2])
-		return (errmsg_cmd("cd", NULL, "too many arguments", EXIT_FAILURE));
 	return (!change_dir(data, args[1]));
 }
