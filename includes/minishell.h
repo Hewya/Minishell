@@ -6,19 +6,16 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 15:41:26 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/09/29 02:22:26 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/09/29 17:44:44 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-
-
 /* ************************************************************************** */
 /*                                 INCLUDES                                   */
 /* ************************************************************************** */
-
 
 # include ".././libft/libft.h"
 # include <errno.h>
@@ -35,13 +32,9 @@
 # include <sys/wait.h>
 # include <unistd.h>
 
-
-
-
 /* ************************************************************************** */
 /*                                  MACROS                                    */
 /* ************************************************************************** */
-
 
 # ifndef PATH_MAX
 #  define PATH_MAX 4096
@@ -54,13 +47,9 @@
 # define PROMPT "Mini_Inclusivite --> "
 # define HEREDOC_NAME "/tmp/.minishell_heredoc_"
 
-
-
-
 /* ************************************************************************** */
 /*                                STRUCTURES                                  */
 /* ************************************************************************** */
-
 
 typedef struct s_token
 {
@@ -111,11 +100,9 @@ typedef struct s_data
 	t_command			*cmd;
 }						t_data;
 
-
 /* ************************************************************************** */
 /*                               ENUMERATIONS                                 */
 /* ************************************************************************** */
-
 
 enum					e_token_types
 {
@@ -138,15 +125,9 @@ enum					e_quoting_status
 	DOUBLE_QUOTE
 };
 
-
-
-
 /* ************************************************************************** */
 /*                                FUNCTIONS                                   */
 /* ************************************************************************** */
-
-
-
 
 /* ------------------------------- LEXER -------------------------------------*/
 
@@ -154,7 +135,6 @@ enum					e_quoting_status
 int						tokenization(t_data *data, char *str);
 
 /* ---- tokenization_utils ---- */
-
 
 int						save_separator(t_token **token_lst, char *str,
 							int index, int type);
@@ -191,18 +171,12 @@ int						check_consecutives(t_token **token_lst);
 void					_variable_check(t_token **token_node);
 int						check_if_var(t_token **token_lst);
 
-
-
-
-
-
 /* ------------------------------ EXPANDER -----------------------------------*/
 
 /* ---- var_expander ---- */
 
 int						var_expander(t_data *data, t_token **token_lst);
 char					*var_expander_heredoc(t_data *data, char *str);
-
 
 /* ---- var_expander_utils ---- */
 
@@ -211,7 +185,6 @@ void					copy_var_value(char *new_str, char *var_value, int *j);
 char					*get_new_token_string(char *oldstr, char *var_value,
 							int newstr_size, int index);
 
-
 /* ---- replace_var ---- */
 
 int						replace_var(t_token **token_node, char *var_value,
@@ -219,23 +192,19 @@ int						replace_var(t_token **token_node, char *var_value,
 char					*replace_str_heredoc(char *str, char *var_value,
 							size_t index);
 
-
 /* ---- identify_var ---- */
 
 bool					is_var_friendly(char c);
 int						var_length(char *str);
 char					*identify_var(char *str);
 
-
 /* ---- recover_value ---- */
 
 char					*recover_value(t_token *token, char *str, t_data *data);
 
-
 /* ---- quotes_remover ---- */
 
 int						remove_quotes(t_token **token_node);
-
 
 /* ---- utils2 ---- */
 
@@ -245,10 +214,6 @@ void					expand_part1(t_data *data, t_token **token, size_t *i);
 
 void					create_split(t_token **base, char *content);
 size_t					concat(char **dst_ptr, char *str);
-
-
-
-
 
 /* -------------------------------- PARSER -----------------------------------*/
 
@@ -262,12 +227,10 @@ t_command				*lst_last_cmd(t_command *cmd);
 void					lst_add_back_cmd(t_command **alst, t_command *new);
 t_command				*lst_new_cmd(bool value);
 
-
 /* ---- cmd_lst_utils_clean ---- */
 
 void					lst_delone_cmd(t_command *lst, void (*del)(void *));
 void					lst_clear_cmd(t_command **lst, void (*del)(void *));
-
 
 /* ---- fill_args_default ---- */
 
@@ -278,14 +241,12 @@ int						add_args_default_mode(t_token **token_node,
 							t_command *last_cmd);
 int						fill_args(t_token **token_node, t_command *last_cmd);
 
-
 /* ---- fill_args_echo_ ---- */
 
 int						create_args_echo_mode(t_token **token_node,
 							t_command *last_cmd);
 int						add_args_echo_mode(t_token **token_node,
 							t_command *last_cmd);
-
 
 /* ---- fill_args_echo_utils ---- */
 
@@ -295,18 +256,15 @@ char					**copy_in_new_tab(int len, char **new_tab,
 							t_command *last_cmd, t_token *tmp);
 void					remove_empty_var_args(t_token **tokens);
 
-
 /* ---- parse_append  ---- */
 
 void					parse_append(t_command **last_cmd, t_token **token_lst);
-
 
 /* ---- parse_heredoc ---- */
 
 bool					get_heredoc(t_data *data, t_io_fds *io);
 void					parse_heredoc(t_data *data, t_command **last_cmd,
 							t_token **token_lst);
-
 
 /* ---- parse_heredoc_utils ---- */
 
@@ -317,26 +275,18 @@ bool					fill_heredoc(t_data *data, t_io_fds *io, int fd);
 bool					remove_old_file_ref(t_io_fds *io, bool infile);
 void					parse_input(t_command **last_cmd, t_token **token_lst);
 
-
 /* ---- parse_pipe.---- */
 
 void					parse_pipe(t_command **cmd, t_token **token_lst);
-
 
 /* ---- parse_trunc ---- */
 
 char					*get_relative_path(char *file_to_open);
 void					parse_trunc(t_command **last_cmd, t_token **token_lst);
 
-
 /* ---- parse_word ---- */
 
 void					parse_word(t_command **cmds, t_token **token_lst);
-
-
-
-
-
 
 /* -------------------------------- UTILS ------------------------------------*/
 
@@ -347,7 +297,6 @@ void					free_ptr(void *ptr);
 void					free_io(t_io_fds *io);
 void					free_data(t_data *data, bool clear_history);
 
-
 /* ---- errors ---- */
 
 char					*join_strs(char *str, char *add);
@@ -356,26 +305,19 @@ int						errmsg_cmd(char *command, char *detail,
 void					errmsg(char *errmsg, char *detail, int quotes);
 int						usage_msg(void);
 
-
 /* ---- init_data --- */
 
 bool					init_data(t_data *data, char **env);
 void					init_io(t_command *cmd);
 
-
 /* ---- exit--- */
 
 void					exit_shell(t_data *data, int exno);
-
 
 /* ---- exit--- */
 
 void					ft_free_tab(void **tab);
 char					**ft_multi_split(char const *s, const char *c);
-
-
-
-
 
 /* --------------------------------- ENV -------------------------------------*/
 
@@ -391,11 +333,6 @@ bool					is_valid_env_var_key(char *var);
 
 bool					set_env_var(t_data *data, char *key, char *value);
 bool					remove_env_var(t_data *data, int index);
-
-
-
-
-
 
 /* ------------------------------- BUILTINS ----------------------------------*/
 
@@ -432,11 +369,6 @@ int						pwd_builtin(void);
 /* ---- exit ---- */
 
 int						exit_builtin(t_data *data, char **args);
-
-
-
-
-
 
 /* ----------------------------- EXECUTING -----------------------------------*/
 
@@ -489,10 +421,7 @@ void					new_line(int sig);
 void					signal_handler_run(void);
 void					sigquit_disapear(void);
 
-
-
-
-
+/* --------------------------------- MAIN ------------------------------------*/
 void					running(t_data *data);
 
 #endif
