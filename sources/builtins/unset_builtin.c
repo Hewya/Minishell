@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset_builtin.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: echapuis <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 14:49:57 by echapuis          #+#    #+#             */
-/*   Updated: 2024/09/25 14:28:28 by echapuis         ###   ########.fr       */
+/*   Updated: 2024/09/29 17:39:05 by echapuis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,33 +35,3 @@ int	unset_builtin(t_data *data, char **args)
 	}
 	return (EXIT_SUCCESS);
 }
-/*
-int main(int argc, char **argv)
-{
-	t_data data;
-	t_command cmd;
-	char *args[] = {
-		"",
-		NULL
-	};
-	char *env[] = {
-		"PATH=/usr/bin",
-		"USER=test_user",
-		"HELLO=world",
-		"FUCK=YEAK",
-		"RHO=MM",
-		NULL
-	};
-
-	data.env = env;
-	data.cmd = &cmd;
-
-	cmd.args = args;
-
-
-	if (unset_builtin(&data) == 0)
-		ft_printf("Unset function executed successfully.\n");
-	else
-		ft_printf("Unset function failed.\n");
-	return (0);
-}*/

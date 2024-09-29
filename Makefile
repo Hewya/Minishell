@@ -8,23 +8,27 @@ INC_PATH	= ./includes/
 LIBFT_PATH	= ./libft/
 LIBFT		= $(LIBFT_PATH)libft.a
 
-SRC	=																		\
-	builtins/cd_builtin builtins/echo_builtin builtins/env_builtin			\
-	builtins/exit_builtin builtins/export_builtin builtins/pwd_builtin		\
-	builtins/unset_builtin env/env env/env_set execution/childrens			\
-	execution/exec_command execution/executing execution/prep_executing		\
-	execution/utils_executing expander/identify_var	expander/quotes_remover \
-	expander/recover_value expander/replace_var	expander/utils2	 expander/utils3 \
-	expander/var_expander expander/var_expander_utils lexer/check_if_var	\
-	lexer/lexer_grammar lexer/parse_user_input lexer/token_lst_utils		\
-	lexer/token_lst_utils_2 lexer/tokenization lexer/tokenization_utils		\
-	main parser/cmd_lst_utils parser/cmd_lst_utils_clean					\
-	parser/create_command parser/fill_args_default parser/fill_args_echo	\
-	parser/fill_args_echo_utils parser/parse_append parser/parse_heredoc	\
-	parser/parse_heredoc_utils parser/parse_input parser/parse_pipe			\
-	parser/parse_trunc parser/parse_word redirection/redirection			\
-	redirection/redirection_utils signal/signals_handler utils/clean_up		\
-	utils/errors utils/exit utils/init_data utils/multi_split				\
+SRC	=																			\
+	builtins/cd_builtin builtins/echo_builtin builtins/env_builtin				\
+	builtins/exit_builtin builtins/export_builtin builtins/pwd_builtin			\
+	builtins/unset_builtin														\
+	env/env env/env_set															\
+	execution/childrens execution/exec_command execution/executing				\
+	execution/prep_executing execution/utils_executing expander/identify_var 	\
+	expander/quotes_remover expander/recover_value expander/replace_var			\
+	expander/expander_utils2 expander/expander_utils3 expander/var_expander 	\
+	expander/expander_utils lexer/check_if_var									\
+	lexer/lexer_grammar lexer/parse_user_input lexer/token_lst_utils			\
+	lexer/token_lst_utils_2 lexer/tokenization lexer/tokenization_utils			\
+	parser/cmd_lst_utils parser/cmd_lst_utils_clean parser/create_command 		\
+	parser/fill_args_default parser/fill_args_echo								\
+	parser/fill_args_echo_utils parser/parse_append parser/parse_heredoc		\
+	parser/parse_heredoc_utils parser/parse_input parser/parse_pipe				\
+	parser/parse_trunc parser/parse_word										\
+	redirection/redirection	redirection/redirection_utils						\
+	signal/signals_handler														\
+	utils/clean_up utils/errors utils/exit utils/init_data utils/multi_split 	\
+	main																		\
 
 
 SRCS		= $(addsuffix .c, $(addprefix $(SRCS_PATH), $(SRC)))
