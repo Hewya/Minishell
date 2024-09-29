@@ -6,7 +6,7 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 17:44:16 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/09/23 17:26:09 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/09/29 16:35:18 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,17 @@ void	free_io(t_io_fds *io)
 		free_ptr(io->delimiter);
 	}
 	if (io->infile)
+	{
 		free_ptr(io->infile);
+		if (io->fd_in > 2)
+			close(io->fd_in);
+	}
 	if (io->outfile)
+	{
 		free_ptr(io->outfile);
+		if (io->fd_out > 2)
+			close(io->fd_out);
+	}
 	if (io)
 		free_ptr(io);
 }
