@@ -6,7 +6,7 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 23:24:41 by amassias          #+#    #+#             */
-/*   Updated: 2024/09/28 21:32:32 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/09/29 00:39:37 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,20 +24,7 @@ void	ft_free_tab(void **tab)
 	free(tab);
 }
 
-char	**ft_multi_split(char const *s, const char *c)
-{
-	size_t	words;
-	char	**tab;
-
-	words = _count_words(s, c);
-	tab = malloc(sizeof(char *) * (words + 1));
-	if (!tab)
-		return (NULL);
-	_set_mem(tab, s, c);
-	return (tab);
-}
-
-static size_t	_count_words(char const *s, const char *c)
+static size_t	count_word(char const *s, const char *c)
 {
 	size_t	words;
 
@@ -52,14 +39,14 @@ static size_t	_count_words(char const *s, const char *c)
 	return (words);
 }
 
-static void	_fill_tab(char *new, char const *s, const char *c)
+static void	fill_tab(char *new, char const *s, const char *c)
 {
 	while (*s && ft_strchr(c, *s) == NULL)
 		*new++ = *s++;
 	*new = '\0';
 }
 
-static void	_set_mem( char **tab, char const *s, const char *c)
+static void	set_mem( char **tab, char const *s, const char *c)
 {
 	size_t	count;
 	size_t	i;
@@ -78,10 +65,23 @@ static void	_set_mem( char **tab, char const *s, const char *c)
 				ft_free_tab((void **)tab);
 				return ;
 			}
-			_fill_tab(tab[i++], s, c);
+			fill_tab(tab[i++], s, c);
 			s += count - 1;
 		}
 		++s;
 	}
 	tab[i] = NULL;
+}
+
+char	**ft_multi_split(char const *s, const char *c)
+{
+	size_t	words;
+	char	**tab;
+
+	words = count_word(s, c);
+	tab = malloc(sizeof(char *) * (words + 1));
+	if (!tab)
+		return (NULL);
+	set_mem(tab, s, c);
+	return (tab);
 }

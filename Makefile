@@ -14,7 +14,7 @@ SRC	=																		\
 	builtins/unset_builtin env/env env/env_set execution/childrens			\
 	execution/exec_command execution/executing execution/prep_executing		\
 	execution/utils_executing expander/identify_var	expander/quotes_remover \
-	expander/recover_value expander/replace_var		\
+	expander/recover_value expander/replace_var	expander/utils2	 expander/utils3 \
 	expander/var_expander expander/var_expander_utils lexer/check_if_var	\
 	lexer/lexer_grammar lexer/parse_user_input lexer/token_lst_utils		\
 	lexer/token_lst_utils_2 lexer/tokenization lexer/tokenization_utils		\

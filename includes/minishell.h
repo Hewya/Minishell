@@ -6,7 +6,7 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 15:41:26 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/09/28 21:28:06 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/09/29 02:22:26 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -206,6 +206,7 @@ char					*var_expander_heredoc(t_data *data, char *str);
 
 /* ---- var_expander_utils ---- */
 
+void					update_status(t_token *token_node, char *str);
 void					copy_var_value(char *new_str, char *var_value, int *j);
 char					*get_new_token_string(char *oldstr, char *var_value,
 							int newstr_size, int index);
@@ -235,6 +236,15 @@ char					*recover_value(t_token *token, char *str, t_data *data);
 
 int						remove_quotes(t_token **token_node);
 
+
+/* ---- utils2 ---- */
+
+void					expand_part1(t_data *data, t_token **token, size_t *i);
+
+/* ---- utils3 ---- */
+
+void					create_split(t_token **base, char *content);
+size_t					concat(char **dst_ptr, char *str);
 
 
 
