@@ -28,6 +28,6 @@ make
 ./minishell
 ```
 
-## Remerciements
+## Many thanks to:
 [atuuu](https://github.com/atuuuu) for testing and the tester <br/>
 [dyamen1411](https://github.com/Dyamen1411) for debugging and parsing improvements.
